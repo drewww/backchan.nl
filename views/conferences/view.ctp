@@ -38,16 +38,17 @@ $javascript->codeBlock($script, array("inline"=>false));
 <h1 class="meeting"><?php echo $conferenceName ?></h1>
 <br />
 	
-	<?php if($validConference)
-
+	<?php
 	// Loop through $meetings array and print out meeting info
 
+	   	// Not sure why we only do this if it's a valid conference, but not inclined to mess with the logic right now.
+		if($validConference)
 		{
-
-			if($adminInterface == true) {
-				print '<a class="edit" id="EditMeeting" href="/conferences/edit/'.$conferenceId.'">Edit Conference</a>'; }
-				
-			}
+			// Changing this to show at all times. If you ARE an admin but haven't logged in, you still want a link to the edit page
+			// so you can authenticate. Otherwise, there's no way to see this link other than going to the conference page and authenticating
+			// there and then coming back, which sucks.
+			print '<a class="edit" id="EditMeeting" href="/conferences/edit/'.$conferenceId.'">Edit Conference</a>';
+		}
 
 			$previousFormattedDate = "";
 			$first = true;
