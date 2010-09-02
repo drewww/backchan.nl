@@ -1,0 +1,175 @@
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2009, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+
+.post-container
+{
+	float: left; 
+	width: 448px;
+	height: 145px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.voting
+{
+	width: 55px;
+	height: 100%;
+	float:right;
+	
+	position: relative;
+}
+
+.post
+{
+	width: 389px;
+	border: 1px solid #D3CAEB;
+	height: 100%;
+	
+	position: relative;
+}
+
+.content
+{
+	overflow:hidden;
+	padding: 2px;
+	font-size: 1.3em;
+}
+
+/* Changes the font size of text for the screen. */
+.screen .content
+{
+	
+}
+
+.footer
+{
+	width: 383px;
+	
+	background-color: #D3CAEB;
+	color: #111111;
+	
+	font-size: 1.2em;
+/*	height: 1.2em;*/
+	
+	padding: 3px;
+	
+	position: absolute;
+	bottom: 0;
+}
+
+.attribution
+{
+	float: left;
+	width: 70%;
+}
+
+.name
+{
+	color: #111111;
+	font-weight: bold;
+}
+
+.affiliation
+{ 
+  font-style: italic;
+  font-size: 0.7em;
+}
+
+.age
+{
+	float: right;
+	color: #444444;
+	font-size: 0.6em;
+	margin-top: 2px;
+	margin-right: 2px;
+}
+
+.rank
+{
+	position: absolute;
+	top: 60px;
+	left: 10px;
+	font-size: 5em;
+	color: #5A24EB;
+	font-family: Helvetica, sans-serif;
+	font-style: italic;
+	z-index: 0;
+}
+
+.post-container .yui-button
+{
+  margin-top: 5px;
+	margin-bottom: 0px;
+
+}
+
+.post-container .yui-button button
+{
+	width: 50px;
+/*	max-width: 50px;*/
+	text-indent: 0px;
+	z-index: 1;
+}
+
+
+.post-container .vote-dn button
+{
+	background: transparent url(../img/arrow_dn.png) no-repeat scroll 10% 50%;
+}
+
+.post-container .vote-up button
+{
+	background: transparent url(../img/arrow_up.png) no-repeat scroll 10% 50%;
+}
+
+.answered button
+{
+	background: transparent url(../img/accept.png) no-repeat scroll 50% 50%;
+	width: 10px;
+	padding: 11px;
+	z-index: 1;
+}
+
+.delete button
+{
+	background: transparent url(../img/delete.png) no-repeat scroll 50% 50%;
+	width: 10px;
+	padding: 11px;
+	z-index: 1;
+}
+
+.edit button
+{
+	background: transparent url(../img/edit.png) no-repeat scroll 50% 50%;
+	width: 10px;
+	padding: 11px;
+	z-index: 1;
+}
+
+span.yui-button.edit {
+	float: right;
+	margin: 4px 10px;
+}
+
+.edit button.chosen
+{
+	background: #666 url(../img/edit.png) no-repeat scroll 50% 50%;
+}
+
+#EmptyPosts
+{
+	padding-top: 75px;
+	color: #555555;
+	height: 125px;
+	font-weight: bold;
+	font-size: 2.0em;
+	text-align: center;
+	margin-left: 10px;
+}

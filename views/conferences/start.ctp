@@ -1,0 +1,60 @@
+<?php
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2009, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+?>
+<?
+$this->layout = 'default';
+$html->css(
+	'static.css',
+	null,
+	array(),
+	false
+);
+
+$javascript->link("image-switcher", false);
+
+
+?>
+
+
+
+<div id="pictures">
+	<div class="image-switcher">
+	<img id="room" src="/img/pictures/panel_upclose.jpg" class="visible-image"/>
+	<div id="room-caption" class="caption">Prof. Lessig, with a projection of the backchan.nl questions behind him.</div>
+	<div class="gallery">
+		
+		<div class="image"><img id="img1" onclick="changeBackground('/img/pictures/panel_upclose.jpg', 'img1', 'room')" class="thumbnail" src="/img/pictures/panel_upclose_tmb.jpg" alt="Prof. Lessig, with a projection of the backchan.nl questions behind him."/></div>
+		<div class="image"><img id="img2" onclick="changeBackground('/img/pictures/interview_wide.jpg', 'img2', 'room')" class="thumbnail" src="/img/pictures/interview_wide_tmb.jpg" alt="Prof. Lessig, with a projection of the backchan.nl questions behind him."/></div>
+		<div class="image"><img id="img3" onclick="changeBackground('/img/pictures/backroom.jpg', 'img3', 'room')" class="thumbnail" src="/img/pictures/backroom_tmb.jpg" alt="A panel discussion, with backchan.nl-suggested questions projected behind the panelists."/></div>
+		<div class="image"><img id="img4" onclick="changeBackground('/img/pictures/top_posts.png', 'img4', 'room')" class="thumbnail" src="/img/pictures/top_posts_tmb.png" alt="Top posts in a session, as seen from the web interface."/></div>
+		<div class="image"><img id="img5" onclick="changeBackground('/img/pictures/recent_posts.png', 'img5', 'room')" class="thumbnail" src="/img/pictures/recent_posts_tmb.png" alt="Recent posts in a session, as seen from the web interface. Posts that have been addressed have a green checkmark."/></div>
+
+
+
+	</div>
+	</div>
+
+
+</div>
+
+<div id="overview">
+	<h1>Involve the audience</h1>
+
+<p><em>backchan.nl</em> is a tool for involving audiences in presentations by letting them <strong>suggest questions</strong> and <strong>vote on each other's questions</strong>. <em>backchan.nl</em> is intended for conference or event organizers who want a new way to solicit questions from the audience and make better use of question and answer time.</p>
+
+<p><em>backchan.nl</em> has been used at many events including <a href="http://www.convergenceculture.org/futuresofentertainment/2007/">Futures of Entertainment 2</a>, <a href="http://roflcon.org/">ROFLCON 2008</a>, <a href="http://conference.freeculture.org/">Free Culture 2008</a>, and <a href="http://institute.emerson.edu/floatingpoints/2008/">Mixed Realities Symposium</a>.</p>
+
+
+<a class="button" href="/pages/about"><div id="about" class="button">About</div></a>
+<a class="button" href="/pages/best-practices"><div id="best-practices" class="button">Best Practices</div></a>
+<a class="button" href="/conferences/add"><div id="make" class="button">Make a Backchan.nl</div></a>
+
+</div>

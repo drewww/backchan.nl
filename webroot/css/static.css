@@ -1,0 +1,140 @@
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2009, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+
+#container #content
+{
+	background: #fff;
+	clear: both;
+	color: #333;
+	padding: 15px 15px 10px 15px;
+	overflow: auto;
+	border: 1px solid #3F3F3F;
+}
+
+
+#pictures
+{
+	float: left;
+/*	border: 1px solid black;*/
+	width: 449px;
+}
+
+#overview
+{
+	float: right;
+	width: 450px;
+}
+
+.visible-image
+{
+	width: 449px;
+}
+
+.caption
+{
+	color: #555555;
+	font-style: italic;
+	margin-top: 2px;
+	margin-left: 2px;
+}
+
+img.thumbnail
+{
+	width: 56px;
+	float: left;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	
+	border: 1px solid #777777;
+}
+
+img.center
+{
+	display:  block;
+	margin-left:  auto;
+	margin-right:  auto;
+}
+
+div.center
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img.main
+{
+	margin-top: 100px;
+	width:  250px;
+}
+
+
+h1
+{
+/*	background: url(../img/background.png) repeat;*/
+/*	background-color: gray;*/
+	font-weight: bold;
+	font-size: 3em;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+#overview p
+{
+	font-size: 1.5em;
+}
+
+div.button
+{
+	float: left;
+	margin-right: 5px;
+	font-size: 1.5em;
+	background-color: #D3CAEB;
+	color: #111111;
+	text-align: center;
+	padding: 5px;
+}
+
+a.button
+{
+	border: 0px;
+	
+}
+
+#about
+{
+	width: 65px;
+}
+
+#best-practices
+{
+	width: 140px;
+}
+
+#make
+{
+	width: 190px;
+}
+
+h2
+{
+	color: #5A24EB;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+p
+{
+	margin-top: 0px;
+}
+

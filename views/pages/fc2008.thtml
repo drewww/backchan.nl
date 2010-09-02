@@ -1,0 +1,124 @@
+<?php
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2009, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+?>
+<? $this->layout = 'ajax';?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Free Culture Conference 2008   &raquo; backchan.nl launchpad</title>
+
+<meta name="generator" content="WordPress 2.6.1" /> <!-- leave this for stats -->
+
+<link rel="stylesheet" href="http://conference.freeculture.org/wp-content/themes/fcconf08/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="Free Culture Conference 2008 RSS Feed" href="http://conference.freeculture.org/feed/" />
+<link rel="pingback" href="http://conference.freeculture.org/xmlrpc.php" />
+
+<style type="text/css" media="screen">
+
+	
+
+
+</style>
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://conference.freeculture.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://conference.freeculture.org/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 2.6.1" />
+
+</head>
+<body>
+<div id="page">
+
+
+<div id="header">
+<h1><a href="http://conference.freeculture.org/"><img src="http://conference.freeculture.org/wp-content/themes/fcconf08/fc_title_trans.png" width="725" height="106" alt="Students for Free Culture Conference, October 11-12, 2008" /></a></h1>
+</div>
+
+	<div id="content" class="narrowcolumn">
+
+				<div class="post" id="post-29">
+		<h2>backchan.nl launchpad</h2>
+			<div class="entry">
+
+<ul>
+<li>10.00 — <a href="/meetings/view/12">Welcome</a></li>
+<li>11.05 — <a href="/meetings/view/1">Remix Culture</a></li>
+<li>12.00 — <a href="/meetings/view/2">Open Knowledge and the Public Interest</a></li>
+<li>12.30 — <a href="/meetings/view/3">OpenMuseum</a></li>
+<li>13.45 — <a href="/meetings/view/4">Keynote: Lessig</a></li>
+<li>14.15 — <a href="/meetings/view/5">Politics and Transparency</a></li>
+<li>15.30 — <a href="/meetings/view/6">Keynote: Lilly</a></li>
+<li>16.00 — <a href="/meetings/view/7">Technology and the Future of Copyright</a></li>
+<li>17.00 — <a href="/meetings/view/8">Keynote: Samuelson</a></li>
+<li>17.45 — <a href="/meetings/view/9">Access to Knowledge and Medicine</a></li>
+<li>18.45 — <a href="/meetings/view/10">Conclusions</a></li>
+</ul>
+				
+			</div>
+		</div>
+				</div>
+
+	<div id="sidebar">
+		<ul>
+						
+			<li>
+			
+			<li>
+			<p><b><a href="http://conference.freeculture.org/">Free Culture Conference 2008</a></b><br /><br />
+Organized by <a href="http://www.freeculture.org">Students for Free Culture</a> and <a href="http://freeculture.berkeley.edu">Free Culture Berkeley</a><br /><br />
+
+			October 11-12, 2008<br />
+			University of California, Berkeley</p>
+			</li>
+
+			
+			<li class="page_item page-item-47"><a href="http://conference.freeculture.org/about/" title="About">About</a></li>
+<li class="page_item page-item-42"><a href="http://conference.freeculture.org/blog/" title="Blog">Blog</a></li>
+<li class="page_item page-item-20"><a href="http://conference.freeculture.org/register/" title="Register">Register</a></li>
+
+<li class="page_item page-item-3"><a href="http://conference.freeculture.org/schedule/" title="Schedule">Schedule</a></li>
+<li class="page_item page-item-37"><a href="http://conference.freeculture.org/sponsorship/" title="Sponsorship">Sponsorship</a></li>
+<li class="page_item page-item-14"><a href="http://conference.freeculture.org/travel/" title="Travel">Travel</a></li>
+<li class="page_item page-item-7"><a href="http://conference.freeculture.org/volunteer/" title="Volunteer">Volunteer</a></li>
+<li class="page_item page-item-29 current_page_item"><a href="http://conference.freeculture.org" title="Welcome">Welcome</a></li>
+
+			
+
+			
+			
+							
+				
+				</li>
+			
+					</ul>
+	</div>
+
+
+<div id="footer">
+	<p>
+		<img src="http://conference.freeculture.org/wp-content/themes/fcconf08/animated_cutcopy.gif" alt="Cut, Copy, Paste" />
+	</p>
+
+	<p>
+		<br /><br /><a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/us/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution 3.0 United States License</a>.<br />
+
+
+		Free Culture 2008 backchannel powered by <a href="http://backchan.nl/">backchan.nl</a> from the <a href="http://media.mit.edu">MIT Media Lab</a>. 
+		<br />
+	</p>
+
+</div>
+</div>
+
+</body>
+</html>

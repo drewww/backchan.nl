@@ -1,0 +1,42 @@
+<?php
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2009, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+?>
+<?
+$this->layout = 'default';
+
+$html->css(
+	'static.css',
+	null,
+	array(),
+	false
+);
+
+
+?>
+
+<h2>Overview</h2>
+<p>While people attend presentations, panels, and lectures to learn something from the people at the front of the room, there's a lot of potential for creating spaces where audience members can interact with each other and the people presenting. backchan.nl does this by providing a web-based interface for audience members to <strong>identify themselves</strong>, <strong>post questions</strong>, and <strong>vote</strong> on other people's questions. The current top questions are projected in the presentation space so the entire audience (not just people with laptops) can see what questions are being asked. This approach also makes it easy to engage audience-members who might not be in the auditorium, but who are participating on the web, in an overflow space, or in an environment like <a href="http://secondlife.com">Second Life</a>.</p>
+
+<h2>Who/Where?</h2>
+backchan.nl is a project from the <a href="http://media.mit.edu/">MIT Media Lab</a>. It was primarily designed by <a href="http://web.media.mit.edu/~dharry/">Drew Harry</a> and Joshua Green (MIT CMS), with implementation support from Cherrie Yang and Dan Gutierrez. <a href="http://web.media.mit.edu/~judith/">Prof. Judith Donath</a> advised this project.
+
+<h2>Upcoming Features</h2>
+We've learned quite a bit from our past installations of backchan.nl, which have suggested a number of extensions to the existing design. Here are a few upcoming features:
+
+<ul>
+<li><strong>Open Source</strong> — We would like this project to live beyond specific grad students and remain useful to conference organizers for years to come. Applying an open source license and setting up a way for other users to commit changes to the codebase seems like an important step. Part of this process will also involve making it easy to set up an internal installation of backchan.nl for organizations that don't want to use our centrally managed system.</li>
+<li><strong>Replies</strong> — Audience members often request some sort of reply feature. We've got some ideas about how to make that happen, and will be developing those in the near future.</li>
+<li><strong>Integrating Other Backchannels</strong> — This form of backchannel is just one of lots of potential backchannels like IM, IRC, threaded discussions, <a href="http://twitter.com">twitter</a>, etc. We would like to make backchan.nl a clearing house for all these tools that can help conference organizers set up and understand the affordances of these other tools, as well as potentially integrate them into one web-based interface.</li>
+<li><strong>Mobile Inteface</strong> — As mobile phones with powerful web browsers gain wide-spread adoption, having a mobile-specific web design of the main meeting interface seems quite useful. Audience members could participate without having to have a laptop.</li>
+</ul>
+
+<h2>Learn More</h2>
+If you want to read more about what makes <em>backchan.nl</em> interesting to us as designers and researchers, you can read <a href="/files/backchannl_paper.pdf">our paper from CHI2008</a>. This paper also includes some quantitative data about our first major deployment of <em>backchan.nl</em> at <a href="http://www.convergenceculture.org/futuresofentertainment/2007/">Futures of Entertainment 2</a>.

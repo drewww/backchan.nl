@@ -1,0 +1,39 @@
+<?php
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2009, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+?>
+<?
+$this->layout = 'default';
+
+$html->css(
+	'static.css',
+	null,
+	array(),
+	false
+);
+
+?>
+
+<h2>Dedicated Screen</h2>
+<p>Although it may be tempting to try to use your main projection screen for <em>backchan.nl</em>, in our experience this is not very effective. <em>backchan.nl</em> works best when it has its own dedicated screen. Part of the rationale of having a screen in the space is that is guarantees an audience for posts; if the <em>backchan.nl</em> just takes place online, it tends to devolve into a sort of snarky, cloistered community of users.</p>
+
+<p>A hybrid approach where the primary display is used sometimes for <em>backchan.nl</em> and sometimes for slides or some other projected media is also not particularly effective. We find that participation in the <em>backchan.nl</em> drops substantially when it is not projected, even if participants know that it will be projected in the future.</p> 
+
+<h2>Monitors</h2>
+<p>To keep presenters involved in the <em>backchan.nl</em>, it is very important to give them their own personal monitor. If they have their own laptop, they can use that. But generally, it helps to get a monitor somewhere in their field of view so they don't have to turn around to see what questions are being asked. This makes it easy for them to stay aware of what the popular questions are, as well as modulate their responses while they're talking or preparing to talk. If there is a moderator, it is important that they too can see this screen, or have their own screen. We have found that using laptops for this is easy and effective.</p>
+
+<h2>Longer-term Use</h2>
+<p>Because your event will almost certainly be everyone's first time using <em>backchan.nl</em>, there will be a period of adaptation to the tool. Audience members typically spend the first session settling into the affordances of <em>backchan.nl</em> and building a better understanding of how to use if effectively. So <em>backchan.nl</em> works best when you have multiple sessions over which the audience can get used to what <em>backchan.nl</em> is good for.</p>
+
+<h2>Internet/Power</h2>
+<p>For <em>backchan.nl</em> to work well, audience members need to have reliable internet access, as well as access to power to keep their laptops charged. While this is good advice for any conference, it is particularly important for <em>backchan.nl</em> to have audience members with working laptops. One wireless node is probably not enough; most events of any size can easily saturate the bandwidth of one node, which can make everyone's <em>backchan.nl</em> and general internet experience pretty bad.</p>
+
+<h2>Adapting For Each Session</h2>
+<p>Different kinds of sessions have different <em>backchan.nl</em> needs. In pure discussions, <em>backchan.nl</em> works well as an ongoing repository of questions and comments that updates live, and should be projected for the whole session. In a presentation mode, we find that leaving the <em>backchan.nl</em> screen off is sometimes useful, especially for presenters that feel like they're competing with the <em>backchan.nl</em> for attention. In this mode, though, it's critical that the <em>backchan.nl</em> screen be turned back on for the question period of the presentation.</p>

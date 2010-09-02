@@ -1,0 +1,634 @@
+/**
+  * backchan.nl
+  * 
+  * Copyright (c) 2006-2010, backchan.nl contributors. All Rights Reserved
+  * 
+  * The contents of this file are subject to the BSD License; you may not
+  * use this file except in compliance with the License. A copy of the License
+  * is available in the root directory of the project.
+  */
+
+/**
+ * Specific to backchannl
+ */
+
+body {
+	background: url(../img/background.png) repeat;
+	color: #333333;
+	font-family:helvetica,verdana,arial,sans-serif;
+	font-size: 80%;
+/*	margin: 0;*/
+}
+
+#content{
+	background: #fff;
+	clear: both;
+	color: #333;
+	padding: 15px 20px 25px 20px;
+	overflow: auto;
+	border: 1px solid #3F3F3F;
+}
+
+#footer {
+	clear: both;
+	padding: 6px 10px;
+	text-align: right;
+	color: #EBDFCA;
+}
+
+#footer a
+{
+	color: #D3CAEB;
+}
+
+#header h2
+{
+	font-size: 2.0em;
+	color: #EBDFCA;
+}
+
+#header a
+{
+	color: #D3CAEB;
+}
+
+#container
+{
+	width: 958px;
+	/*width: 727px;*/
+	margin: auto;
+	/*This is a trick to get the top items header to work. It's positioned absolutely, and (apparently)
+	  unless the container is positioned relatively, it's page-absolute, not container-absolute. This way,
+	  if the container moves, this image moves as well. */
+	position: relative;
+}
+
+h3 {
+	padding-top: 0;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #1a5f97;
+}
+
+
+#MeetingHeader
+{
+	float: left;
+	width: 50%;
+}
+
+#UserButtons
+{
+	float:right;
+	margin: 3px;
+}
+
+#UserInfo
+{
+	float: left;
+	width: 50%;
+}
+
+#UserBox {
+	float: right;
+	width: 35em;
+	border: 1px solid #D3CAEB;
+           margin-bottom: 5px;
+/*	-moz-border-radius:8px;*/
+}
+#UserInfoHeader {
+	height: 2.5em;
+/*	padding: 0.5em 1em;*/
+	padding: 5px 2px 5px 5px;
+	background-color: #D3CAEB;
+}
+#UserInfoName {
+	display: inline-block;
+	color: #111111;
+	font-size:116%;
+	font-weight: bold;
+}
+#UserInfoAffiliation {
+	color: #111111;
+	font-size:88%;
+	font-style: italic;
+}
+#EnterPost {
+	height: 9.1em;
+	padding: 1em;
+}
+#PostBody {
+	width: 32.1em;
+	height: 4.7em;
+/*	margin-bottom: 10px;*/
+}
+.char-count-good {
+	color: green;
+}
+.char-count-bad {
+	color: red;
+}
+
+#CreatePost, #EditUser, #SubmitPost, #AdminPassword
+{
+	float: right;
+}
+
+#PostColumn {
+	width:420px;
+}
+#AuthorColumn {
+	width:150px;
+}
+#VoteColumn {
+	width:85px;
+}
+
+#DataTable
+{
+	clear: left;
+	margin-left: 10px;
+}
+
+#DataTable.adminWidth textarea {
+	background: transparent;
+	float: left;
+	height: 4.8em;
+	width: 360px;
+	margin: -5px 0px -5px -12px;
+	padding: 5px 12px 6px 7px;
+	border: none;
+	font-family: Helvetica, Arial, sans-serif;
+	outline: none;
+}
+
+#DataTable.adminWidth td.yui-dt-first {
+	position: relative;
+}
+
+#DataTable.adminWidth td.editmode {
+	background: transparent url(../img/editing-bg.png) repeat;
+	border: 2px solid #666;
+}
+
+#DataTable.adminWidth div.yui-dt-col-0.yui-dt-liner {
+	float: left;
+	width: 360px;
+}
+
+div.hr
+{
+	background: url(../img/background.png) repeat;
+	height: 2px;
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+br.clear
+{
+	clear: both;
+}
+
+
+img.label
+{
+	position: absolute;
+	left: -44px;
+}
+
+#alert.alert
+{
+	padding: 5px;
+	background-color: #EBE7CA;
+	color: black;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#alert.empty
+{
+	visibility: hidden;
+}
+
+.post-accepted {
+	background: url(/img/accept.png) no-repeat 10px 3px;
+	padding-left: 32px !important;
+}
+
+.editmode .post-accepted {
+	background-position: 8px 3px;
+}
+
+.user-name-in-table {
+	font-size:106%;
+	font-weight: bold;
+	color: #5A24EB;
+}
+.user-affiliation-in-table {
+	font-size: 92%;
+	font-style: italic;
+	color: #939396;
+}
+.yui-button.yui-push-button button {
+	padding-left: 1em;
+	padding-right: 1em;
+	overflow: hidden;
+}
+.yui-button#EditUser button {
+	background: url(../img/user_edit.png) no-repeat scroll 10px 50%;
+	padding-left: 2.4em;
+}
+.yui-button#CreatePost button {
+	margin-right: 200px;
+	background: url(../img/add.png) no-repeat scroll 10px 50%;
+	padding-left: 2.4em;
+}
+
+.yui-button#EditUser
+{
+	margin-right: 0px;
+}
+
+.yui-button#AdminPassword button {
+	background: url(../img/lock.png) no-repeat scroll 50% 50%;
+	margin-left: 0px;
+	height: auto;
+}
+
+.yui-button#SubmitPost button {
+	width: 10em;
+	background: url(../img/script_add.png) no-repeat scroll 10% 50%;
+	text-indent: 1.5em;
+}
+.yui-button.vote-up button {
+	/*
+	 * Explicitly specifying button width here made buttons look funny after
+	 * refreshing in Firefox 2, but not Safari 3.1.2. Firefox 3 fixed problem.
+	 */
+/*	width: 2em;*/
+	background: url(../img/arrow_up.png) no-repeat scroll 50% 50%;
+}
+.yui-button.vote-dn button {
+	background: url(../img/arrow_dn.png) no-repeat scroll 50% 50%;
+}
+
+.yui-button.add button {
+	background: url(../img/add.png) no-repeat scroll 50% 50%;
+}
+
+.yui-button.delete button {
+	background: url(../img/delete.png) no-repeat scroll 50% 50%;
+}
+
+img.accepted-icon
+{
+	margin-right: 5px;
+}
+
+a.meeting
+{
+	font-weight: normal;
+	font-size: inherit;
+}
+
+tr.meeting:hover
+{
+	background-color: #D3CAEB;
+	font-weight: bold;
+}
+tr.current:hover
+{
+	background-color: #EBE7CC;
+	font-weight: bold;
+}
+
+tr.current
+{
+	font-size: 2.0;
+	font-style: italic;
+	margin-left: 30px;
+	background-color: #EBE7CC;
+}
+
+tr.meeting td
+{
+	font-size: 1.7em;
+}
+
+tr.meeting td.name
+{
+	margin-left: 20px;
+}
+
+tr.meeting td.duration
+{
+	width: 250px;
+	margin-left: 20px;
+}
+
+h2.meeting-day
+{
+	font-size: 1.9em;
+	font-style: italic;
+}
+
+h1.meeting
+{
+	font-size: 2.2em;
+}
+
+table.meeting-day
+{
+	border: 0px;
+	border-collapse: collapse;
+}
+
+/* MIT Admissions-specific */
+
+#header.admissions {
+	background: #000 url(http://www.mitadmissions.org/_test/stream/homephoto_2014.jpg) no-repeat center bottom;
+	padding: 10px 24px 110px;
+	z-index: 1 !important;
+}
+
+#header.admissions h2 {
+	font-size: 89%;
+}
+
+#header.admissions h2 a {
+	font-weight: normal;
+	color: #fff;
+}
+
+#AdmissionsVideo, #AdmissionsChat {
+	float: left;
+}
+
+#AdmissionsVideo {
+	margin-right: 12px;
+}
+
+#AdmissionsUserBar {
+	background-color: #D3CAEB;
+	position: relative;
+	margin: 1.8em 0 0;
+	padding: 1.2em 12px .8em;
+}
+
+#AdmissionsUserBar h1 {
+	font-weight: bold;
+}
+
+#AdmissionsUserBar #UserInfoHeader {
+	padding: 5px 0;
+}
+
+#AdmissionsUserBar #UserButtons {
+	position: absolute; top: .75em; right: 6px;
+}
+
+#AdmissionsUserBar .yui-button#EditUser {
+	margin-right: 4px;
+}
+
+#AdmissionsUserBar .yui-button#CreatePost {
+	margin-right: 4px;
+}
+
+#AdmissionsUserBar .yui-button#EditUser button,
+#AdmissionsUserBar .yui-button#CreatePost button {
+	width: 12em;
+	margin-right: 0 !important;
+}
+
+#AdmissionsUserInfo {
+	background: #eee;
+	margin-bottom: .8em;
+	padding: .8em 12px;
+	text-align: left;
+}
+
+#AdmissionsUserInfo #UserInfoName, #AdmissionsUserInfo #UserInfoAffiliation {
+	font-style: normal;
+	font-size: 100%;
+}
+
+#AdmissionsUserBar #EnterPost {
+	height: auto; padding: 0;
+}
+
+
+/* Meetings
+------------------------------------ */
+
+#EditMeeting {
+	position: absolute;
+	top: 4.2em; right: 24px; /* hacky */
+}
+
+.edit_panel {
+	background: url(/img/edit_panel.gif) repeat-y top left;
+	position: relative;
+	border: 1px solid #ccc;
+}
+
+.edit_panel .header {
+	background: #eee url(/img/edit_header.gif) repeat-x top;
+	margin: 0;
+	padding: 1.8em 30px 1.5em;
+	border-bottom: 1px solid #ccc;
+}
+
+.edit_panel .header h2 {
+	color: #5054e7;
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.edit_panel .header #finishEditing {
+	float: right;
+	margin-top: -2.2em;
+	font-size: 108%;
+}
+
+.edit_panel .header #finishEditing button {
+	font-weight: bold;
+}
+
+.edit_panel .schedule {
+	width: 270px;
+	padding: 2.4em 30px;
+	border-right: 1px solid #dedede;
+}
+
+.edit_panel .schedule h3 {
+	margin: 0 0 1.4em;
+	color: #286394;
+}
+
+#addMeeting {
+	float: right;
+	margin: -.25em -10px 0 0;
+}
+
+#addMeeting button {
+	background: url(/img/add.png) no-repeat .6em center;
+	padding-left: 2.4em;
+	padding-right: .8em;
+	font-size: 75%;
+}
+
+.edit_panel #ConferenceEditForm {
+	position: absolute;
+	top: 0; right: 0;
+	margin-top: 7.2em;
+	opacity: .25;
+}
+
+.edit_panel #ConferenceEditForm fieldset {
+	margin: 0; padding: 0; border: 0;
+}
+
+.edit_panel #MeetingDate {
+	width: 7em;
+}
+
+dl#meetings_list {
+	margin: 0 -30px 0;
+	padding-bottom: 250px;
+	width: 331px;
+	min-height: 350px;
+	line-height: 1 !important;
+}
+
+dl#meetings_list dt {
+	background: #efeef8 url(/img/meetings_list_fade.gif) repeat-y right;
+	display: block;
+	margin: .6em 0;
+	padding: .75em 30px .6em;
+	font-size: 92%;
+	color: #666;
+}
+
+dl#meetings_list dd {
+	margin-left: 0;
+	padding: 0 30px;
+	color: #666;
+}
+
+dl#meetings_list dd a:link, dl#meetings_list dd a:visited {
+	display: block;
+	position: relative;
+	font-weight: normal;
+	margin: 0 -29px 0 -30px;
+	padding: 1em 89px 1em 30px;
+	border: 1px solid #fff;
+	border-width: 1px 0;
+	line-height: 1.5;
+	color: #666;
+}
+
+dl#meetings_list dd a:hover, dl#meetings_list dd a:active {
+	text-decoration: none;
+	color: #444;
+}
+
+dl#meetings_list dd a:hover span.date, dl#meetings_list dd a:active span.date {
+	color: #777;
+}
+
+dl#meetings_list dd span.date {
+	display: block;
+	margin-bottom: .25em;
+	font-size: 85.7%;
+	font-weight: bold;
+	color: #999;
+}
+
+dl#meetings_list dd.selected a {
+	background: #f9f9f9;
+	margin: 0 -30px;
+	padding-right: 90px;
+	border-color: #dedede;
+	color: #333;
+}
+
+dl#meetings_list dd.selected a span.date {
+	color: #666;
+}
+
+dl#meetings_list dd .buttons {
+	position: absolute;
+	top: 1.4em; right: 12px;
+}
+
+dl#meetings_list dd.selected .buttons {
+	margin-right: 1px;
+}
+
+dl#meetings_list dd .yui-button {
+	margin-right: 8px;
+}
+
+dl#meetings_list dd button {
+	width: 2.2em;
+}
+
+dl#meetings_list dd .delete button {
+	background: url(/img/delete.png) no-repeat center center;
+}
+
+dl#meetings_list dd .edit-meeting button {
+	background: url(/img/pencil.png) no-repeat center center;
+}
+
+/* Declaring our own class based on .yui-button-active
+	so that it's not automatically cleared on mouseout */
+
+.yui-skin-sam .yui-button-activeedit {border-color:#7D98B8;background-position:0 -1700px;}
+.yui-skin-sam .yui-button-activeedit .first-child {border-color:#7D98B8;}
+.yui-skin-sam .yui-button-activeedit button,.yui-skin-sam .yui-button-activeedit a {color:#000;}
+
+.edit_panel #ConferenceEditForm .column {
+	float: left; clear: none;
+	width: 266px;
+}
+
+.edit_panel #ConferenceEditForm .column.confirm_details {
+	width: 246px;
+}
+
+.edit_panel #ConferenceEditForm .column ul {
+	margin: 0;
+}
+
+.edit_panel #ConferenceEditForm .column li {
+	list-style: none;
+	margin: 0;
+}
+
+.edit_panel #ConferenceEditForm .column li div.input {
+	padding: .5em 0;
+}
+
+.edit_panel #ConferenceEditForm #MeetingStart, .edit_panel #ConferenceEditForm #MeetingEnd {
+	float: left;
+	width: 4em;
+	margin-right: 6px;
+}
+
+.edit_panel #ConferenceEditForm input.error {
+	background: #fee;
+	border: 1px solid #c00;
+}
+
+.edit_panel #ConferenceEditForm #MeetingStart.error, .edit_panel #ConferenceEditForm #MeetingEnd.error {
+	outline-color: #d00;	
+}
+
+.edit_panel #ConferenceEditForm .submit {
+	margin-left: 0;
+	padding-left: 0;
+}

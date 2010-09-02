@@ -1,0 +1,79 @@
+INSTALLATION INSTRUCTIONS
+=========================
+
+Thanks for installing backchan.nl! Hopefully these instructions will help you through the process. Since we're transitioning from having one canonical installation of the tool to releasing the source, the installation process is somewhat difficult and manual. If you don't have experience managing web applications, this probably isn't for you. If you want to run a normal public backchan.nl instance, you should just email dharry@media.mit.edu and I can set one up for you. On the other hand, this open source version is meant for people who want to run their own backchan.nl server, and are prepared to sort through some tricky configuration issues to make it happen. Please email the maintainers with questions or suggestions (or push up your own corrections to the installation instructions!) if you have trouble. At this point, we haven't tested the process much, so there are bound to be some hurdles.
+
+
+Requirements
+============
+
+To install backchan.nl, you'll need the usual web application components: a web server with PHP installed and a database server. Backchan.nl has only been tested with Apache and mySQL, although an enterprising user could probably adapt it to other services. 
+
+These instructions will assume you're working in a Linux-like environment. We've used backchan.nl on Ubuntu and OS X with few problems, and we'll provide specific instructions for those environments. There's no particular reason it can't run on other platforms, but you're on your own for working the details out.
+
+Getting Started
+===============
+
+First, lets figure out where to put the application contents. Depending on how your server is setup, there are lots of different options. Here are some common ones:
+	(Ubuntu) /var/www/  If backchan.nl is the only thing you're hosting on this server, this is probably a fine place to put it. 
+	(Ubuntu) /var/www/backchan.nl If you've got lots of sites or subsites and are using virtual hosting to use one server to handle multiple sites,  you'll probably want to make a separate directory for backchan.nl and use Apache 
+	(OS X) /Library/WebServer/Documents If you want to use the default Apache installation on OS X. Other places should work, but we've had trouble (.htaccess related) getting them to. 
+
+We'll refer to the location you're installing as $BASE for the purposes of these instructions.
+
+
+Install Cake
+============
+
+Since this is a Cake application, you'll need to download and install the Cake framework. You can get the 1.2.5 stable version of the framework here:
+
+http://cakeforge.org/frs/?group_id=23&release_id=449
+
+Expand the framework and put it in the $BASE directory. Delete the app directory that came with cake, and rename the directory containing the backchan.nl release you downloaded to "app" and move it into the $BASE directory. When you're finished, your $BASE directory should look like:
+
+	$BASE/
+		app/
+		cake/
+		index.php
+		vendors/
+
+
+Setup Apache
+============
+
+Now you'll need to tell Apache where to find backchan.nl. How you do this is going to vary a lot based on your webserver setup. The main thing to know is that you should set the DocumentRoot for the site to $BASE/app/webroot. This should work fine on OS X, although you will need to make sure that AllowOverride is set to "All" for files in the webroot directory. The Cake documentation for this process is far more exhaustive and should provide some useful pointers and troubleshooting about this step:
+
+http://book.cakephp.org/view/308/Installing-CakePHP
+
+Ideally, when you can browse to your server and a backchan.nl-looking page shows up, you're making progress. There will almost certainly be errors (like "Error: The requested address '/' was not found on this server."), since you haven't setup the database yet.
+
+
+Install YUI
+===========
+
+We use the Yahoo User Interface framework for the javascript portions of the site. We built against YUI 2.5.2, which is available here:
+
+http://yuilibrary.com/downloads/yui2/yui_2.5.2.zip
+
+Move the yui folder from that archive into $BASE/vendors/js.
+
+Now, make a symlink from $BASE/vendors/css to $BASE/vendors/js. This gets around an issue with Cake + YUI where YUI provides CSS for its widgets in the same directory as their logic, but Cake will only look for CSS files in CSS directories. 
+
+
+Setup mySQL
+===========
+
+If you don't have mySQL installed already, start by doing that. Under Ubuntu, something like apt-get mysql will probably work great. There are lots of convenient binary OS X packages, too.
+
+Once installed, you'll need to make a database and dedicated user for the backchan.nl website to use. Take note of the database, username, and password. There are lots of instructions about how to do this on mySQL sites; you're looking for the CREATE DATABASE and GRANT USER commands. 
+
+Rename database.php.default in $BASE/app/config/ to database.php and enter the username, password, and database name in the "default" structure. 
+
+Save the file and load up the site! 
+
+
+Troubleshooting
+===============
+ - No style sheets => Set up the css -> js symlink
+ - No scripts => missing symlink to the yui vendors directory, probably
+ - "Can't find '/'" is usually a missing database server.
