@@ -54,7 +54,7 @@ $javascript->codeBlock($script, array("inline"=>false));
 			
 			if(count($meetings)==0)
 			{
-				echo "<div id='EmptyPosts'>No meetings in this conference, yet. Why don't you <a href='meetings/add/asdkfjasdf'>add one</a>?</div>";
+				echo "<div id='EmptyPosts'>No meetings in this conference, yet. Why don't you <a href='/conferences/edit/".$conferenceId."'>add one</a>?</div>";
 			}
 			
 			foreach ($meetings as $meeting)
