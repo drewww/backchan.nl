@@ -1,0 +1,7 @@
+
+
+# ignore the database config file, so we don't accidently check in those credentials.
+./config/database.php
+
+# ignore the temp directory (after the first checkin)
+/tmp/*
