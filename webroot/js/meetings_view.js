@@ -51,7 +51,7 @@ function refreshMeeting() {
 
 function refreshSuccess(o, response)
 {
-		refreshTopPosts(response);
+        refreshTopPosts(response);
 		
 		// Update the data table.
 		

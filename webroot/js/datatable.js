@@ -189,6 +189,22 @@ function initDataTable()
 				// TODO: Without following line, each refresh adds buttons to
 				//       the cell. But is this really the way to do it in YUI?
 				elCell.innerHTML = "";  // TODO: null and "" both work
+				
+				// Do some cleanup work - delete the buttons that were in the
+				// cell in the previous cycle befor we create/add new ones.
+				if(!elCell.buttons) {
+				    elCell.buttons = [];
+				}
+                // console.log(elCell.buttons);
+                for (var index in elCell.buttons) {
+                    button = elCell.buttons[index];
+                    // console.log("Destroying button:");
+                    // console.log(button);
+                    button.destroy();
+                    }
+                
+                elCell.buttons = [];
+				
 				// Vote Up buttons
 				var bVoteUp = new YAHOO.widget.Button(
 					{
@@ -217,6 +233,8 @@ function initDataTable()
 				);
 				bVoteDn.addClass("vote-dn");
 				
+				elCell.buttons.push(bVoteUp);
+				elCell.buttons.push(bVoteDn);
 				
 				if(showAdmin)
 				{
