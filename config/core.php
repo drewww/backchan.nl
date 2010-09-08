@@ -225,5 +225,21 @@
  *	));
  *
  */
-	Cache::config('default', array('engine' => 'File'));
+
+// Using the default memcache configuration, as specified above.
+ 
+  	 Cache::config('default', array(
+ 		'engine' => 'Memcache', //[required]
+ 		'duration'=> 3600, //[optional]
+ 		'probability'=> 100, //[optional]
+  		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
+  		'servers' => array(
+  		'127.0.0.1:11211' // localhost, default port 11211
+ 		), //[optional]
+  		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
+		));
+
+// Disabling the default File based caching system. 
+//	Cache::config('default', array('engine' => 'File'));
+
 ?>
