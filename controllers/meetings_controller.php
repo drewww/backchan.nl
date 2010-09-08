@@ -13,11 +13,13 @@ class MeetingsController extends AppController {
 
 	// var $scaffold;
 
-	// function index() {
-	// 	// pr($this->Acl);
-	// 	$this->set('posts', $this->Post->find('all'));
-	// }
 	
+	var $helpers = array('Cache');
+	
+	// This is hugely optimistic - the cache should get dirtied way
+	// before that. 
+	var $cacheAction = array('refresh/' => '600');
+		
 	var $uses = array("Meeting","Conference");
 
 	/**
