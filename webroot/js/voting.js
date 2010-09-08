@@ -11,6 +11,11 @@
 /******************************************************************************
  * Post Vote
  ******************************************************************************/
+ 
+ // Used for keeping track of created button objects so we can clean them up
+ // when we regenerate new ones. This helps us avoid leaking memory.
+ var buttons = [];
+ 
 function initAddPostVote() {
 	// Vote Up buttons
 	var voteUpButtons =
@@ -53,12 +58,21 @@ function initAddPostVote() {
 function addTopPostVoteButtons() {
 	var voteContainers = YAHOO.util.Dom.getElementsByClassName("voting");
 	
+    // Infrastructure for avoiding memory leaks with button objects.
+    // We keep track of them in buttons, and then destroy all the objects
+    // from the previous cycle.
+	for (var index in buttons) {
+	    var button = buttons[index];
+	    button.destroy();
+	}
+	
+	buttons = [];
+	
 	for (var i=0; i < voteContainers.length; i++)
 	{
 		// For each vote container get the button in question.
 		var eVoteUp = YAHOO.util.Dom.getElementsByClassName("vote-up", "span", voteContainers[i]);
 		var eVoteDown = YAHOO.util.Dom.getElementsByClassName("vote-dn", "span", voteContainers[i]);
-
 		
 		// There should only be one item in each of these.
 		var bVoteUp = new YAHOO.widget.Button(eVoteUp[0],
@@ -83,6 +97,8 @@ function addTopPostVoteButtons() {
 			});
 		bVoteDown.addClass("vote-dn");
 		
+		buttons.push(bVoteUp);
+		buttons.push(bVoteDown);
 		
 		if(showAdmin)
 		{

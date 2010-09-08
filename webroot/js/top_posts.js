@@ -26,7 +26,6 @@ function sortPosts(a, b)
 // posts and inserts it into the DOM, replacing the old one. 
 function generateTopPosts(response)
 {
-	
 	var results = response.results;
 
 	if(results.length==0)

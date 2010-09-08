@@ -117,6 +117,24 @@ function initDataTable()
 					if (elCellParent.innerHTML.indexOf("yui-push-button edit") == -1)
 					{  // Check to see if the edit button already exists by searching for the class names
 					
+					    // This is the memory leak avoidance technique, deployed
+					    // in the actions column primarily, but also used here
+					    // to manage the edit button. The full infrastructure
+					    // is included here, even though we could probably get
+					    // away without making a list.
+					    if(!elCellParent.buttons) {
+        				    elCellParent.buttons = [];
+        				}
+                        // console.log(elCell.buttons);
+                        for (var index in elCellParent.buttons) {
+                            button = elCellParent.buttons[index];
+                            // console.log("Destroying button:");
+                            // console.log(button);
+                            button.destroy();
+                            }
+
+                        elCellParent.buttons = [];
+					    
 						var bEdit = new YAHOO.widget.Button(
 							{
 								container: elCellParent,
@@ -130,6 +148,8 @@ function initDataTable()
 							}
 						);
 						bEdit.addClass("edit");
+						
+						elCellParent.buttons.push(bEdit);
 					
 					}
 					
@@ -262,6 +282,9 @@ function initDataTable()
 							}
 						});
 					bDelete.addClass("delete");
+					
+					elCell.buttons.push(bAnswered);
+					elCell.buttons.push(bDelete);
 				}
 				// elCell.style.curcor = "pointer";
 			}
@@ -333,7 +356,7 @@ function initDataTable()
 	
 	oAgeColumn = dtablePosts.getColumn("Post.age");
 	
-	setRefreshSecs(15);
+	setRefreshSecs(2);
 
 }
 
