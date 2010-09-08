@@ -356,7 +356,7 @@ function initDataTable()
 	
 	oAgeColumn = dtablePosts.getColumn("Post.age");
 	
-	setRefreshSecs(2);
+	setRefreshSecs(15);
 
 }
 
