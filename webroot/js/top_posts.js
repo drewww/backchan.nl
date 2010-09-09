@@ -62,6 +62,12 @@ function generateTopPosts(response)
 			var post = results[i];
 			var postHTML = "";
 			
+            if(post['Post'].isDemoted) {
+                // Skip this one if it's demoted - we don't want to show
+                // demoted posts in the top listing.
+                continue;
+            }
+			
 			if(!post['Post.id'])
 			{
 				// convert over all the pieces of information we need to the other format.
