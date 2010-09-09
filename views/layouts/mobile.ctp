@@ -41,7 +41,7 @@ window.onload = function(){
 		this.name = name;
 		this.title = title;
 
-		if (name == "identity") this.content = '<form id="identify" action=""><label for="name">What&#8217;s your name?</label><input id="name" type="text" /><label for="affil">Where are you from? <span>Company or place</span></label><input id="affil" type="text" /><div class="buttons"><button id="submitIdentity" type="submit" class="gloss">Continue</button></div><div id="intro"><strong>backchan.nl</strong> is an <a href="https://launchpad.net/backchan.nl" title="The backchan.nl Bazaar project is hosted at Launchpad">open source project</a> from the <a href="http://media.mit.edu">MIT Media Lab</a>, designed by <a href="http://web.media.mit.edu/~dharry">Drew Harry</a> with <a href="http://trevorfilter.com/">Trevor Filter</a>, Cherrie Yang, and Joshua Green.</div></form>';
+		if (name == "identity") this.content = '<form id="identify" action=""><label for="name">What&#8217;s your name?</label><input id="name" type="text" /><label for="affil">Where are you from? <span>Company or place</span></label><input id="affil" type="text" /><div class="buttons"><button id="submitIdentity" type="submit" class="gloss">Continue</button></div><div id="intro"><strong>backchan.nl</strong> is an <a href="http://github.com/drewww/backchan.nl" title="The backchan.nl project is hosted at Github">open source project</a> from the <a href="http://media.mit.edu">MIT Media Lab</a>, designed by <a href="http://web.media.mit.edu/~dharry">Drew Harry</a> with <a href="http://trevorfilter.com/">Trevor Filter</a>, Cherrie Yang, and Joshua Green.</div></form>';
 		
 		else if (name == "conference") this.content = document.getElementById('meetingsData').innerHTML;
 		
