@@ -94,7 +94,7 @@
 				// 	false
 				// );
 			?>
-			<a href="http://backchan.nl">backchan.nl</a> is an <a href="https://launchpad.net/backchan.nl" title="The backchan.nl Bazaar project is hosted at Launchpad">open source project</a> from the <a href="http://media.mit.edu">MIT Media Lab</a>, designed by <a href="http://web.media.mit.edu/~dharry">Drew Harry</a> with <a href="http://trevorfilter.com/">Trevor Filter</a>, Cherrie Yang, and Joshua Green.
+			<a href="http://backchan.nl">backchan.nl</a> is an <a href="http://github.com/drewww/backchan.nl" title="The backchan.nl Bazaar project is hosted at Launchpad">open source project</a> from the <a href="http://media.mit.edu">MIT Media Lab</a>, designed by <a href="http://web.media.mit.edu/~dharry">Drew Harry</a> with <a href="http://trevorfilter.com/">Trevor Filter</a>, Cherrie Yang, and Joshua Green.
 		</div>
 	</div>
 <script type="text/javascript">

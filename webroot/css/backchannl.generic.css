@@ -348,7 +348,7 @@ table.meeting-day
 /* MIT Admissions-specific */
 
 #header.admissions {
-	background: #000 url(http://www.mitadmissions.org/_test/stream/homephoto_2014.jpg) no-repeat center bottom;
+	background: #000 url(http://webcast.mitadmissions.org/images/2015.jpg) no-repeat center bottom;
 	padding: 10px 24px 110px;
 	z-index: 1 !important;
 }

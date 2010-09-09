@@ -12,7 +12,7 @@
 <?php
 
 // First and foremost, it should be noted that this page is designed especially
-// for MIT Admissions, and may not be nearly as useful in other applications
+// for MIT Admissions, and is not useful in other applications
 
 $scriptContent = "";
 

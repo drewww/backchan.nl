@@ -20,10 +20,7 @@ $html->css(
 
 $javascript->link("image-switcher", false);
 
-
 ?>
-
-
 
 <div id="pictures">
 	<div class="image-switcher">
@@ -48,9 +45,9 @@ $javascript->link("image-switcher", false);
 <div id="overview">
 	<h1>Involve the audience</h1>
 
-<p><em>backchan.nl</em> is a tool for involving audiences in presentations by letting them <strong>suggest questions</strong> and <strong>vote on each other's questions</strong>. <em>backchan.nl</em> is intended for conference or event organizers who want a new way to solicit questions from the audience and make better use of question and answer time.</p>
+<p><em>backchan.nl</em> is tool for involving audiences in presentations by letting them <strong>suggest questions</strong> and <strong>vote on each other's questions</strong>. <em>backchan.nl</em> is intended for conference or event organizers who want a new way to solicit questions from the audience and make better use of question and answer time.</p>
 
-<p><em>backchan.nl</em> has been used at many events including <a href="http://www.convergenceculture.org/futuresofentertainment/2007/">Futures of Entertainment 2</a>, <a href="http://roflcon.org/">ROFLCON 2008</a>, <a href="http://conference.freeculture.org/">Free Culture 2008</a>, and <a href="http://institute.emerson.edu/floatingpoints/2008/">Mixed Realities Symposium</a>.</p>
+<p><em>backchan.nl</em> has been used at many events including Futures of Entertainment <a href="http://www.convergenceculture.org/futuresofentertainment/2007/">2</a>, <a href="http://www.convergenceculture.org/futuresofentertainment/2008/">3</a>, and <a href="http://www.convergenceculture.org/weblog/2009/11/futures_of_entertainment_4.php">4</a>, <a href="http://roflcon.org/">ROFLCON 2008 + 2010</a>, <a href="http://conference.freeculture.org/">Free Culture 2008 + 2010</a>, and many other events.</p>
 
 
 <a class="button" href="/pages/about"><div id="about" class="button">About</div></a>
