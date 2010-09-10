@@ -22,6 +22,9 @@ class PostsController extends AppController {
 	// var $components = array('Acl');
 
 	var $scaffold;
+	
+	var $helpers = array('Cache');
+	
 
 	function add()
 		{
@@ -70,6 +73,9 @@ class PostsController extends AppController {
 				if ($post == false) {  // Post not already in DB
 					if ($this->Post->save($this->data)) {
 						$this->set('d', $this->data);  // TODO: more fields in order to populate the posts table
+						
+						// Clear the cache for this meeting.
+						Cache::delete($this->data['Post']['meeting_id']);
 					}
 					else {
 						$this->set('d',

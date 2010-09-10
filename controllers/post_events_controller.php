@@ -16,10 +16,10 @@ class PostEventsController extends AppController {
 	// I'm not sure that I need this, but I think I do?
 	var $uses = array("Post", "PostEvent", "Meeting");
 	
+	var $helpers = array('Cache');
+	
 	function add()
 	{
-		Configure::write('debug', 0);
-		
 		if(empty($this->data))
 		{
 			$this->set("result", "false");
@@ -70,6 +70,10 @@ class PostEventsController extends AppController {
 			$this->set("result", "true");
 			$this->set("message", "PostEvent: " . $eventType . " created on Post.id: " . $postId);
 			$this->render(null, 'ajax');
+			
+			// Now clear the cache for that meeting.
+			debug("Clearing cache for ".$post['Meeting']['id']);
+			Cache::delete($post['Meeting']['id']);
 		}
 	}
 	

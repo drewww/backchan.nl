@@ -13,6 +13,7 @@
 class PostVotesController extends AppController {
 
 	// var $scaffold;
+	var $helpers = array('Cache');
 
 	function add() {
 		if (!empty($this->data)) {
@@ -21,7 +22,7 @@ class PostVotesController extends AppController {
 				$this->data['PostVote']['user_id'] = $userId;
 				// Check if user votes on his own post
 				$post = $this->PostVote->Post->read(
-					array('Post.id', 'Post.user_id'),
+					null,
 					$this->data['PostVote']['post_id']
 				);
 				if ($post['Post']['user_id'] != $userId) {  // Not his own post
@@ -40,6 +41,13 @@ class PostVotesController extends AppController {
 						if ($this->PostVote->save($this->data)) {
 							$this->set('d', $this->data);
 							// $this->set('p', $this->params);
+							
+							// Clear the cache if the vote goes through
+							// successfully. For some reason, the meeting.id
+							// isn't included in $post by default, so we have
+							// to fetch it manually here.
+							debug("deleting cache " . $post['Post']['meeting_id']);
+							Cache::delete($post['Post']['meeting_id']);
 						}
 						else
 							$this->set('d',

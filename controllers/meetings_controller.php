@@ -18,7 +18,7 @@ class MeetingsController extends AppController {
 	
 	// This is hugely optimistic - the cache should get dirtied way
 	// before that. 
-	var $cacheAction = array('refresh/' => '600');
+	// var $cacheAction = array('refresh/' => '600');
 		
 	var $uses = array("Meeting","Conference");
 
@@ -210,6 +210,11 @@ class MeetingsController extends AppController {
 		if($id!=null)
 		{
 			
+			
+			$results = Cache::read($id);
+			
+			if(!$results) {
+				debug("Missed the cache!");
 			$results = $this->Meeting->Post->find('all',
 							array(
 								'conditions' => array('Post.meeting_id' => $id),
@@ -220,7 +225,11 @@ class MeetingsController extends AppController {
 								'order'=>'Post.created DESC'
 								)
 							);
-							
+			} else {
+				debug("Hit the results cache!");
+			}
+			debug("writing cache to " . $id);
+			Cache::write($id, $results);
 			// sorting by score is deprecated because the main DataTable is assuming
 			// results come back sorted by age. We'll let that be and then
 			// do the score sorting on the client side.
@@ -242,7 +251,7 @@ class MeetingsController extends AppController {
 				$outputResults[] = array("Post"=>$row["Post"], "User"=>$row["User"]);
 			}
 			
-			// Do this after the next commit. 
+			// This is here because other controllers 
 			if($return)
 			{
 				return $results;

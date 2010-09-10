@@ -62,11 +62,7 @@ function generateTopPosts(response)
 			var post = results[i];
 			var postHTML = "";
 			
-            if(post['Post'].isDemoted) {
-                // Skip this one if it's demoted - we don't want to show
-                // demoted posts in the top listing.
-                continue;
-            }
+			
 			
 			if(!post['Post.id'])
 			{
@@ -82,7 +78,14 @@ function generateTopPosts(response)
 				post['User.name'] = post['User']['name'];
 				post['User.affiliation'] = post['User']['affiliation'];
 				post['Post.age'] = post['Post']['age'];
+				post['Post.isDemoted'] = post['Post']['isDemoted'];
 				
+			}
+			
+			if(post['Post.isDemoted']) {
+                // Skip this one if it's demoted - we don't want to show
+                // demoted posts in the top listing.
+			    continue;
 			}
 			
 			// TODO Convert this over to DOM scripting. Will make button addition

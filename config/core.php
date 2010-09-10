@@ -82,7 +82,7 @@
  * or in each action using $this->cacheAction = true.
  *
  */
-	Configure::write('Cache.check', false);
+	Configure::write('Cache.check', true);
 /**
  * Defines the default error type when using the log() function. Used for
  * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
@@ -228,18 +228,18 @@
 
 // Using the default memcache configuration, as specified above.
  
-  	 Cache::config('default', array(
- 		'engine' => 'Memcache', //[required]
- 		'duration'=> 3600, //[optional]
- 		'probability'=> 100, //[optional]
-  		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
-  		'servers' => array(
-  		'127.0.0.1:11211' // localhost, default port 11211
- 		), //[optional]
-  		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
-		));
+  	 // Cache::config('default', array(
+  	 //  		'engine' => 'Memcache', //[required]
+  	 //  		'duration'=> 3600, //[optional]
+  	 //  		'probability'=> 100, //[optional]
+  	 //   		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
+  	 //   		'servers' => array(
+  	 //   		'127.0.0.1:11211' // localhost, default port 11211
+  	 //  		), //[optional]
+  	 //   		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
+  	 // 		));
 
 // Disabling the default File based caching system. 
-//	Cache::config('default', array('engine' => 'File'));
+	Cache::config('default', array('engine' => 'File'));
 
 ?>
