@@ -5,3 +5,6 @@
 
 # ignore the temp directory (after the first checkin)
 /tmp/*
+
+# ignore ._ files, which seem to come from OS X or textmate doing auto-save junk.
+._*
