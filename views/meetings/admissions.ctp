@@ -88,13 +88,13 @@ $javascript->codeBlock($scriptContent, array("inline"=>false));
 
 <div id="AdmissionsVideo">
 
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="320" id="utv276091"><param name="flashvars" value="autoplay=false&amp;brand=embed&amp;cid=3080889"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/live/1/3080889"/><embed flashvars="autoplay=false&amp;brand=embed&amp;cid=3080889" width="400" height="320" allowfullscreen="true" allowscriptaccess="always" id="utv276091" name="utv_n_529785" src="http://www.ustream.tv/flash/live/1/3080889" type="application/x-shockwave-flash" /></object>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="320" id="utv533673"><param name="flashvars" value="autoplay=false&brand=embed&cid=14267%2FMITAdmissions&locale=en_US"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/live/14267/MITAdmissions"/><embed flashvars="autoplay=false&brand=embed&cid=14267%2FMITAdmissions&locale=en_US" width="400" height="320" allowfullscreen="true" allowscriptaccess="always" id="utv533673" name="utv_n_215645" src="http://www.ustream.tv/flash/live/14267/MITAdmissions" type="application/x-shockwave-flash" /></object>
 
 </div>
 
 <div id="AdmissionsChat">
 	
-<iframe width="500" height="316" src="http://widget.mibbit.com/?settings=01d1b238ea8e396ac7c4c2b405476703&server=irc.mibbit.net&channel=%23MITadmissions"></iframe>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="500" height="316" id="chat_168565"><param name="flashvars" value="channelId=14267&brandId=14267&channel=%23MIT-MITAdmissions&server=apichat.ustream.tv&prefix=MIT-"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/irc.swf"/><embed flashvars="channelId=14267&brandId=14267&channel=%23MIT-MITAdmissions&server=apichat.ustream.tv&prefix=MIT-" width="500" height="316" allowfullscreen="true" allowscriptaccess="always" id="chat_168565" name="chat_749423" src="http://www.ustream.tv/flash/irc.swf" type="application/x-shockwave-flash" /></object>
 	
 </div>
 

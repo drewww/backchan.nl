@@ -209,8 +209,6 @@ class MeetingsController extends AppController {
 	{
 		if($id!=null)
 		{
-			
-			
 			$results = Cache::read($id);
 			
 			if(!$results) {

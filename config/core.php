@@ -82,7 +82,7 @@
  * or in each action using $this->cacheAction = true.
  *
  */
-	Configure::write('Cache.check', true);
+	 Configure::write('Cache.check', true);
 /**
  * Defines the default error type when using the log() function. Used for
  * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
@@ -240,6 +240,16 @@
   	 // 		));
 
 // Disabling the default File based caching system. 
-	Cache::config('default', array('engine' => 'File'));
+Cache::config('default',
+	array(
+		'engine' => 'File',
+		)
+);
 
+	// Cache::config('default',
+	// 	array(
+	// 		'engine' => 'Memcache',
+	// 		'servers' => array('127.0.0.1:11211'),
+	// 		)
+	// );
 ?>
