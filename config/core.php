@@ -54,7 +54,7 @@
  * /app/.htaccess
  * /app/webroot/.htaccess
  *
- * And uncomment the App.baseUrl below:
+ * And uncmment the App.baseUrl below:
  */
 	//Configure::write('App.baseUrl', env('SCRIPT_NAME'));
 /**
@@ -243,6 +243,7 @@
 Cache::config('default',
 	array(
 		'engine' => 'File',
+		'duration'=>1000
 		)
 );
 

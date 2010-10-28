@@ -220,7 +220,8 @@ class MeetingsController extends AppController {
 								// 	'Post.id', 'Post.body', 'Post.created',
 								// 	'User.name', 'User.affiliation'),
 								'recursive'=> 1,
-								'order'=>'Post.created DESC'
+								'order'=>'Post.created DESC',
+								'limit'=>50
 								)
 							);
 			} else {
