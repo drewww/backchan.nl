@@ -93,8 +93,9 @@ $javascript->codeBlock($scriptContent, array("inline"=>false));
 </div>
 
 <div id="AdmissionsChat">
-	
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="500" height="316" id="chat_168565"><param name="flashvars" value="channelId=14267&brandId=14267&channel=%23MIT-MITAdmissions&server=apichat.ustream.tv&prefix=MIT-"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/irc.swf"/><embed flashvars="channelId=14267&brandId=14267&channel=%23MIT-MITAdmissions&server=apichat.ustream.tv&prefix=MIT-" width="500" height="316" allowfullscreen="true" allowscriptaccess="always" id="chat_168565" name="chat_749423" src="http://www.ustream.tv/flash/irc.swf" type="application/x-shockwave-flash" /></object>
+
+
+<iframe width="500" height="316" src="http://webcast.mitadmissions.org/chat/"></iframe>
 	
 </div>
 
