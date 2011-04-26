@@ -27,7 +27,7 @@ Install Cake
 
 Since this is a Cake application, you'll need to download and install the Cake framework. You can get the 1.2.5 stable version of the framework here:
 
-http://cakeforge.org/frs/?group_id=23&release_id=449
+https://github.com/cakephp/cakephp/downloads (look for the 1.2.5 tag)
 
 Expand the framework and put it in the $BASE directory. Delete the app directory that came with cake, and rename the directory containing the backchan.nl release you downloaded to "app" and move it into the $BASE directory. When you're finished, your $BASE directory should look like:
 
@@ -47,13 +47,15 @@ http://book.cakephp.org/view/308/Installing-CakePHP
 
 Ideally, when you can browse to your server and a backchan.nl-looking page shows up, you're making progress. There will almost certainly be errors (like "Error: The requested address '/' was not found on this server."), since you haven't setup the database yet.
 
+You might also need to enable the php5 module; it is not enabled by default on a fresh OS X 10.6 install. Just uncomment the LoadModule line for php5. 
+
 
 Install YUI
 ===========
 
 We use the Yahoo User Interface framework for the javascript portions of the site. We built against YUI 2.5.2, which is available here:
 
-http://yuilibrary.com/downloads/yui2/yui_2.5.2.zip
+http://yuilibrary.com/downloads/yui2/yui_2.5.2r2.zip
 
 Move the yui folder from that archive into $BASE/vendors/js.
 
