@@ -340,6 +340,12 @@ class MeetingsController extends AppController {
 
 	// 
 	 function edit($id = null) {
+		
+		if (!$this->Cookie->read('AdminConference.id'))
+		{	
+	$this->redirect("/conferences/edit/".$this->Cookie->read('AdminConference.id'));
+		}
+		
 	 	if (empty($this->data)) {
 	 		$this->Post->id = $id;
 	 		$this->data = $this->Post->read();
