@@ -75,7 +75,7 @@
 			<h2>
 				<?php
 					echo $html->link(
-						__('backchan.nl - participate at http://fc2008.backchan.nl/', true),
+						__('backchan.nl - participate at http://backchan.nl/', true),
 						'http://backchan.nl/'
 					);
 				?>

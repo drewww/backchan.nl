@@ -31,6 +31,9 @@ $scriptContent .= $javascript->object(
 	);
 $scriptContent .= "var showAdmin=" . $adminInterface . ";\n";
 
+
+$scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
+
 if ($user == false) $scriptContent .= "var showIdentityDialog=true;\n";
 else 				 $scriptContent .= "var showIdentityDialog=false;\n";
 
