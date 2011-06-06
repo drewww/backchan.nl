@@ -224,11 +224,11 @@ class MeetingsController extends AppController {
 								'limit'=>50
 								)
 							);
+				debug("writing cache to " . $id);
+				Cache::write($id, $results);
 			} else {
 				debug("Hit the results cache!");
 			}
-			debug("writing cache to " . $id);
-			Cache::write($id, $results);
 			// sorting by score is deprecated because the main DataTable is assuming
 			// results come back sorted by age. We'll let that be and then
 			// do the score sorting on the client side.
@@ -352,7 +352,7 @@ class MeetingsController extends AppController {
 	 	}
 	 	else {
 	 		if ($this->Post->save($this->data['Post'])) {
-				Cache::write($id, $this->data['Post']);
+				Cache::write($id, $this->data['Post']['text']);
 	 			$this->flash('Your post has been updated.','/posts');
 	 		}
 	 	}
