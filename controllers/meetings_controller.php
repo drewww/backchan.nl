@@ -339,17 +339,17 @@ class MeetingsController extends AppController {
 	}
 
 	// 
-	// function edit($id = null) {
-	// 	if (empty($this->data)) {
-	// 		$this->Post->id = $id;
-	// 		$this->data = $this->Post->read();
-	// 	}
-	// 	else {
-	// 		if ($this->Post->save($this->data['Post'])) {
-	// 			$this->flash('Your post has been updated.','/posts');
-	// 		}
-	// 	}
-	// }
+	 function edit($id = null) {
+	 	if (empty($this->data)) {
+	 		$this->Post->id = $id;
+	 		$this->data = $this->Post->read();
+	 	}
+	 	else {
+	 		if ($this->Post->save($this->data['Post'])) {
+	 			$this->flash('Your post has been updated.','/posts');
+	 		}
+	 	}
+	}
 
 }
 
