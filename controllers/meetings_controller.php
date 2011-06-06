@@ -352,6 +352,7 @@ class MeetingsController extends AppController {
 	 	}
 	 	else {
 	 		if ($this->Post->save($this->data['Post'])) {
+				Cache::write($id, $this->data['Post']);
 	 			$this->flash('Your post has been updated.','/posts');
 	 		}
 	 	}
