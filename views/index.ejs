@@ -12,19 +12,29 @@
 	
 		$(document).ready(function() {
 			console.log("Document is ready!");
+
+			if("name" in localStorage && "affiliation" in localStorage) {
+				socket.emit("identify", {
+					"name":localStorage["name"],
+					"affiliation":localStorage["affiliation"]});
+				$("#identify").hide();
+			} else {
+				$("#dashboard").hide();
+			}
+
 			
-			$("#dashboard").hide();
 			
 			$("#identify form").submit(function(event) {
 				// Send a message to the server.
 				socket.emit("identify", {
 					"name":$("#name").val(),
 					"affiliation":$("#affiliation").val()});
+					
+					localStorage["name"] = $("#name").val();
+					localStorage["affiliation"] = $("#affiliation").val();
 				event.preventDefault();
 			});
 			
-			// TODO save name/affiliation settings and auto-populate the form
-			// with them to save time.
 			
 		});
 		
