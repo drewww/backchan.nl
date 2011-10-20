@@ -43,7 +43,13 @@ app.get('/', function(req, res) {
 
 io.set("log level", 0);
 io.sockets.on('connection', function(socket) {
-
+    
+    socket.on("identify", function(data) {
+        logger.info("User identified: ", data);
+        
+    });
+    
+    
     socket.on('disconnect', function() {
         // Do something.
     });

@@ -12,6 +12,15 @@
 	
 		$(document).ready(function() {
 			console.log("Document is ready!");
+			
+			$("#identify form").submit(function(event) {
+				// Send a message to the server.
+				socket.emit("identify", {
+					"name":$("#name").val(),
+					"affiliation":$("#affiliation").val()});
+				event.preventDefault();
+			});
+			
 		});
 		
 		socket.on('connect', function(data) {
@@ -21,10 +30,52 @@
 	</script>
 	
 	<style type="text/css" media="screen">
+		body {
+			font-family: Helvetica, sans-serif;
+		}
+		
+		#container {
+			margin-left: auto;
+			margin-right: auto;
+			border: 1px solid black;
+			
+			width: 1000px;
+			height: 150px;
+		}
+		
+		#identify {
+			margin-left: auto;
+			margin-right: auto;
+			width: 300px;
+		}
+		
+		#identify h1 {
+			font-size: 1.5em;
+		}
+		
+		#identify table tr:first-child {
+			text-align: right;
+		}
+		
+		#identify input[type="text"] {
+			width: 175px;
+		}
 		
 	</style>
 </head>
 <body id="index" onload="">
+<div id="container">
+<div id="identify">
+	<h1>Welcome to backchan.nl!</h1>
+	<form method="get" accept-charset="utf-8">
+	<table border="0">
+		<tr><td>Name</td><td><input type="text" name="name" value="" id="name"></tr>
+		<tr><td>Affiliation</td><td><input type="text" name="affiliation" value="" id="affiliation"></td></tr>
+		<tr><td></td><td><input type="submit" name="set_identity" value="login" id="set_identity"<></td></tr>
+	</table>
+	</form>
+</div>
 	
+</div>
 </body>
 </html>
