@@ -5,9 +5,12 @@ var app = require('express').createServer(),
     crypto = require('crypto'),
     express = require('express'),
     fs = require('fs'),
-    program = require('commander');
+    program = require('commander'),
+    logger = require('winston');
     
-    
+logger.cli();
+logger.default.transports.console.timestamp = true;
+
 program.version('0.1')
     .option('-p, --port [num]', 'Set the server port (default 8080)')
     .parse(process.argv);
@@ -16,13 +19,13 @@ var server = "localhost";
 if(program.args.length==1) {
     server = program.args[0];
 } else if(program.args.length==0) {
-    console.log("Defaulting to 'localhost' for server.");
+    logger.info("Defaulting to 'localhost' for server.");
 } else {
-    console.log("Too many command line arguments. Expected 0 or 1.")
+    logger.info("Too many command line arguments. Expected 0 or 1.")
 }
 var port = 8080;
 if(program.port) {
-    console.log("Setting port to " + program.port);
+    logger.info("Setting port to " + program.port);
     port = program.port;
 }
 
@@ -38,6 +41,7 @@ app.get('/', function(req, res) {
         "port":port}});
 });
 
+io.set("log level", 0);
 io.sockets.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
@@ -48,9 +52,10 @@ io.sockets.on('connection', function(socket) {
 
 /******       REDIS SETUP        ******/
 client.on("error", function(err) {
-    console.log("ERR REDIS: " + err);
+    logger.error("ERR REDIS: " + err);
 });
 
 // On ready, do some things. 
 client.once("ready", function(err) {
+    logger.info("Connected to redis.");
 });
