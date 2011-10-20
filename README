@@ -1,6 +1,16 @@
-backchan.nl is a tool for involving audiences in presentations by letting them suggest questions and vote on each other's questions. backchan.nl is intended for conference or event organizers who want a new way to solicit questions from the audience and make better use of question and answer time.
+backchan.nl thin
+==================
+Designed for non-co-located events, backchan.nl thin is a minimized UI that can be easily organized on your screen along with whatever else you need to see at the same time. This makes it easy to participate in conference calls or video presentations while still participating in a simple, accessible group posting and voting system.
+
+backchan.nl thin is a ground-up rewrite of backchannl with a totally distinct software stack. It uses a variety of technologies to be more responsive, support a better sense of presence, and be more scalable.
+
+
+backchan.nl
+===================
+backchan.nl is a family of tools for involving audiences and presenters through a simple shared communication platform with voting. 
 
 backchan.nl has been used at many events including Futures of Entertainment 2 + 3, ROFLCON 2008 + 2010, Free Culture 2008 + 2010, and many other events.
 
 backchan.nl was developed at the MIT Media Lab. It was originally designed by Drew Harry and Joshua Green, with design and implementation support from Cherrie Yang and Trevor Filter.
+
 
