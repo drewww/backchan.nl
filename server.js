@@ -28,9 +28,15 @@ if(program.port) {
 
 app.listen(port);
 
+// Setup static serving from the static directory.
 app.use(app.router);
 app.use("/static", express.static(__dirname + '/static'));
 
+// Setup the index page.
+app.get('/', function(req, res) {
+    res.render('index.ejs', {layout:false, locals:{"server":server,
+        "port":port}});
+});
 
 io.sockets.on('connection', function(socket) {
 

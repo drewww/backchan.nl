@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>backchan.nl &mdash; thin</title>
+
+	<script src="/static/js/jquery-1.6.2.min.js" type="text/javascript"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+		var socket = io.connect("http://<% server %>:<%= port %>");
+	
+		$(document).ready(function() {
+			console.log("Document is ready!");
+		});
+		
+		socket.on('connect', function(data) {
+			console.log("Connected to server.");
+		});
+		
+	</script>
+	
+	<style type="text/css" media="screen">
+		
+	</style>
+</head>
+<body id="index" onload="">
+	
+</body>
+</html>
