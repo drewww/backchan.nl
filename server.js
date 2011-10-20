@@ -45,8 +45,12 @@ io.set("log level", 0);
 io.sockets.on('connection', function(socket) {
     
     socket.on("identify", function(data) {
-        logger.info("User identified: ", data);
         
+        // For now just shove both into a single string. Could call them 
+        // out separately, but not sure it really matters. Storing JSON
+        // is just an added headache.
+        socket.set("identity", data["name"] + ", " + data["affiliation"]);
+        socket.emit("identify");
     });
     
     

@@ -13,6 +13,8 @@
 		$(document).ready(function() {
 			console.log("Document is ready!");
 			
+			$("#dashboard").hide();
+			
 			$("#identify form").submit(function(event) {
 				// Send a message to the server.
 				socket.emit("identify", {
@@ -21,10 +23,20 @@
 				event.preventDefault();
 			});
 			
+			// TODO save name/affiliation settings and auto-populate the form
+			// with them to save time.
+			
 		});
 		
 		socket.on('connect', function(data) {
 			console.log("Connected to server.");
+		});
+		
+		socket.on('identify', function(data) {
+			// When the server ACKS our identify operation, hide that pane
+			// and show the main one.
+			$("#identify").hide();
+			$("#dashboard").show();
 		});
 		
 	</script>
@@ -61,10 +73,46 @@
 			width: 175px;
 		}
 		
+		#dashboard {
+			width: 100%;
+			height: 100%;
+		}
+		
+		#dashboard > div {
+			float: left;
+		}
+		
+		#dashboard > div h1 {
+			background-color: black;
+			color: white;
+			width: 60px;
+			text-align: center;
+			
+			margin-top: 0px;
+		}
+		
+		#hot {
+			width: 500px;
+			border-right: 1px solid #ccc;
+		}
+		
+		#hot h1 {
+			float: left;
+		}
+		
+		#new {
+			width: 500px;
+		}
+		
+		#new h1 {
+			float: right;
+		}
+		
 	</style>
 </head>
 <body id="index" onload="">
 <div id="container">
+
 <div id="identify">
 	<h1>Welcome to backchan.nl!</h1>
 	<form method="get" accept-charset="utf-8">
@@ -75,7 +123,25 @@
 	</table>
 	</form>
 </div>
-	
+
+
+<div id="dashboard">
+<div id="hot">
+<h1>hot</h1>
+</div>
+
+<div id="new">
+<h1>new</h1>
+
+
+</div>
+
+<div id="toggle-post">
+post a thought
+</div>
+
+</div>
+
 </div>
 </body>
 </html>
