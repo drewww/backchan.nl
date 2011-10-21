@@ -16,15 +16,12 @@ body {
   margin-right: auto;
   width: 300px;
 }
-
 #identify h1 {
   font-size: 1.5em;
 }
-
 #identify table tr:first-child {
   text-align: right;
 }
-
 #identify input[type="text"] {
   width: 175px;
 }
@@ -51,7 +48,6 @@ body {
   width: 500px;
   border-right: 1px solid #ccc;
 }
-
 #hot h1 {
   float: left;
 }
@@ -59,7 +55,6 @@ body {
 #new {
   width: 501px;
 }
-
 #new h1 {
   float: right;
 }

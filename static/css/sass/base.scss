@@ -16,19 +16,20 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	width: 300px;
+	
+	h1 {
+    	font-size: 1.5em;
+    }
+    
+    table tr:first-child {
+    	text-align: right;
+    }
+    
+    input[type="text"] {
+    	width: 175px;
+    }
 }
 
-#identify h1 {
-	font-size: 1.5em;
-}
-
-#identify table tr:first-child {
-	text-align: right;
-}
-
-#identify input[type="text"] {
-	width: 175px;
-}
 
 #dashboard {
 	width: 100%;
@@ -52,18 +53,18 @@ body {
 #hot {
 	width: 500px;
 	border-right: 1px solid #ccc;
-}
-
-#hot h1 {
-	float: left;
+	
+	h1 {
+    	    float: left;
+    }
 }
 
 #new {
 	width: 501px;
-}
-
-#new h1 {
-	float: right;
+	
+	h1 {
+    	float: right;
+    }
 }
 
 #footer {
