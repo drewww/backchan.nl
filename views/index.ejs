@@ -5,9 +5,15 @@
 	<title>backchan.nl &mdash; thin</title>
 
 	<script src="/static/js/jquery-1.6.2.min.js" type="text/javascript"></script>
+	<script src="/static/js/backbone-min.js" type="text/javascript"></script>
+	<script src="/static/js/underscore-min.js" type="text/javascript"></script>
+	
 	<script src="/socket.io/socket.io.js"></script>
 	
+	
+	
 	<script type="text/javascript" charset="utf-8">
+		/* STARTUP & SETUP */
 		var socket = io.connect("http://<% server %>:<%= port %>");
 	
 		$(document).ready(function() {
