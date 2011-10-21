@@ -40,6 +40,19 @@
 				event.preventDefault();
 			});
 			
+			$("#toggle-post").click(function() {
+				
+				// Decide what our current state is.
+				var postContainerEl = $("#post-container");
+
+				if(parseInt(postContainerEl.css("top")) < 0) {
+					// Animate to expose it.
+					postContainerEl.animate({top:0});
+				} else {
+					// Animate to hide it.
+					postContainerEl.animate({top:-131});
+				}
+			});
 			
 		});
 		
@@ -130,22 +143,6 @@
 			float: right;
 		}
 		
-		#toggle-post {
-			position: absolute;
-			
-			top: 0px;
-			left: 50%;
-			width: 150px;
-				margin-left: -75px;
-			
-			text-align: center;
-			
-			border: 1px solid black;
-			background-color: #ddd;
-			
-			z-index: 2;
-		}
-		
 		#footer {
 			background-color: black;
 			text-align: center;
@@ -178,6 +175,50 @@
 			
 			font-size: 1.3em;
 		}
+		
+		
+		#post-container {
+			position: absolute;
+			top: -131px;
+			left: 50%;
+			
+			margin-left: -250px;
+			width: 500px;
+			
+			z-index: 2;
+		}
+		
+		#post {
+			background-color: white;
+			border: 1px solid black;
+			
+			height: 130px;
+		}
+		
+		#toggle-post {
+			position: relative;
+			top: 0px;
+			left: 50%;
+			
+			height: 20px;
+			
+			width: 150px;
+			margin-left: -75px;
+			
+			text-align: center;
+			
+			border: 1px solid black;
+			border-top: none;
+			background-color: #ddd;
+			
+			z-index: 2;
+		}
+		
+		#post-text {
+			
+		}
+		
+		
 		
 		
 		.clickable {
@@ -216,10 +257,6 @@
 
 </div>
 
-<div id="toggle-post" class="clickable">
-post a thought
-</div>
-
 <br class="clear">
 
 <div id="footer">
@@ -239,6 +276,17 @@ show all posts
 
 </div>
 
+<div id="post-container">
+<div id="post">
+	<h1>Submit a post</h1>
+	<textarea id="post-text">
+	</textarea>
+	<input type="button" name="post" value="post" id="submit-post">
+</div>
+<div id="toggle-post" class="clickable">
+post a thought
+</div>
+</div>
 
 
 </body>
