@@ -4,6 +4,7 @@
 body {
   font-family: Helvetica, sans-serif;
   margin: 0px;
+  color: black;
 }
 
 #container {
@@ -36,14 +37,18 @@ body {
 #dashboard > div h1 {
   background-color: black;
   color: white;
-  width: 65px;
+  width: 50px;
   text-align: center;
   margin-top: 0px;
+  font-size: 20px;
 }
 
 #hot, #new {
   float: left;
   height: 130px;
+}
+#hot .post, #new .post {
+  margin-top: 25px;
 }
 
 #hot {
@@ -120,6 +125,61 @@ body {
   background-color: #ddd;
   z-index: 2;
   cursor: pointer;
+}
+
+.post {
+  width: 480px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 110px;
+  border: 1px solid black;
+}
+.post .button-container {
+  float: left;
+  /*        height: 100%;*/
+  height: 110px;
+  padding: 10px 2px 2px 2px;
+  margin-right: 5px;
+  text-align: center;
+}
+.post .button-container .vote-button {
+  cursor: pointer;
+  border: 1px solid black;
+  width: 28px;
+  height: 25px;
+  font-size: 16px;
+  padding-top: 5px;
+  padding-left: 2px;
+  margin: 10px auto 10px auto;
+}
+.post .button-container .dismiss-button {
+  cursor: pointer;
+  font-size: 12px;
+  border: 1px solid black;
+}
+.post .text {
+  height: 75px;
+  overflow: hidden;
+  width: 420px;
+}
+.post .byline, .post .timestamp {
+  color: #666666;
+  font-style: italic;
+  font-size: 12px;
+}
+.post .byline {
+  float: left;
+  margin-left: 20px;
+}
+.post .byline:before {
+  content: "from ";
+}
+.post .timestamp {
+  float: right;
+  margin-right: 20px;
+}
+.post .timestamp:before {
+  content: "posted ";
 }
 
 .clear {

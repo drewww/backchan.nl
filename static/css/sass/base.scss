@@ -3,13 +3,16 @@
 $background: black;
 $foreground: white;
 
+$text-color: #000;
+
 /* define sizes */
 $total-width: 1002px;
 $total-height: 150px;
 
-
 $footer-height: 20px;
 $body-height: $total-height - $footer-height;
+
+$header-height: 20px;
 
 $dialog-width: 300px;
 
@@ -22,6 +25,7 @@ $dialog-width: 300px;
 body {
 	font-family: Helvetica, sans-serif;
 	margin: 0px;
+	color: $text-color;
 }
 
 #container {
@@ -59,16 +63,22 @@ body {
 	& > div h1 {
     	background-color: $background;
     	color: $foreground;
-    	width: 65px;
+    	width: 50px;
     	text-align: center;
 
     	margin-top: 0px;
+    	
+    	font-size: $header-height;
     }
 }
 
 #hot, #new {
 	float: left;
 	height: $body-height;
+	
+	.post {
+	    margin-top: 25px;
+    }
 }
 
 #hot {
@@ -169,6 +179,79 @@ body {
 #post-text {
 	
 }
+
+.post {
+    
+    width: 480px;
+    margin-left: 10px;
+    margin-right: 10px;
+    
+    height: $body-height - $header-height;
+    
+    border: 1px solid $background;
+    
+    .button-container {
+        float: left;
+/*        height: 100%;*/
+        height: $body-height - $header-height;
+        padding: 10px 2px 2px 2px;
+
+        margin-right: 5px;
+        
+        text-align: center;
+        
+        .vote-button {
+            @include clickable;
+            
+            border: 1px solid $background;
+            width: 28px;
+            height: 25px;
+            font-size: 16px;
+            padding-top: 5px;
+            padding-left: 2px;
+            
+            margin: 10px auto 10px auto;
+        }
+        
+        .dismiss-button {
+            @include clickable;
+            font-size: 12px;
+            
+            border: 1px solid $background;
+        }
+    }
+    
+    .text {
+        height: 75px;
+        overflow: hidden;
+        width: 420px;
+    }
+    
+    .byline, .timestamp {
+        color: lighten($text-color, 40%);
+        font-style: italic;
+        font-size: 12px;
+    }
+    
+    .byline {
+        float: left;
+        margin-left: 20px;
+        
+        &:before {
+            content: "from ";
+        };
+    }
+    
+    .timestamp {
+        float: right;
+        margin-right: 20px;
+        
+        &:before {
+            content: "posted ";
+        };
+    }
+}
+
 
 
 .clear {
