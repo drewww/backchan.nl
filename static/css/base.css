@@ -1,3 +1,6 @@
+/* Define colors */
+/* define sizes */
+/* define global mixins */
 body {
   font-family: Helvetica, sans-serif;
   margin: 0px;
@@ -30,12 +33,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
-#hot, #new {
-  float: left;
-  height: 130px;
-}
-
 #dashboard > div h1 {
   background-color: black;
   color: white;
@@ -44,8 +41,13 @@ body {
   margin-top: 0px;
 }
 
+#hot, #new {
+  float: left;
+  height: 130px;
+}
+
 #hot {
-  width: 500px;
+  width: 501px;
   border-right: 1px solid #ccc;
 }
 #hot h1 {
@@ -53,7 +55,7 @@ body {
 }
 
 #new {
-  width: 501px;
+  width: 500px;
 }
 #new h1 {
   float: right;
@@ -87,6 +89,7 @@ body {
   width: 150px;
   margin-left: -75px;
   font-size: 1.3em;
+  cursor: pointer;
 }
 
 #post-container {
@@ -116,9 +119,6 @@ body {
   border-top: none;
   background-color: #ddd;
   z-index: 2;
-}
-
-.clickable {
   cursor: pointer;
 }
 
