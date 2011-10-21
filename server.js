@@ -50,7 +50,7 @@ io.sockets.on('connection', function(socket) {
         // out separately, but not sure it really matters. Storing JSON
         // is just an added headache.
         socket.set("identity", data["name"] + ", " + data["affiliation"]);
-        socket.emit("identify");
+        socket.emit("identify", data);
     });
     
     

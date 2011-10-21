@@ -26,12 +26,17 @@
 			
 			$("#identify form").submit(function(event) {
 				// Send a message to the server.
+				
+				var name = $("#name").val();
+				var affiliation = $("#affiliation").val();
+				
 				socket.emit("identify", {
-					"name":$("#name").val(),
-					"affiliation":$("#affiliation").val()});
+					"name":name,
+					"affiliation":affiliation});
 					
-					localStorage["name"] = $("#name").val();
-					localStorage["affiliation"] = $("#affiliation").val();
+					localStorage["name"] = name;
+					localStorage["affiliation"] = affiliation;
+					
 				event.preventDefault();
 			});
 			
@@ -43,10 +48,15 @@
 		});
 		
 		socket.on('identify', function(data) {
+			$("#identity").text(data["name"] + " / " + data["affiliation"]);
+			$("#presence").text("1 person connected");
+			
+			
 			// When the server ACKS our identify operation, hide that pane
 			// and show the main one.
 			$("#identify").hide();
 			$("#dashboard").show();
+			
 		});
 		
 	</script>
@@ -54,6 +64,7 @@
 	<style type="text/css" media="screen">
 		body {
 			font-family: Helvetica, sans-serif;
+			margin: 0px;
 		}
 		
 		#container {
@@ -61,7 +72,7 @@
 			margin-right: auto;
 			border: 1px solid black;
 			
-			width: 1000px;
+			width: 1002px;
 			height: 150px;
 		}
 		
@@ -88,14 +99,15 @@
 			height: 100%;
 		}
 		
-		#dashboard > div {
+		#hot, #new {
 			float: left;
+			height: 130px;
 		}
 		
 		#dashboard > div h1 {
 			background-color: black;
 			color: white;
-			width: 60px;
+			width: 65px;
 			text-align: center;
 			
 			margin-top: 0px;
@@ -111,11 +123,69 @@
 		}
 		
 		#new {
-			width: 500px;
+			width: 501px;
 		}
 		
 		#new h1 {
 			float: right;
+		}
+		
+		#toggle-post {
+			position: absolute;
+			
+			top: 0px;
+			left: 50%;
+			width: 150px;
+				margin-left: -75px;
+			
+			text-align: center;
+			
+			border: 1px solid black;
+			background-color: #ddd;
+			
+			z-index: 2;
+		}
+		
+		#footer {
+			background-color: black;
+			text-align: center;
+			color: white;
+			height: 20px;
+			
+			font-size: 0.8em;
+		}
+		
+		#identity, #presence {
+			padding: 4px;
+		}
+		
+		#identity {
+			float: left;
+			text-align: left;
+		}
+		
+		#presence {
+			float: right;
+			text-align: right;
+		}
+		
+		#show-posts {
+			position: absolute;
+			left: 50%;
+			
+			width: 150px;
+			margin-left: -75px;
+			
+			font-size: 1.3em;
+		}
+		
+		
+		.clickable {
+			cursor: pointer;
+		}
+		
+		.clear {
+			clear: both;
 		}
 		
 	</style>
@@ -146,12 +216,30 @@
 
 </div>
 
-<div id="toggle-post">
+<div id="toggle-post" class="clickable">
 post a thought
 </div>
 
+<br class="clear">
+
+<div id="footer">
+<div id="identity">
 </div>
 
+<div id="show-posts" class="clickable">
+show all posts
 </div>
+
+<div id="presence">
+</div>
+</div>
+<br class="clear">
+</div>
+
+
+</div>
+
+
+
 </body>
 </html>
