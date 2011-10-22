@@ -18,7 +18,28 @@ var PostView = Backbone.View.extend({
     
     tagName: 'div',
     
-    template: _.template("<div class='post'></div>"),
+    template: _.template('<div class="post">\
+    <div class="button-container">\
+    <div class="vote-button">\
+    	<%=votes.length%>\
+    </div>\
+    <div class="dismiss-button">\
+    dismiss\
+    </div>\
+    </div>\
+    <div class="text">\
+        <%=text%>\
+    </div>\
+    <div class="footer">\
+    <span class="byline">\
+    <%= from_name %> / <%= from_affiliation %>\
+    </span>\
+    <span class="timestamp">\
+    <%=timestamp%>\
+    </span>\
+    </div>\
+    <br class="clear">\
+    </div>'),
     
     events: {},
     
