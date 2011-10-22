@@ -62,8 +62,8 @@
 			
 			// Do some testing of the backbone situation to see if the pieces
 			// are all working correctly.
-			var newPostList = new NewPostList();
-			var newPostListView = new NewPostListView({model: newPostList});
+			newPostList = new NewPostList();
+			newPostListView = new NewPostListView({model: newPostList});
 			
 			newPostList.add(new Post());
 			

@@ -3,12 +3,26 @@ var Post = Backbone.Model.extend({
         console.log("initing post");
     },
     
-    defaults: {
+    add_vote: function(at_timestamp) {
+        if(_.isUndefined(at_timestamp) || _.isNull(at_timestamp)) {
+            at_timestamp = Date.now();
+        }
+        
+        var currentVoteList = this.get("votes");
+        currentVoteList.push(at_timestamp);
+        this.set({"votes":currentVoteList});
+        
+        console.log("Adding vote, total: " + this.get("votes").length);
+    },
+    
+    
+    defaults: function() {
+        return {
         from_name: "default name",
         from_affiliation: "nowhere",
         text: "default text",
         timestamp: Date.now(),
-        votes: [Date.now()]
+        votes: [Date.now()]};
     }
     
 });
@@ -41,7 +55,9 @@ var PostView = Backbone.View.extend({
     <br class="clear">\
     </div>'),
     
-    events: {},
+    events: {
+        "click .dismiss-button" : "dismiss",
+        "click .vote-button" : "vote"},
     
     initialize: function() {
         this.model.bind('change', this.render, this);
@@ -58,7 +74,8 @@ var PostView = Backbone.View.extend({
     },
     
     vote: function() {
-        console.log("vote!");
+        this.model.add_vote();
+        this.render();
     }
 });
 
