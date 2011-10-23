@@ -62,12 +62,16 @@
 			
 			// Do some testing of the backbone situation to see if the pieces
 			// are all working correctly.
-			newPostList = new NewPostList();
-			newPostListView = new NewPostListView({model: newPostList});
+			newPostList = new PostList();
+			newPostListView = new NewPostListView({collection: newPostList});
+			
+			hotPostList = new PostList();
+			hotPostListView = new HotPostListView({collection: hotPostList});
 			
 			newPostList.add(new Post());
 			
-			$("#new").append(newPostListView.render().el);
+			$("#dashboard").prepend(newPostListView.render().el);
+			$("#dashboard").prepend(hotPostListView.render().el);
 			
 		});
 		
@@ -107,18 +111,10 @@
 
 
 <div id="dashboard">
-<div id="hot">
-<h1>hot</h1>
-</div>
 
-<div id="new">
-<h1>new</h1>
-
-
-</div>
+<!-- The hot and new views get pushed in here automatically on startup. -->
 
 <br class="clear">
-
 <div id="footer">
 <div id="identity">
 </div>

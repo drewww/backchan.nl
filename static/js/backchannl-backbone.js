@@ -79,7 +79,7 @@ var PostView = Backbone.View.extend({
     }
 });
 
-var NewPostList = Backbone.Collection.extend({
+var PostList = Backbone.Collection.extend({
     
     model: Post,
     
@@ -95,28 +95,63 @@ var NewPostList = Backbone.Collection.extend({
 
 var NewPostListView = Backbone.View.extend({
     tagName: 'div',
+    id: 'new',
     
-    template: _.template('<div id="new-post-container"></div>'),
-    
+    template: _.template('<h1>new</h1>'),
+
+    // We may not need any here, not sure yet.
     events: {},
     
     initialize: function() {
-        this.model.bind('change', this.render, this);
-        this.model.bind('add', this.render, this);
-        this.model.bind('remove', this.render, this);
+        this.collection.bind('change', this.render, this);
+        this.collection.bind('add', this.render, this);
+        this.collection.bind('remove', this.render, this);
     },
     
     render: function() {
         console.log("rendering post list view");
         // get the current first item from the collection and display it.
-        $(this.el).children().remove();
         
-        var currentShownPost = this.model.first();
+        $(this.el).html(this.template());
         
+        var currentShownPost = this.collection.first();
         $(this.el).append(new PostView({model:currentShownPost}).render().el);
         
         return this;
     }
     
+});
+
+
+// If I was smart I'd be extending these from some base class, but let me get
+// it all working first and then take it from there.
+var HotPostListView = Backbone.View.extend({
+   tagName: 'div',
+   id: 'hot',
+   
+   template: _.template('<h1>hot</h1>'),
+   
+   events: {},
+   
+   initialize: function() {
+       this.collection.bind('change', this.render, this);
+       this.collection.bind('add', this.render, this);
+       this.collection.bind('remove', this.render, this);
+   },
+   
+   render: function() {
+       console.log("rendering HOT post list view");
+       // get the current first item from the collection and display it.
+       
+       $(this.el).html(this.template());
+       
+       var currentShownPost = this.collection.first();
+       
+       if(!_.isUndefined(currentShownPost))
+        $(this.el).append(new PostView({model:currentShownPost}).render().el);
+       
+       return this;
+   }
+   
 });
 
