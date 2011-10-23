@@ -4,6 +4,7 @@ $background: black;
 $foreground: white;
 
 $text-color: #000;
+$light-text-color: #aaa;
 
 /* define sizes */
 $total-width: 1002px;
@@ -79,6 +80,18 @@ body {
 	
 	.post {
 	    margin-top: 25px;
+    }
+    
+    .empty-notice {
+        margin-left: auto;
+        margin-right: auto;
+        font-style: italic;
+        
+        color: $light-text-color;
+        
+        width: 300px;
+        
+        margin-top: 50px;
     }
 }
 

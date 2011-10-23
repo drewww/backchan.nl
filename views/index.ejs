@@ -69,6 +69,7 @@
 			hotPostListView = new HotPostListView({collection: hotPostList});
 			
 			newPostList.add(new Post());
+			hotPostList.add(new Post());
 			
 			$("#dashboard").prepend(newPostListView.render().el);
 			$("#dashboard").prepend(hotPostListView.render().el);
