@@ -110,11 +110,8 @@ var NewPostList = PostList.extend({
 });
 
 
-var NewPostListView = Backbone.View.extend({
+var BasePostListView = Backbone.View.extend({
     tagName: 'div',
-    id: 'new',
-
-    template: _.template('<h1>new</h1>'),
 
     // We may not need any here, not sure yet.
     events: {},
@@ -141,44 +138,21 @@ var NewPostListView = Backbone.View.extend({
 
         return this;
     }
+});
 
+var NewPostListView = BasePostListView.extend({
+    id: 'new',
+
+    template: _.template('<h1>new</h1>'),
 });
 
 
 // If I was smart I'd be extending these from some base class, but let me get
 // it all working first and then take it from there.
-var HotPostListView = Backbone.View.extend({
+var HotPostListView = BasePostListView.extend({
     tagName: 'div',
     id: 'hot',
 
     template: _.template('<h1>hot</h1>'),
-
-    events: {},
-
-    initialize: function() {
-        this.collection.bind('add', this.render, this);
-        this.collection.bind('remove', this.render, this);
-    },
-
-    render: function() {
-        console.log("rendering HOT post list view");
-        // get the current first item from the collection and display it.
-        $(this.el).html(this.template());
-
-        var currentDisplayedPost = this.collection.first();
-
-        if (!_.isUndefined(currentDisplayedPost)) {
-            $(this.el).append(new PostView({
-                model: currentDisplayedPost
-            }).render().el);
-        } else {
-            $(this.el).append("<div class='empty-notice'>\
-            there are no hot posts right now</div>");
-        }
-
-
-        return this;
-    }
-
 });
 
