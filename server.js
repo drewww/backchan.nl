@@ -13,6 +13,7 @@ logger.default.transports.console.timestamp = true;
 
 program.version('0.1')
     .option('-p, --port [num]', 'Set the server port (default 8080)')
+    .option('-D, --database [num]', 'Set the redis database id to use (default 1)')
     .parse(process.argv);
 
 var server = "localhost";
@@ -53,6 +54,10 @@ io.sockets.on('connection', function(socket) {
         socket.emit("identify", data);
     });
     
+    socket.on("post", function(data) {
+        logger.info("Post: " + data);
+    });
+    
     
     socket.on('disconnect', function() {
         // Do something.
@@ -68,4 +73,16 @@ client.on("error", function(err) {
 // On ready, do some things. 
 client.once("ready", function(err) {
     logger.info("Connected to redis.");
+    
+    // set the database.
+    if(program.database) {
+        if(program.database == parseInt(program.database)) {
+            client.select(program.database, function() {
+                logger.info("Selected database " + program.database);
+            });
+        }
+    }
+    
+    // TODO technically, we should block other startup binding until this is
+    // done. 
 });
