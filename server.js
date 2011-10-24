@@ -46,16 +46,30 @@ io.set("log level", 0);
 io.sockets.on('connection', function(socket) {
     
     socket.on("identify", function(data) {
-        
+        logger.info("identifying: ", data);
         // For now just shove both into a single string. Could call them 
         // out separately, but not sure it really matters. Storing JSON
         // is just an added headache.
-        socket.set("identity", data["name"] + ", " + data["affiliation"]);
+        socket.set("identity", JSON.stringify(data));
         socket.emit("identify", data);
     });
     
     socket.on("post", function(data) {
-        logger.info("Post: " + data);
+        // Eventually, we'll need to start storing these. For now, just
+        // broadcast them to all clients.
+        socket.get("identity", function(err, identityString) {
+            logger.info("identityString: " + identityString);
+            var identity = JSON.parse(identityString);
+            
+            data["from_name"] = identity["name"];
+            data["from_affiliation"] = identity["affiliation"];
+            data["timestamp"] = Date.now();
+            data["votes"] = [];
+            
+            logger.info("broadcasting post: ", data);
+            
+            io.sockets.emit("post", data);
+        });
     });
     
     

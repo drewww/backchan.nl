@@ -14,11 +14,14 @@
 	
 		/* STARTUP & SETUP */
 		var socket = io.connect("http://<% server %>:<%= port %>");
+		var hotPostList;
+		var newPostList;
 	
 		$(document).ready(function() {
 			console.log("Document is ready!");
 
 			if("name" in localStorage && "affiliation" in localStorage) {
+				console.log("auto-logging in");
 				socket.emit("identify", {
 					"name":localStorage["name"],
 					"affiliation":localStorage["affiliation"]});
@@ -45,20 +48,13 @@
 				event.preventDefault();
 			});
 			
-			$("#toggle-post").click(function() {
-				
-				// Decide what our current state is.
-				var postContainerEl = $("#post-container");
-
-				if(parseInt(postContainerEl.css("top")) < 0) {
-					// Animate to expose it.
-					postContainerEl.animate({top:0});
-				} else {
-					// Animate to hide it.
-					postContainerEl.animate({top:-131});
-				}
-			});
+			$("#toggle-post").click(togglePostContainer);
 			
+			$("#submit-post").click(function() {
+				socket.emit("post", {"text":$("#post-text").val()});
+				$("#post-text").val("");
+				togglePostContainer();
+			});
 			
 			// Do some testing of the backbone situation to see if the pieces
 			// are all working correctly.
@@ -68,8 +64,8 @@
 			hotPostList = new PostList();
 			hotPostListView = new HotPostListView({collection: hotPostList});
 			
-			newPostList.add(new Post());
-			hotPostList.add(new Post());
+			// newPostList.add(new Post());
+			// hotPostList.add(new Post());
 			
 			$("#dashboard").prepend(newPostListView.render().el);
 			$("#dashboard").prepend(hotPostListView.render().el);
@@ -91,6 +87,29 @@
 			$("#dashboard").show();
 			
 		});
+		
+		socket.on('post', function(data) {
+			
+			// Construct a new post model object out of the data.
+			var newPostModel = new Post(data);
+			
+			console.log(newPostModel);
+			
+			newPostList.add(newPostModel);
+		});
+		
+		function togglePostContainer() {
+			// Decide what our current state is.
+			var postContainerEl = $("#post-container");
+
+			if(parseInt(postContainerEl.css("top")) < 0) {
+				// Animate to expose it.
+				postContainerEl.animate({top:0});
+			} else {
+				// Animate to hide it.
+				postContainerEl.animate({top:-131});
+			}
+		}
 	</script>
 	
 	<link rel="stylesheet" href="/static/css/base.css" type="text/css" media="screen"  charset="utf-8">
