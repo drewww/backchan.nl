@@ -122,7 +122,6 @@ var BasePostListView = Backbone.View.extend({
     },
 
     render: function() {
-        console.log("rendering post list view");
         // get the current first item from the collection and display it.
         $(this.el).html(this.template());
 
@@ -147,8 +146,6 @@ var NewPostListView = BasePostListView.extend({
 });
 
 
-// If I was smart I'd be extending these from some base class, but let me get
-// it all working first and then take it from there.
 var HotPostListView = BasePostListView.extend({
     tagName: 'div',
     id: 'hot',
