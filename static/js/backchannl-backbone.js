@@ -74,7 +74,7 @@ var PostView = Backbone.View.extend({
     },
 
     dismiss: function() {
-        console.log("dismiss");
+        this.model.trigger("dismiss", this.model);
     },
 
     vote: function() {
@@ -93,6 +93,19 @@ var PostList = Backbone.Collection.extend({
 
     comparator: function(post) {
         return post.get("timestamp");
+    }
+});
+
+var NewPostList = PostList.extend({
+    
+    initialize: function() {
+        this.bind("add", function (post){
+            post.bind("dismiss", this.postDismissed, this);
+        });
+    },
+    
+    postDismissed: function(post) {
+        this.remove(post);
     }
 });
 
