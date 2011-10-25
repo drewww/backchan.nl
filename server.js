@@ -6,10 +6,13 @@ var app = require('express').createServer(),
     express = require('express'),
     fs = require('fs'),
     program = require('commander'),
-    logger = require('winston');
-    
+    logger = require('winston'),
+    model = require('./model.js');
+
 logger.cli();
 logger.default.transports.console.timestamp = true;
+
+logger.info("made a new post: " + new model.ServerPost().isServer);
 
 program.version('0.1')
     .option('-p, --port [num]', 'Set the server port (default 8080)')

@@ -1,4 +1,21 @@
-var Post = Backbone.Model.extend({
+(function () {
+  var server = false,
+    Backchannl;
+  if (typeof exports !== 'undefined') {
+      console.log("on server");
+    Backchannl = exports;
+    server = true;
+    
+    _ = require('underscore');
+    Backbone = require('backbone');
+    
+  } else {
+      console.log("on client");
+    Backchannl = this.Backchannl = {};
+  }
+
+
+Backchannl.Post = Backbone.Model.extend({
     initialize: function() {
         console.log("initing post");
     },
@@ -30,7 +47,7 @@ var Post = Backbone.Model.extend({
 });
 
 
-var PostView = Backbone.View.extend({
+Backchannl.PostView = Backbone.View.extend({
 
     tagName: 'div',
 
@@ -82,9 +99,9 @@ var PostView = Backbone.View.extend({
     }
 });
 
-var PostList = Backbone.Collection.extend({
+Backchannl.PostList = Backbone.Collection.extend({
 
-    model: Post,
+    model: Backchannl.Post,
 
     first: function() {
         return this.at(0);
@@ -95,7 +112,7 @@ var PostList = Backbone.Collection.extend({
     }
 });
 
-var NewPostList = PostList.extend({
+Backchannl.NewPostList = Backchannl.PostList.extend({
     
     initialize: function() {
         this.bind("add", function (post){
@@ -109,7 +126,7 @@ var NewPostList = PostList.extend({
 });
 
 
-var BasePostListView = Backbone.View.extend({
+Backchannl.BasePostListView = Backbone.View.extend({
     tagName: 'div',
 
     // We may not need any here, not sure yet.
@@ -138,13 +155,13 @@ var BasePostListView = Backbone.View.extend({
     }
 });
 
-var NewPostListView = BasePostListView.extend({
+Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
     id: 'new',
 
     template: _.template('<h1>new</h1><div class="num-more"></div>'),
     
     render: function() {
-        BasePostListView.prototype.render.call(this);
+        Backchannl.BasePostListView.prototype.render.call(this);
         
         // now update the num-more indicator.
         console.log("collection size: " + this.collection.length);
@@ -164,10 +181,11 @@ var NewPostListView = BasePostListView.extend({
 });
 
 
-var HotPostListView = BasePostListView.extend({
+Backchannl.HotPostListView = Backchannl.BasePostListView.extend({
     tagName: 'div',
     id: 'hot',
 
     template: _.template('<h1>hot</h1>'),
 });
 
+})()
