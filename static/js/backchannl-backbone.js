@@ -27,7 +27,6 @@ var Post = Backbone.Model.extend({
             votes: [Date.now()]
         };
     }
-
 });
 
 
@@ -142,7 +141,26 @@ var BasePostListView = Backbone.View.extend({
 var NewPostListView = BasePostListView.extend({
     id: 'new',
 
-    template: _.template('<h1>new</h1>'),
+    template: _.template('<h1>new</h1><div class="num-more"></div>'),
+    
+    render: function() {
+        BasePostListView.prototype.render.call(this);
+        
+        // now update the num-more indicator.
+        console.log("collection size: " + this.collection.length);
+        if(this.collection.length==0) {
+            $(this.el).children(".num-more").hide();
+        } else if(this.collection.length==1) {
+            $(this.el).children(".num-more").text("1 new post");
+        } else {
+            $(this.el).children(".num-more").text(this.collection.length
+                + " new posts");
+        }
+        
+        console.log("num-more", $(this.el).children(".num-more"));
+        
+        return this;
+    }
 });
 
 

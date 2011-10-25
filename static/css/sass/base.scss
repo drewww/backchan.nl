@@ -105,10 +105,22 @@ body {
 }
 
 #new {
-	width: $total-width/2 - 1;
+    $new-width: $total-width/2 - 1;
+	width: $new-width;
 	
 	h1 {
     	float: right;
+    }
+    
+    .num-more {
+        background-color: $background;
+        color: $foreground;
+        float: left;
+        text-align: center;
+        
+        $width: 100px;
+        width: $width;
+        margin-left: $new-width/2 - $width/2;
     }
 }
 

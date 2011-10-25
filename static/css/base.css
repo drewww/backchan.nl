@@ -74,6 +74,14 @@ body {
 #new h1 {
   float: right;
 }
+#new .num-more {
+  background-color: black;
+  color: white;
+  float: left;
+  text-align: center;
+  width: 100px;
+  margin-left: 200px;
+}
 
 #footer {
   background-color: black;
