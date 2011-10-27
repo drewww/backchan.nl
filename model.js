@@ -1,12 +1,20 @@
 var _ = require('underscore')._
     Backbone = require('backbone'),
     base_model = require('./static/js/backchannl-backbone.js'),
+    crypto = require('crypto'),
     logger = require('winston');
-    
+
+
+var nextPostId=0;
 exports.ServerPost = base_model.Post.extend({
     initialize: function(params) {
         // call super
+        
+        
         base_model.Post.prototype.initialize.call(this, params);
+
+        this.set({id:nextPostId++});
+        logger.info("id: " + this.id);
         
         // setup listeners for particular change events that we're going to 
         // want to send to clients. 
