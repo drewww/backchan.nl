@@ -88,13 +88,13 @@ body {
 
 #all {
   position: absolute;
-  bottom: 306px;
+  top: -290px;
   margin-left: -1px;
   width: 1002px;
   overflow-y: scroll;
   /* space for 8 posts on screen at a time, with room for padding. */
   height: 440px;
-  z-index: -1;
+  z-index: -10;
   border: 1px solid black;
 }
 #all .post {

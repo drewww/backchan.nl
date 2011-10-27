@@ -122,13 +122,13 @@
 		
 		function toggleAllPosts() {
 			var allPostsEl = $("#all");
-
-			if(parseInt(allPostsEl.css("bottom")) > 200) {
+			console.log("top: " + allPostsEl.css("top"));
+			if(parseInt(allPostsEl.css("top")) > 0) {
 				// Animate to expose it.
-				allPostsEl.animate({bottom:-135});
+				allPostsEl.animate({top:-290});
 			} else {
 				// Animate to hide it.
-				allPostsEl.animate({bottom:306});
+				allPostsEl.animate({top:152});
 			}
 		}
 		
