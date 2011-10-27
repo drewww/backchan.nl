@@ -13,6 +13,7 @@ body {
   border: 1px solid black;
   width: 1002px;
   height: 150px;
+  background-color: white;
 }
 
 #identify {
@@ -51,12 +52,14 @@ body {
 #hot .post, #new .post {
   margin-top: 25px;
 }
-#hot .empty-notice, #new .empty-notice {
+
+.empty-notice {
   margin-left: auto;
   margin-right: auto;
   font-style: italic;
   color: #aaaaaa;
-  width: 300px;
+  width: 100%;
+  text-align: center;
   margin-top: 50px;
 }
 
@@ -81,6 +84,22 @@ body {
   text-align: center;
   width: 100px;
   margin-left: 200px;
+}
+
+#all {
+  position: absolute;
+  bottom: 306px;
+  margin-left: -1px;
+  width: 1002px;
+  overflow-y: scroll;
+  /* space for 8 posts on screen at a time, with room for padding. */
+  height: 440px;
+  z-index: -1;
+  border: 1px solid black;
+}
+#all .post {
+  float: left;
+  margin-right: 5px;
 }
 
 #footer {

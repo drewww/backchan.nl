@@ -104,9 +104,6 @@ Backchannl.PostList = Backbone.Collection.extend({
         return this.at(0);
     },
 
-    comparator: function(post) {
-        return post.get("timestamp");
-    }
 });
 
 Backchannl.NewPostList = Backchannl.PostList.extend({
@@ -117,11 +114,43 @@ Backchannl.NewPostList = Backchannl.PostList.extend({
         });
     },
     
+    comparator: function(post) {
+        return post.get("timestamp");
+    },
+    
     postDismissed: function(post) {
         this.remove(post);
     }
 });
 
+
+Backchannl.PostListView = Backbone.View.extend({
+    tagName:'div',
+    id: 'all',
+    
+    // template: _.template('')
+    
+    initialize: function() {
+        this.collection.bind('add', this.render, this);
+        this.collection.bind('remove', this.render, this);
+    },
+    
+    render: function() {
+        // loop through each member of the collection and render them.
+        
+        if(this.collection.length > 0) {
+            this.collection.each(function(post) {
+                $(this.el).append(
+                    new Backchannl.PostView({model:post}).render().el);
+            });
+        } else {
+                $(this.el).append("<div class='empty-notice'>\
+                there are no posts yet</div>");
+        }
+        
+        return this;
+    }
+});
 
 Backchannl.BasePostListView = Backbone.View.extend({
     tagName: 'div',

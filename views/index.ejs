@@ -14,8 +14,9 @@
 	
 		/* STARTUP & SETUP */
 		var socket = io.connect("http://<% server %>:<%= port %>");
-		var hotPostList;
-		var newPostList;
+		var hotPostsList;
+		var newPostsList;
+		var allPostsList;
 	
 		$(document).ready(function() {
 			console.log("Document is ready!");
@@ -49,6 +50,7 @@
 			});
 			
 			$("#toggle-post").click(togglePostContainer);
+			$("#show-posts").click(toggleAllPosts);
 			
 			$("#submit-post").click(function() {
 				socket.emit("post", {"text":$("#post-text").val()});
@@ -58,18 +60,18 @@
 			
 			// Do some testing of the backbone situation to see if the pieces
 			// are all working correctly.
-			newPostList = new Backchannl.NewPostList();
-			newPostListView = new Backchannl.NewPostListView({collection: newPostList});
+			newPostsList = new Backchannl.NewPostList();
+			newPostsListView = new Backchannl.NewPostListView({collection: newPostsList});
 			
-			hotPostList = new Backchannl.PostList();
-			hotPostListView = new Backchannl.HotPostListView({collection: hotPostList});
+			hotPostsList = new Backchannl.PostList();
+			hotPostsListView = new Backchannl.HotPostListView({collection: hotPostsList});
 			
-			// newPostList.add(new Post());
-			// hotPostList.add(new Post());
-			
-			$("#dashboard").prepend(newPostListView.render().el);
-			$("#dashboard").prepend(hotPostListView.render().el);
-			
+			allPostsList = new Backchannl.PostList();
+			allPostsListView = new Backchannl.PostListView({collection:allPostsList});
+
+			$("#dashboard").prepend(newPostsListView.render().el);
+			$("#dashboard").prepend(hotPostsListView.render().el);
+			$("#dashboard").append(allPostsListView.render().el);
 		});
 		
 		socket.on('connect', function(data) {
@@ -95,7 +97,7 @@
 			
 			console.log(newPostModel);
 			
-			newPostList.add(newPostModel);
+			newPostsList.add(newPostModel);
 		});
 		
 		function togglePostContainer() {
@@ -110,6 +112,19 @@
 				postContainerEl.animate({top:-131});
 			}
 		}
+		
+		function toggleAllPosts() {
+			var allPostsEl = $("#all");
+
+			if(parseInt(allPostsEl.css("bottom")) > 200) {
+				// Animate to expose it.
+				allPostsEl.animate({bottom:-135});
+			} else {
+				// Animate to hide it.
+				allPostsEl.animate({bottom:306});
+			}
+		}
+		
 	</script>
 	
 	<link rel="stylesheet" href="/static/css/base.css" type="text/css" media="screen"  charset="utf-8">
