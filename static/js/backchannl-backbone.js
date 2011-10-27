@@ -40,7 +40,12 @@ Backchannl.Post = Backbone.Model.extend({
             timestamp: Date.now(),
             votes: [Date.now()]
         };
+    },
+    
+    votes: function() {
+        return this.get("votes").length;
     }
+    
 });
 
 
@@ -103,6 +108,10 @@ Backchannl.PostList = Backbone.Collection.extend({
     first: function() {
         return this.at(0);
     },
+    
+    comparator: function(post) {
+        return post.votes();
+    }
 
 });
 
@@ -125,24 +134,31 @@ Backchannl.NewPostList = Backchannl.PostList.extend({
 
 
 Backchannl.PostListView = Backbone.View.extend({
-    tagName:'div',
     id: 'all',
     
     // template: _.template('')
     
     initialize: function() {
+        
+        console.log("initing POST LIST VIEW with collection: ", this.collection);
+        
         this.collection.bind('add', this.render, this);
         this.collection.bind('remove', this.render, this);
     },
     
     render: function() {
-        // loop through each member of the collection and render them.
         
+        // loop through each member of the collection and render them.
+        $(this.el).html("");
+
         if(this.collection.length > 0) {
-            this.collection.each(function(post) {
-                $(this.el).append(
-                    new Backchannl.PostView({model:post}).render().el);
-            });
+            for(var index = 0; index<this.collection.length; index++) {
+                var post = this.collection.at(index);
+                
+                var newView = new Backchannl.PostView({model:post});
+                console.log(newView.render().el);
+                $(this.el).append(newView.render().el);
+            }
         } else {
                 $(this.el).append("<div class='empty-notice'>\
                 there are no posts yet</div>");
