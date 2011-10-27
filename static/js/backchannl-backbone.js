@@ -96,7 +96,7 @@ Backchannl.PostView = Backbone.View.extend({
     },
 
     vote: function() {
-        this.model.add_vote();
+        socket.emit("post.vote", {"id":this.model.id});
         this.render();
     }
 });

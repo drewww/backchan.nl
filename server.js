@@ -82,6 +82,10 @@ io.sockets.on('connection', function(socket) {
         });
     });
     
+    socket.on("post.vote", function(data) {
+       logger.info("recording vote on post id " + data["id"]);
+        
+    });
     
     socket.on('disconnect', function() {
         // Do something.
