@@ -79,12 +79,17 @@ io.sockets.on('connection', function(socket) {
             data["votes"] = [];
             
             var newPost = new model.ServerPost(data);
+            
+            allPosts.add(newPost);
         });
     });
     
     socket.on("post.vote", function(data) {
        logger.info("recording vote on post id " + data["id"]);
-        
+       
+       var post = allPosts.get(data["id"]);
+       
+       post.add_vote();
     });
     
     socket.on('disconnect', function() {

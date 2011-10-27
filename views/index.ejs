@@ -102,6 +102,11 @@
 			allPostsList.add(newPostModel);
 		});
 		
+		socket.on("post.vote", function(data) {
+			var post = allPostsList.get(data["id"]);
+			post.add_vote(data["timestamp"]);
+		});
+		
 		function togglePostContainer() {
 			// Decide what our current state is.
 			var postContainerEl = $("#post-container");

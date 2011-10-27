@@ -4,6 +4,9 @@ var _ = require('underscore')._
     crypto = require('crypto'),
     logger = require('winston');
 
+logger.cli();
+logger.default.transports.console.timestamp = true;
+
 
 var nextPostId=0;
 exports.ServerPost = base_model.Post.extend({
@@ -27,8 +30,15 @@ exports.ServerPost = base_model.Post.extend({
     
     handleChanged: function() {
         // when a post is changed, this is called.
-        logger.debug("Handling change on post object.");
+        logger.info("Handling change on post object.");
     },
+    
+    add_vote: function() {
+        var timestamp = Date.now();
+        base_model.Post.prototype.add_vote.call(this, timestamp);
+        
+        io.sockets.emit("post.vote", {id:this.id, "timestamp":timestamp});
+    }
 });
 
 
@@ -37,13 +47,12 @@ exports.ServerPostList = base_model.PostList.extend({
     initialize: function(params) {
         base_model.PostList.prototype.initialize.call(this, params);
         
-        
         this.bind("add", function(post) {
-            logger.debug("adding post to post list: ", post);
+            logger.info("adding post to post list");
         });
         
         this.bind("remove", function(post) {
-            logger.debug("removing post from post list: ", post);
+            logger.info("removing post from post list");
         });
     },
     

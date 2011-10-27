@@ -28,7 +28,7 @@ Backchannl.Post = Backbone.Model.extend({
             "votes": currentVoteList
         });
 
-        console.log("Adding vote, total: " + this.get("votes").length);
+        this.trigger("change");
     },
 
 
