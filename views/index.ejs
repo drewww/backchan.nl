@@ -88,10 +88,10 @@
 			
 		});
 		
-		socket.on('post', function(data) {
+		socket.on('post.new', function(data) {
 			
 			// Construct a new post model object out of the data.
-			var newPostModel = new Post(data);
+			var newPostModel = new Backchannl.Post(data);
 			
 			console.log(newPostModel);
 			

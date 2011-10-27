@@ -12,7 +12,6 @@ var app = require('express').createServer(),
 logger.cli();
 logger.default.transports.console.timestamp = true;
 
-logger.info("made a new post: " + new model.ServerPost().isServer);
 
 program.version('0.1')
     .option('-p, --port [num]', 'Set the server port (default 8080)')
@@ -46,6 +45,13 @@ app.get('/', function(req, res) {
 });
 
 io.set("log level", 0);
+
+// Pass of a reference to socket.io to the model so it can manage its own
+// communication.
+model.setIo(io);
+
+var allPosts = new model.ServerPostList();
+
 io.sockets.on('connection', function(socket) {
     
     socket.on("identify", function(data) {
@@ -61,6 +67,9 @@ io.sockets.on('connection', function(socket) {
         // Eventually, we'll need to start storing these. For now, just
         // broadcast them to all clients.
         socket.get("identity", function(err, identityString) {
+            
+            
+            
             logger.info("identityString: " + identityString);
             var identity = JSON.parse(identityString);
             
@@ -69,9 +78,7 @@ io.sockets.on('connection', function(socket) {
             data["timestamp"] = Date.now();
             data["votes"] = [];
             
-            logger.info("broadcasting post: ", data);
-            
-            io.sockets.emit("post", data);
+            var newPost = new model.ServerPost(data);
         });
     });
     

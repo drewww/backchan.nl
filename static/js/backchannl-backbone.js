@@ -16,9 +16,6 @@
 
 
 Backchannl.Post = Backbone.Model.extend({
-    initialize: function() {
-        console.log("initing post");
-    },
 
     add_vote: function(at_timestamp) {
         if (_.isUndefined(at_timestamp) || _.isNull(at_timestamp)) {
@@ -143,7 +140,7 @@ Backchannl.BasePostListView = Backbone.View.extend({
 
         var currentDisplayedPost = this.collection.first();
         if (!_.isUndefined(currentDisplayedPost)) {
-            $(this.el).append(new PostView({
+            $(this.el).append(new Backchannl.PostView({
                 model: currentDisplayedPost
             }).render().el);
         } else {
