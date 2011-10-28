@@ -118,6 +118,17 @@
 			post.add_vote(data["timestamp"]);
 		});
 		
+		socket.on("post.hot", function(data) {
+			
+			if(hotPostsList.length > 0) {
+				hotPostsList.remove(hotPostsList.at(0));
+			}
+			
+			if(data["id"]!=null) {
+				hotPostsList.add(allPostsList.get(data["id"]));
+			}
+		});
+		
 		function togglePostContainer() {
 			// Decide what our current state is.
 			var postContainerEl = $("#post-container");

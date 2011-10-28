@@ -126,10 +126,13 @@ function processHotPosts(repeat) {
         }
     });
     
+    var outputId = null;
     if(topPost != null) {
         logger.info("Found top post, id " + topPost.id + " w/ score " + topPostScore);
-        io.sockets.emit("post.top", {id:topPost.id});
-    }
+        outputId = topPost.id;
+    } 
+    
+    io.sockets.emit("post.hot", {id:outputId});
 }
 
 

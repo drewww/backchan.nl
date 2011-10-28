@@ -174,25 +174,13 @@ Backchannl.PostListView = Backbone.View.extend({
         this.collection.bind('add', this.render, this);
         this.collection.bind('remove', this.render, this);
         this.collection.bind('change', this.render, this);
-        
-        // this.collection.bind('add', this.render, function(post) {
-        //     // post.bind("change", this.render, this);
-        // });
-        // 
-        // this.collection.bind('remove', this.render, this);
-        // 
-        // this.collection.bind('reset', this.render, function() {
-        //     // this.collection.each(function (post) {
-        //     //     post.bind("change", this.render, this);
-        //     // });
-        // });
+        this.collection.bind('reset', this.render, this);
     },
     
     render: function() {
         console.log("POST LIST VIEW RENDER");
         // loop through each member of the collection and render them.
         $(this.el).html("");
-
         
         if(this.collection && this.collection.length > 0) {
             for(var index = 0; index<this.collection.length; index++) {
