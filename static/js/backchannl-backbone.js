@@ -231,16 +231,37 @@ Backchannl.BasePostListView = Backbone.View.extend({
 Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
     id: 'new',
 
-    template: _.template('<h1>new</h1><div class="num-more"></div>'),
+    template: _.template('<h1>new</h1><div class="num-more"></div><div class="post-container"></div></div>'),
     
     initialize: function(params) {
-        Backchannl.BasePostListView.prototype.initialize.call(this, params);
-        
         this.collection.bind("dismiss", this.postDismissed, this);
+        this.collection.bind("add", this.postAdded, this);
     },
     
     render: function() {
-        Backchannl.BasePostListView.prototype.render.call(this);
+        $(this.el).html(this.template());
+
+        var targetEl = $(this.el).children(".post-container");
+        
+        if(this.collection.length == 0) {
+            $(this.el).append("<div class='empty-notice'>\
+            there are no new posts right now</div>");
+            
+            targetEl.css("top", -127);
+        } else {
+            // loop through all the items and put them in the list.
+            
+            // console.log("start index: " + (this.collection.length-1));
+            
+            for(var index = this.collection.length-1; index>=0; index--) {
+                console.log("render index: " + index);
+                targetEl.append(new Backchannl.PostView(
+                    {model:this.collection.at(index)}).render().el);
+            }
+        }
+        
+        // Now set the position properly.
+        targetEl.css("top", -127*(this.collection.length-1));
         
         // now update the num-more indicator.
         console.log("collection size: " + this.collection.length);
@@ -258,18 +279,59 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
         return this;
     },
     
+    postAdded: function() {
+        if(this.collection.length==1) {
+            
+            var targetEl = $(this.el).children(".post-container");
+            targetEl.append(new Backchannl.PostView(
+                {model:this.collection.at(0)}).render().el);
+            
+            targetEl.css("top", -127);
+            targetEl.animate({top:0});
+        } else {
+            this.render();
+        }
+    },
+    
     postDismissed: function() {
-        // get the current item that we're going to animate away.
-        var el = $(this.curShownView.el);
+        
+        
+        var targetEl = $(this.el).children(".post-container");
+        var curTop = parseInt(targetEl.css("top"));
         var theCollection = this.collection;
-        el.css("position", "relative");
-        el.animate({
-            top:120
-        }, function() {
-            console.log("in post animation callback");
+        var theView = this;
+        targetEl.animate({top:curTop + 127}, 500, "linear", function() {
             theCollection.remove(theCollection.at(0));
+            theView.render();
         });
         
+        
+        
+        
+        // var el = $(this.curShownView.el);
+        // var theCollection = this.collection;
+        // el.css("position", "relative");
+        // el.animate({
+        //     top:120
+        // },500, "linear", function() {
+        //     console.log("in post animation callback");
+        //     theCollection.remove(theCollection.at(0));
+        // });
+        // 
+        // if(this.collection.length > 1) {
+        //     console.log("sliding in a new one");
+        //     // queue up the next one.
+        //     var viewForNext = new Backchannl.PostView(
+        //         {model:this.collection.at(1)});
+        //     
+        //     viewForNext.render();
+        //     $(viewForNext.el).css("top", -30);
+        //     $(this.el).append(viewForNext.el);
+        //     $(viewForNext.el).animate({top:0}, 500, "linear",  function() {
+        //         $(this).remove();
+        //     });
+        // }
+        // 
     }
 });
 

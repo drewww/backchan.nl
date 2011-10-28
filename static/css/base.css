@@ -89,8 +89,9 @@ body {
   width: 100px;
   margin-left: 200px;
 }
-#new .post {
+#new .post-container {
   position: relative;
+  top: 0px;
 }
 
 #all {
@@ -144,7 +145,7 @@ body {
   cursor: pointer;
 }
 
-#post-container {
+#add-post-container {
   position: absolute;
   top: -131px;
   left: 50%;

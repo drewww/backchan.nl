@@ -135,9 +135,9 @@ body {
         margin-left: $new-width/2 - $width/2;
     }
     
-    .post {
+    .post-container {
         position: relative;
-        
+        top: 0px;
     }
 }
 
@@ -206,7 +206,7 @@ body {
 }
 
 
-#post-container {
+#add-post-container {
 	position: absolute;
 	top: -($body-height + 1);
 	left: 50%;
