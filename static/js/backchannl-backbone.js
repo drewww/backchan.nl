@@ -44,6 +44,23 @@ Backchannl.Post = Backbone.Model.extend({
     
     votes: function() {
         return this.get("votes").length;
+    },
+    
+    recent_votes: function(since) {
+        if(_.isUndefined(since) || _.isNull(since)) {
+            // If since isn't passed in, default to 2 minutes.
+            since = 120*1000;
+        }
+        
+        var numVoteInWindow = 0;
+        var curTime = Date.now();
+        _.each(this.get("votes"), function (vote) {
+            if((curTime - vote) < since) {
+                numVoteInWindow++;
+            }
+        });
+        
+        return numVoteInWindow;
     }
     
 });

@@ -95,12 +95,42 @@ io.sockets.on('connection', function(socket) {
        var post = allPosts.get(data["id"]);
        
        post.add_vote();
+       
+       processHotPosts();
     });
     
     socket.on('disconnect', function() {
         // Do something.
     });
 });
+
+
+
+function processHotPosts(repeat) {
+    if(_.isUndefined(repeat)) repeat = false;
+    
+    if(repeat) setTimeout(processHotPosts, 5000, true);
+    
+    logger.debug("process hot posts");
+    
+    
+    // Run through all posts and figure out which has the most recent votes.
+    var topPost = null;
+    var topPostScore = 0;
+    
+    allPosts.each(function (post) {
+        var postScore = post.recent_votes();
+        if(post.recent_votes() > topPostScore) {
+            topPost = post;
+            topPostScore = postScore;
+        }
+    });
+    
+    if(topPost != null) {
+        logger.info("Found top post, id " + topPost.id + " w/ score " + topPostScore);
+        io.sockets.emit("post.top", {id:topPost.id});
+    }
+}
 
 
 /******       REDIS SETUP        ******/
@@ -123,4 +153,6 @@ client.once("ready", function(err) {
     
     // TODO technically, we should block other startup binding until this is
     // done. 
+    
+    setTimeout(processHotPosts, 5000, true);
 });
