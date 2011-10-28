@@ -51,8 +51,11 @@ io.set("log level", 0);
 model.setIo(io);
 
 var allPosts = new model.ServerPostList();
+var numConnectedUsers = 0;
 
 io.sockets.on('connection', function(socket) {
+    
+    numConnectedUsers++;
     
     socket.on("identify", function(data) {
         logger.info("identifying: ", data);
@@ -66,6 +69,9 @@ io.sockets.on('connection', function(socket) {
         if(allPosts.length > 0) {
             socket.emit("posts.list", {"posts":allPosts.toJSON()});
         }
+        
+        io.sockets.emit("presence", {"num":numConnectedUsers});
+        
     });
     
     socket.on("post", function(data) {
@@ -101,6 +107,8 @@ io.sockets.on('connection', function(socket) {
     
     socket.on('disconnect', function() {
         // Do something.
+        numConnectedUsers--;
+        io.sockets.emit("presence", {"num":numConnectedUsers});
     });
 });
 

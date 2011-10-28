@@ -129,6 +129,17 @@
 			}
 		});
 		
+		socket.on("presence", function(data) {
+			var text = "";
+			if(data["num"]==1) {
+				text = "1 person connected";
+			} else {
+				text = data["num"] + " people connected";
+			}
+			
+			$("#presence").text(text);
+		});
+		
 		function togglePostContainer() {
 			// Decide what our current state is.
 			var postContainerEl = $("#post-container");
