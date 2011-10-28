@@ -157,7 +157,9 @@ Backchannl.NewPostList = Backchannl.PostList.extend({
     },
     
     postDismissed: function(post) {
-        this.remove(post);
+        
+        // Now animate the current post out of the way.
+        this.trigger("dismiss");
     }
 });
 
@@ -178,7 +180,6 @@ Backchannl.PostListView = Backbone.View.extend({
     },
     
     render: function() {
-        console.log("POST LIST VIEW RENDER");
         // loop through each member of the collection and render them.
         $(this.el).html("");
         
@@ -187,7 +188,6 @@ Backchannl.PostListView = Backbone.View.extend({
                 var post = this.collection.at(index);
                 
                 var newView = new Backchannl.PostView({model:post});
-                console.log(newView.render().el);
                 $(this.el).append(newView.render().el);
             }
         } else {
@@ -200,10 +200,9 @@ Backchannl.PostListView = Backbone.View.extend({
 });
 
 Backchannl.BasePostListView = Backbone.View.extend({
-    tagName: 'div',
-
     // We may not need any here, not sure yet.
     events: {},
+    curShownView: null,
 
     initialize: function() {
         this.collection.bind('add', this.render, this);
@@ -216,9 +215,10 @@ Backchannl.BasePostListView = Backbone.View.extend({
 
         var currentDisplayedPost = this.collection.first();
         if (!_.isUndefined(currentDisplayedPost)) {
-            $(this.el).append(new Backchannl.PostView({
+            this.curShownView = new Backchannl.PostView({
                 model: currentDisplayedPost
-            }).render().el);
+            });
+            $(this.el).append(this.curShownView.render().el);
         } else {
             $(this.el).append("<div class='empty-notice'>\
             there are no new posts right now</div>");
@@ -232,6 +232,12 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
     id: 'new',
 
     template: _.template('<h1>new</h1><div class="num-more"></div>'),
+    
+    initialize: function(params) {
+        Backchannl.BasePostListView.prototype.initialize.call(this, params);
+        
+        this.collection.bind("dismiss", this.postDismissed, this);
+    },
     
     render: function() {
         Backchannl.BasePostListView.prototype.render.call(this);
@@ -250,12 +256,25 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
         console.log("num-more", $(this.el).children(".num-more"));
         
         return this;
+    },
+    
+    postDismissed: function() {
+        // get the current item that we're going to animate away.
+        var el = $(this.curShownView.el);
+        var theCollection = this.collection;
+        el.css("position", "relative");
+        el.animate({
+            top:120
+        }, function() {
+            console.log("in post animation callback");
+            theCollection.remove(theCollection.at(0));
+        });
+        
     }
 });
 
 
 Backchannl.HotPostListView = Backchannl.BasePostListView.extend({
-    tagName: 'div',
     id: 'hot',
 
     template: _.template('<h1>hot</h1>'),

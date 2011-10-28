@@ -118,6 +118,8 @@ body {
     $new-width: $total-width/2 - 1;
 	width: $new-width;
 	
+	overflow: hidden;
+	
 	h1 {
     	float: right;
     }
@@ -131,6 +133,11 @@ body {
         $width: 100px;
         width: $width;
         margin-left: $new-width/2 - $width/2;
+    }
+    
+    .post {
+        position: relative;
+        
     }
 }
 

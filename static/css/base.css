@@ -76,6 +76,7 @@ body {
 
 #new {
   width: 500px;
+  overflow: hidden;
 }
 #new h1 {
   float: right;
@@ -87,6 +88,9 @@ body {
   text-align: center;
   width: 100px;
   margin-left: 200px;
+}
+#new .post {
+  position: relative;
 }
 
 #all {
