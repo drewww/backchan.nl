@@ -70,6 +70,9 @@ body {
 #hot h1 {
   float: left;
 }
+#hot .dismiss-button {
+  display: none;
+}
 
 #new {
   width: 500px;
@@ -101,6 +104,9 @@ body {
   float: left;
   margin-right: 0px;
   margin-top: 5px;
+}
+#all .post .dismiss-button {
+  display: none;
 }
 
 #footer {

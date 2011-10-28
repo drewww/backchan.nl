@@ -108,6 +108,10 @@ body {
 	h1 {
     	float: left;
     }
+    
+    .dismiss-button {
+        display: none;
+    }
 }
 
 #new {
@@ -147,6 +151,10 @@ body {
         float: left;
         margin-right: 0px;
         margin-top: 5px;
+        
+        .dismiss-button {
+            display: none;
+        }
     }
     
     z-index: -10;
