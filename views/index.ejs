@@ -74,6 +74,20 @@
 			$("#dashboard").append(allPostsListView.render().el);
 		});
 		
+		socket.on("posts.list", function(data) {
+			// Replace our "allPosts" list with this list.
+			
+			var newModels = [];
+			for(var index in data["posts"]) {
+				var postDict = data["posts"][index];
+				var post = new Backchannl.Post(postDict);
+				newModels.push(post);
+			}
+			
+			allPostsList.reset(newModels);
+			allPostsList.trigger("reset");
+		});
+		
 		socket.on('connect', function(data) {
 			console.log("Connected to server.");
 		});

@@ -97,6 +97,7 @@ Backchannl.PostView = Backbone.View.extend({
 
     vote: function() {
         socket.emit("post.vote", {"id":this.model.id});
+        this.model.trigger("dismiss", this.model);
         this.render();
     }
 });
@@ -144,6 +145,7 @@ Backchannl.PostListView = Backbone.View.extend({
         
         this.collection.bind('add', this.render, this);
         this.collection.bind('remove', this.render, this);
+        this.collection.bind('reset', this.render, this);
     },
     
     render: function() {

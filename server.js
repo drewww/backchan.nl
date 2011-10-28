@@ -61,6 +61,11 @@ io.sockets.on('connection', function(socket) {
         // is just an added headache.
         socket.set("identity", JSON.stringify(data));
         socket.emit("identify", data);
+        
+        // Now dump all current state. 
+        if(allPosts.length > 0) {
+            socket.emit("posts.list", {"posts":allPosts.toJSON()});
+        }
     });
     
     socket.on("post", function(data) {
