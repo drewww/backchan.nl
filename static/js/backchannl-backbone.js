@@ -105,13 +105,24 @@ Backchannl.PostView = Backbone.View.extend({
 Backchannl.PostList = Backbone.Collection.extend({
 
     model: Backchannl.Post,
+    
+    initialize: function(params) {
+        Backbone.Collection.prototype.initialize.call(this, params);
+        
+        theCollection = this
+        this.bind("add", function(p) {
+            p.bind("change", function() {
+                theCollection.sort({silent:true});
+            });
+        });
+    },
 
     first: function() {
         return this.at(0);
     },
     
     comparator: function(post) {
-        return post.votes();
+        return -post.votes();
     }
 
 });
@@ -142,18 +153,31 @@ Backchannl.PostListView = Backbone.View.extend({
     initialize: function() {
         
         console.log("initing POST LIST VIEW with collection: ", this.collection);
-        
+
         this.collection.bind('add', this.render, this);
         this.collection.bind('remove', this.render, this);
-        this.collection.bind('reset', this.render, this);
+        this.collection.bind('change', this.render, this);
+        
+        // this.collection.bind('add', this.render, function(post) {
+        //     // post.bind("change", this.render, this);
+        // });
+        // 
+        // this.collection.bind('remove', this.render, this);
+        // 
+        // this.collection.bind('reset', this.render, function() {
+        //     // this.collection.each(function (post) {
+        //     //     post.bind("change", this.render, this);
+        //     // });
+        // });
     },
     
     render: function() {
-        
+        console.log("POST LIST VIEW RENDER");
         // loop through each member of the collection and render them.
         $(this.el).html("");
 
-        if(this.collection.length > 0) {
+        
+        if(this.collection && this.collection.length > 0) {
             for(var index = 0; index<this.collection.length; index++) {
                 var post = this.collection.at(index);
                 

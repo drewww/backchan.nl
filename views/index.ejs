@@ -77,15 +77,14 @@
 		socket.on("posts.list", function(data) {
 			// Replace our "allPosts" list with this list.
 			
-			var newModels = [];
+			allPostsList.reset([]);
 			for(var index in data["posts"]) {
 				var postDict = data["posts"][index];
 				var post = new Backchannl.Post(postDict);
-				newModels.push(post);
+				allPostsList.add(post);
 			}
 			
-			allPostsList.reset(newModels);
-			allPostsList.trigger("reset");
+
 		});
 		
 		socket.on('connect', function(data) {
