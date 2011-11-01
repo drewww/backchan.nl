@@ -12,12 +12,10 @@ var nextPostId=0;
 exports.ServerPost = base_model.Post.extend({
     initialize: function(params) {
         // call super
-        
-        
         base_model.Post.prototype.initialize.call(this, params);
 
+        // Set and increment the post id.
         this.set({id:nextPostId++});
-        logger.info("id: " + this.id);
         
         // setup listeners for particular change events that we're going to 
         // want to send to clients. 
@@ -59,9 +57,56 @@ exports.ServerPostList = base_model.PostList.extend({
     
 });
 
+var nextUserId = 0;
+exports.ServerUser = Backbone.Model.extend({
+    
+    initialize: function(params) {
+        Backbone.Model.prototype.initialize.call(this, params);
+        
+        this.set({id:nextUserId++});
+    },
+    
+    defaults: function() {
+        return {
+            name: "default name",
+            affiliation: "default affiliation",
+            connected: false
+        };
+    },
+    
+});
+
+exports.ServerUserList = Backbone.Collection.extend({
+    
+    
+    get_connected_users: function() {
+        var connectedUsersList = [];
+        
+        this.each(function(user) {
+            if(user.get("connected")) connectedUsersList.push(user);
+        });
+        
+        return connectedUsersList;
+    },
+    
+    num_connected_users: function() {
+        return this.get_connected_users().length;
+    },
+    
+    get_user: function(name, affiliation) {
+        var filteredList = this.find(function(user) {
+            return user.get("name") == name &&
+                   user.get("affiliation")==affiliation;
+        });
+        
+        
+    }
+});
+
 // Make sure to call this first so the models here have access to socket
 // in its initialized state.
 var io = null;
 exports.setIo = function(existingIo) {
     io = existingIo;
 }
+

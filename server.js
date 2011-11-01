@@ -53,6 +53,8 @@ model.setIo(io);
 var allPosts = new model.ServerPostList();
 var numConnectedUsers = 0;
 
+var allUsers = new model.ServerUserList();
+
 io.sockets.on('connection', function(socket) {
     
     numConnectedUsers++;
@@ -62,7 +64,19 @@ io.sockets.on('connection', function(socket) {
         // For now just shove both into a single string. Could call them 
         // out separately, but not sure it really matters. Storing JSON
         // is just an added headache.
-        socket.set("identity", JSON.stringify(data));
+        
+        // Check and see if we know this person already. 
+        var user = allUsers.get_user(data["name"], data["affiliation"]);
+        
+        if(_.isUndefined(user)) {
+            // Make a new user and save it.
+            var user = new model.ServerUser(data);
+            allUsers.add(user);
+        } 
+        
+        user.set({"connected":true});
+        
+        socket.set("identity", user.id);
         socket.emit("identify", data);
         
         // Now dump all current state. 
@@ -77,15 +91,11 @@ io.sockets.on('connection', function(socket) {
     socket.on("post", function(data) {
         // Eventually, we'll need to start storing these. For now, just
         // broadcast them to all clients.
-        socket.get("identity", function(err, identityString) {
+        socket.get("identity", function(err, userId) {
+            var user = allUsers.get(userId);
             
-            
-            
-            logger.info("identityString: " + identityString);
-            var identity = JSON.parse(identityString);
-            
-            data["from_name"] = identity["name"];
-            data["from_affiliation"] = identity["affiliation"];
+            data["from_name"] = user.get("name");
+            data["from_affiliation"] = user.get("affiliation");
             data["timestamp"] = Date.now();
             data["votes"] = [];
             
@@ -109,6 +119,11 @@ io.sockets.on('connection', function(socket) {
         // Do something.
         numConnectedUsers--;
         io.sockets.emit("presence", {"num":numConnectedUsers});
+        
+        socket.get("identity", function(userId) {
+            var user = allUsers.get(userId);
+            user.set({"connected":false});
+        });
     });
 });
 
