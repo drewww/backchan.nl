@@ -31,11 +31,10 @@ exports.ServerPost = base_model.Post.extend({
         logger.info("Handling change on post object.");
     },
     
-    add_vote: function() {
-        var timestamp = Date.now();
-        base_model.Post.prototype.add_vote.call(this, timestamp);
+    add_vote: function(at_timestamp, from_user) {
+        base_model.Post.prototype.add_vote.call(this, at_timestamp, from_user);
         
-        io.sockets.emit("post.vote", {id:this.id, "timestamp":timestamp});
+        io.sockets.emit("post.vote", {id:this.id, "timestamp":at_timestamp});
     }
 });
 
@@ -94,12 +93,10 @@ exports.ServerUserList = Backbone.Collection.extend({
     },
     
     get_user: function(name, affiliation) {
-        var filteredList = this.find(function(user) {
+        return this.find(function(user) {
             return user.get("name") == name &&
                    user.get("affiliation")==affiliation;
         });
-        
-        
     }
 });
 

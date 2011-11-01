@@ -65,13 +65,18 @@ io.sockets.on('connection', function(socket) {
         // out separately, but not sure it really matters. Storing JSON
         // is just an added headache.
         
+        logger.info("users: " + allUsers.toJSON());
+        
         // Check and see if we know this person already. 
         var user = allUsers.get_user(data["name"], data["affiliation"]);
         
         if(_.isUndefined(user)) {
             // Make a new user and save it.
-            var user = new model.ServerUser(data);
+            user = new model.ServerUser(data);
             allUsers.add(user);
+            
+            logger.info("Making new user: " + data["name"] + "/" + data["affiliation"] + " ("+user.id+")");
+            
         } 
         
         user.set({"connected":true});
@@ -93,7 +98,7 @@ io.sockets.on('connection', function(socket) {
         // broadcast them to all clients.
         socket.get("identity", function(err, userId) {
             var user = allUsers.get(userId);
-            
+                        
             data["from_name"] = user.get("name");
             data["from_affiliation"] = user.get("affiliation");
             data["timestamp"] = Date.now();
@@ -106,13 +111,24 @@ io.sockets.on('connection', function(socket) {
     });
     
     socket.on("post.vote", function(data) {
-       logger.info("recording vote on post id " + data["id"]);
-       
-       var post = allPosts.get(data["id"]);
-       
-       post.add_vote();
-       
-       processHotPosts();
+        socket.get("identity", function(err, userId) {
+            
+            logger.debug("userId: " + userId);
+            var user = allUsers.get(userId);
+            
+            logger.debug("fetchedUser: " + user.id);
+            
+            var post = allPosts.get(data["id"]);
+            
+            if(!post.has_vote_from(user.id)) {
+                logger.debug("recording vote on post id " + data["id"] + " from " + user.id);
+                post.add_vote(Date.now(), user.id);
+            } else {
+                logger.debug("user has already voted on that post");
+            }
+            
+            processHotPosts();
+        });
     });
     
     socket.on('disconnect', function() {
@@ -120,7 +136,7 @@ io.sockets.on('connection', function(socket) {
         numConnectedUsers--;
         io.sockets.emit("presence", {"num":numConnectedUsers});
         
-        socket.get("identity", function(userId) {
+        socket.get("identity", function(err, userId) {
             var user = allUsers.get(userId);
             user.set({"connected":false});
         });

@@ -17,13 +17,20 @@
 
 Backchannl.Post = Backbone.Model.extend({
 
-    add_vote: function(at_timestamp) {
+    add_vote: function(at_timestamp, from_user) {
+        console.log("incoming: " + at_timestamp + " / " + from_user);
         if (_.isUndefined(at_timestamp) || _.isNull(at_timestamp)) {
             at_timestamp = Date.now();
         }
+        
+        if(_.isUndefined(from_user)) {
+            from_user = null;
+        }
+        
+        console.log("adding vote: " + at_timestamp + " from user: " + from_user);
 
         var currentVoteList = this.get("votes");
-        currentVoteList.push(at_timestamp);
+        currentVoteList.push({"timestamp":at_timestamp, "id":from_user});
         this.set({
             "votes": currentVoteList
         });
@@ -38,7 +45,7 @@ Backchannl.Post = Backbone.Model.extend({
             from_affiliation: "nowhere",
             text: "default text",
             timestamp: Date.now(),
-            votes: [Date.now()]
+            votes: []
         };
     },
     
@@ -54,13 +61,19 @@ Backchannl.Post = Backbone.Model.extend({
         
         var numVoteInWindow = 0;
         var curTime = Date.now();
-        _.each(this.get("votes"), function (vote) {
-            if((curTime - vote) < since) {
-                numVoteInWindow++;
-            }
+        
+        
+        var votesInWindow = _.filter(this.get("votes"), function(vote) {
+            return (curTime - vote["timestamp"]) < since
         });
         
-        return numVoteInWindow;
+        return votesInWindow.length;
+    },
+    
+    has_vote_from: function(userId) {
+        return _.find(this.get("votes"), function(vote) {
+            return vote["id"]==userId;
+        });
     }
     
 });
