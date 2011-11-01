@@ -87,7 +87,7 @@ Backchannl.PostView = Backbone.View.extend({
     <%= from_name %> / <%= from_affiliation %>\
     </span>\
     <span class="timestamp">\
-    <%=timestamp%>\
+    <%=((Date.now() - timestamp)/60000).toFixed(1)%> minutes old \
     </span>\
     </div>\
     <br class="clear">\
