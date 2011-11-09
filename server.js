@@ -138,7 +138,10 @@ io.sockets.on('connection', function(socket) {
         
         socket.get("identity", function(err, userId) {
             var user = allUsers.get(userId);
-            user.set({"connected":false});
+            
+            if(!_.isNull(user)) {
+                user.set({"connected":false});
+            }
         });
     });
 });
