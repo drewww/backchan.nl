@@ -40,7 +40,11 @@ app.use("/static", express.static(__dirname + '/static'));
 
 // Setup the index page.
 app.get('/', function(req, res) {
-    res.render('index.ejs', {layout:false, locals:{"server":server,
+    res.render('index.ejs', {layout:false});
+});
+
+app.get('/app', function(req, res) {
+    res.render('app.ejs', {layout:false, locals:{"server":server,
         "port":port}});
 });
 
