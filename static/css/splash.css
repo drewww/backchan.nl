@@ -1,0 +1,50 @@
+/* Define colors */
+/* define sizes */
+/* define global mixins */
+body {
+  font-family: Helvetica, sans-serif;
+  color: #eee;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #242429), color-stop(100%, #161618));
+  background-image: -webkit-linear-gradient(#242429, #161618);
+  background-image: -moz-linear-gradient(#242429, #161618);
+  background-image: -o-linear-gradient(#242429, #161618);
+  background-image: -ms-linear-gradient(#242429, #161618);
+  background-image: linear-gradient(#242429, #161618);
+  /*    background-repeat: no-repeat;*/
+  /*    background-color: #161618;*/
+  margin: 0px;
+}
+
+#container {
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
+#container h1 {
+  margin-bottom: 2px;
+}
+#container > div {
+  background-color: #eee;
+  color: #161618;
+  padding: 10px;
+  border: 1px solid black;
+  -webkit-border-radius: 5px 5px;
+  -moz-border-radius: 5px / 5px;
+  -o-border-radius: 5px / 5px;
+  -ms-border-radius: 5px / 5px;
+  -khtml-border-radius: 5px / 5px;
+  border-radius: 5px / 5px;
+}
+#container > div p {
+  margin-top: 0px;
+}
+#container > div > p:last-child {
+  margin-bottom: 0px;
+}
+#container .button {
+  margin: 10px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

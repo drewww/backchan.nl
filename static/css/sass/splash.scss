@@ -1,0 +1,81 @@
+@import "compass";
+@import "compass/css3/border-radius";
+
+/* Define colors */
+
+$background: black;
+$foreground: white;
+
+$text-color: #000;
+$light-text-color: #aaa;
+
+/* define sizes */
+$total-width: 1002px;
+$total-height: 150px;
+
+$footer-height: 20px;
+$body-height: $total-height - $footer-height;
+
+$header-height: 20px;
+
+$dialog-width: 300px;
+
+$post-height: 100px;
+
+/* define global mixins */
+
+@mixin clickable {
+	cursor: pointer;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+    
+    color: #eee;
+    
+    @include background-image(linear-gradient(#242429, #161618));
+/*    background-repeat: no-repeat;*/
+    
+/*    background-color: #161618;*/
+
+    margin: 0px;
+}
+
+#container {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    
+    h1 {
+        margin-bottom: 2px;
+    }
+    
+    & > div {
+        background-color: #eee;
+        color: #161618;
+        
+        padding: 10px;
+        
+        border: 1px solid black;
+        
+        @include border-radius(5px,5px);
+        
+        p {
+            margin-top: 0px;
+        }
+        
+        & > p:last-child {
+            margin-bottom: 0px;
+        }
+    }
+
+    .button {
+        margin: 10px;
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        
+        text-align: center;
+    }
+    
+}
