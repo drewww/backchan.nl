@@ -119,6 +119,7 @@ body {
 	width: $total-width/2;
 	border-right: 1px solid #ccc;
 
+	background-color: #F3E5E5;
 	
 	h1 {
     	float: left;
@@ -135,6 +136,7 @@ body {
     $new-width: $total-width/2 - 1;
 	width: $new-width;
 
+    background-color: #EBF6EB;
 	
 	overflow: hidden;
 	

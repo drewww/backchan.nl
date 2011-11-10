@@ -67,6 +67,7 @@ body {
 #hot {
   width: 501px;
   border-right: 1px solid #ccc;
+  background-color: #F3E5E5;
 }
 #hot h1 {
   float: left;
@@ -83,6 +84,7 @@ body {
 
 #new {
   width: 500px;
+  background-color: #EBF6EB;
   overflow: hidden;
 }
 #new h1 {
