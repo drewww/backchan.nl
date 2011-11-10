@@ -154,14 +154,20 @@
 		}
 		
 		function toggleAllPosts() {
+			
+			
 			var allPostsEl = $("#all");
 			console.log("top: " + allPostsEl.css("top"));
 			if(parseInt(allPostsEl.css("top")) > 0) {
 				// Animate to expose it.
 				allPostsEl.animate({top:-290});
+				window.resizeBy(0, -500);
+				window.moveBy(0, 500);
+				
 			} else {
 				// Animate to hide it.
 				allPostsEl.animate({top:152});
+				window.resizeBy(0, 500);
 			}
 		}
 		

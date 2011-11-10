@@ -43,6 +43,9 @@ body {
 	color: $text-color;
 	
 	background-color: $background;
+	
+    overflow-y: hidden;
+	
 }
 
 #container {
@@ -164,6 +167,8 @@ body {
 }
 
 #all {
+    
+    background-color: #eee;
     position: absolute;
     top: -290px;
     
@@ -350,7 +355,7 @@ body {
     
     border: 1px solid $background;
 
-    background-color: #eee;
+    background-color: #fff;
     
     @include border-radius(5px);
     

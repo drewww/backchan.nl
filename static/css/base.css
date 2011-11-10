@@ -6,6 +6,7 @@ body {
   margin: 0px;
   color: #161618;
   background-color: #161618;
+  overflow-y: hidden;
 }
 
 #container {
@@ -110,6 +111,7 @@ body {
 }
 
 #all {
+  background-color: #eee;
   position: absolute;
   top: -290px;
   margin-left: -1px;
@@ -279,7 +281,7 @@ body {
   margin-right: 10px;
   height: 95px;
   border: 1px solid #161618;
-  background-color: #eee;
+  background-color: #fff;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
