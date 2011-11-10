@@ -20,7 +20,7 @@ $header-height: 20px;
 
 $dialog-width: 300px;
 
-$post-height: 100px;
+$post-height: 95px;
 
 /* define global mixins */
 
@@ -97,7 +97,7 @@ body {
 	height: $body-height;
 	
 	.post {
-	    margin-top: 25px;
+	    margin-top: 28px;
     }
 }
 
@@ -303,7 +303,7 @@ body {
 
 
 .button {
-    margin: 5px;
+    margin: 2px;
     text-align: center;
     
     font-weight: bold;
@@ -340,37 +340,45 @@ body {
 	
 }
 
-.post {
+    .post {
     
-    width: 480px;
-    margin-left: 10px;
+    width: 489px;
+    margin-left: 5px;
     margin-right: 10px;
     
     height: $post-height;
     
     border: 1px solid $background;
+
+    background-color: #eee;
+    
+    @include border-radius(5px);
     
     .button-container {
         float: left;
 /*        height: 100%;*/
-        height: $body-height - $header-height;
+        height: $post-height - 11;
         padding: 10px 2px 2px 2px;
 
         margin-right: 5px;
         
         text-align: center;
         
+        border-right: 1px solid #ccc;
+        
+        background-color: #aaa;
+        
         .vote-button {
             @include clickable;
             
             border: 1px solid $background;
-            width: 28px;
-            height: 25px;
-            font-size: 16px;
-            padding-top: 5px;
-            padding-left: 2px;
+            width: 55px;
+            height: 33px;
+            font-size: 25px;
             
-            margin: 10px auto 10px auto;
+            padding: 3px 0px 0px 0px;
+            
+            text-aligin: center;
         }
         
         .dismiss-button {
@@ -384,7 +392,7 @@ body {
     .text {
         height: 75px;
         overflow: hidden;
-        width: 420px;
+        width: 419px;
     }
     
     .byline, .timestamp {
@@ -394,12 +402,7 @@ body {
     }
     
     .byline {
-        float: left;
         margin-left: 20px;
-        
-        &:before {
-            content: "from ";
-        };
     }
     
     .timestamp {

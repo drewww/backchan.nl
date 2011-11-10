@@ -85,23 +85,16 @@ Backchannl.PostView = Backbone.View.extend({
 
     template: _.template('<div class="post">\
     <div class="button-container">\
-    <div class="vote-button">\
+    <div class="vote-button button">\
     	<%=votes.length%>\
     </div>\
-    <div class="dismiss-button">\
+    <div class="dismiss-button button">\
     dismiss\
     </div>\
     </div>\
     <div class="text">\
-        <%=text%>\
-    </div>\
-    <div class="footer">\
-    <span class="byline">\
-    <%= from_name %> / <%= from_affiliation %>\
-    </span>\
-    <span class="timestamp">\
-    <%=((Date.now() - timestamp)/60000).toFixed(1)%> minutes old \
-    </span>\
+        <%=text%><br/>\
+        <span class="byline">&mdash;<%=from_name + ", " + from_affiliation%></span>\
     </div>\
     <br class="clear">\
     </div>'),

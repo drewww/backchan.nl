@@ -51,7 +51,7 @@ body {
   height: 130px;
 }
 #hot .post, #new .post {
-  margin-top: 25px;
+  margin-top: 28px;
 }
 
 .empty-notice {
@@ -116,7 +116,7 @@ body {
   width: 1002px;
   overflow-y: scroll;
   /* space for 8 posts on screen at a time, with room for padding. */
-  height: 440px;
+  height: 420px;
   z-index: -10;
   border: 1px solid #161618;
 }
@@ -232,7 +232,7 @@ body {
 }
 
 .button {
-  margin: 5px;
+  margin: 2px;
   text-align: center;
   font-weight: bold;
   font-size: 0.8em;
@@ -274,19 +274,28 @@ body {
 }
 
 .post {
-  width: 480px;
-  margin-left: 10px;
+  width: 489px;
+  margin-left: 5px;
   margin-right: 10px;
-  height: 100px;
+  height: 95px;
   border: 1px solid #161618;
+  background-color: #eee;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
 }
 .post .button-container {
   float: left;
   /*        height: 100%;*/
-  height: 110px;
+  height: 84px;
   padding: 10px 2px 2px 2px;
   margin-right: 5px;
   text-align: center;
+  border-right: 1px solid #ccc;
+  background-color: #aaa;
 }
 .post .button-container .vote-button {
   cursor: pointer;
@@ -295,12 +304,11 @@ body {
   -khtml-user-select: none;
   user-select: none;
   border: 1px solid #161618;
-  width: 28px;
-  height: 25px;
-  font-size: 16px;
-  padding-top: 5px;
-  padding-left: 2px;
-  margin: 10px auto 10px auto;
+  width: 55px;
+  height: 33px;
+  font-size: 25px;
+  padding: 3px 0px 0px 0px;
+  text-aligin: center;
 }
 .post .button-container .dismiss-button {
   cursor: pointer;
@@ -314,7 +322,7 @@ body {
 .post .text {
   height: 75px;
   overflow: hidden;
-  width: 420px;
+  width: 419px;
 }
 .post .byline, .post .timestamp {
   color: #787882;
@@ -322,11 +330,7 @@ body {
   font-size: 12px;
 }
 .post .byline {
-  float: left;
   margin-left: 20px;
-}
-.post .byline:before {
-  content: "from ";
 }
 .post .timestamp {
   float: right;
