@@ -1,9 +1,12 @@
+@import "compass/css3";
+
 /* Define colors */
 
-$background: black;
-$foreground: white;
+$background: #161618;
+$background-light: #242429;
+$foreground: #eee;
 
-$text-color: #000;
+$text-color: #161618;
 $light-text-color: #aaa;
 
 /* define sizes */
@@ -21,14 +24,25 @@ $post-height: 100px;
 
 /* define global mixins */
 
+@mixin user-select($select) {
+  $select: unquote($select);
+  @include experimental(user-select, $select,
+    -moz, -webkit, not -o, not -ms, -khtml, official
+  );
+}
+
 @mixin clickable {
 	cursor: pointer;
+	
+	@include user-select(none);
 }
 
 body {
 	font-family: Helvetica, sans-serif;
 	margin: 0px;
 	color: $text-color;
+	
+	background-color: $background;
 }
 
 #container {
@@ -104,9 +118,12 @@ body {
 #hot {
 	width: $total-width/2;
 	border-right: 1px solid #ccc;
+
 	
 	h1 {
     	float: left;
+    	
+    	@include border-bottom-right-radius(5px);
     }
     
     .dismiss-button {
@@ -117,11 +134,14 @@ body {
 #new {
     $new-width: $total-width/2 - 1;
 	width: $new-width;
+
 	
 	overflow: hidden;
 	
 	h1 {
     	float: right;
+    	@include border-bottom-left-radius(5px);
+        
     }
     
     .num-more {
@@ -202,6 +222,9 @@ body {
 	
 	font-size: 1.3em;
 	
+	background-color: $background-light;
+	border: 1px solid $light-text-color;
+	
 	@include clickable;
 }
 
@@ -238,9 +261,14 @@ body {
 	
 	text-align: center;
 	
-	border: 1px solid $background;
-	border-top: none;
-	background-color: #ddd;
+	background-color: $background-light;
+	
+	color: $foreground;
+	
+	@include border-bottom-right-radius(5px);
+	@include border-bottom-left-radius(5px);
+	
+	@include box-shadow(#000, 1px, 1px, 2px, 0);
 	
 	z-index: 2;
 	

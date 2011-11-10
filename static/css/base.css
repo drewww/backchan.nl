@@ -4,13 +4,14 @@
 body {
   font-family: Helvetica, sans-serif;
   margin: 0px;
-  color: black;
+  color: #161618;
+  background-color: #161618;
 }
 
 #container {
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid black;
+  border: 1px solid #161618;
   width: 1002px;
   height: 150px;
   background-color: white;
@@ -36,8 +37,8 @@ body {
   height: 100%;
 }
 #dashboard > div h1 {
-  background-color: black;
-  color: white;
+  background-color: #161618;
+  color: #eeeeee;
   width: 50px;
   text-align: center;
   margin-top: 0px;
@@ -69,6 +70,12 @@ body {
 }
 #hot h1 {
   float: left;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -o-border-bottom-right-radius: 5px;
+  -ms-border-bottom-right-radius: 5px;
+  -khtml-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 #hot .dismiss-button {
   display: none;
@@ -80,10 +87,16 @@ body {
 }
 #new h1 {
   float: right;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -o-border-bottom-left-radius: 5px;
+  -ms-border-bottom-left-radius: 5px;
+  -khtml-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 #new .num-more {
-  background-color: black;
-  color: white;
+  background-color: #161618;
+  color: #eeeeee;
   float: left;
   text-align: center;
   width: 100px;
@@ -103,7 +116,7 @@ body {
   /* space for 8 posts on screen at a time, with room for padding. */
   height: 440px;
   z-index: -10;
-  border: 1px solid black;
+  border: 1px solid #161618;
 }
 #all .post {
   float: left;
@@ -115,9 +128,9 @@ body {
 }
 
 #footer {
-  background-color: black;
+  background-color: #161618;
   text-align: center;
-  color: white;
+  color: #eeeeee;
   height: 20px;
   font-size: 0.8em;
 }
@@ -142,7 +155,13 @@ body {
   width: 150px;
   margin-left: -75px;
   font-size: 1.3em;
+  background-color: #242429;
+  border: 1px solid #aaaaaa;
   cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }
 
 #add-post-container {
@@ -155,8 +174,8 @@ body {
 }
 
 #post {
-  background-color: white;
-  border: 1px solid black;
+  background-color: #eeeeee;
+  border: 1px solid #161618;
   height: 130px;
 }
 
@@ -168,11 +187,30 @@ body {
   width: 150px;
   margin-left: -75px;
   text-align: center;
-  border: 1px solid black;
-  border-top: none;
-  background-color: #ddd;
+  background-color: #242429;
+  color: #eeeeee;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -o-border-bottom-right-radius: 5px;
+  -ms-border-bottom-right-radius: 5px;
+  -khtml-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -o-border-bottom-left-radius: 5px;
+  -ms-border-bottom-left-radius: 5px;
+  -khtml-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-box-shadow: 1px 1px 2px 0 black;
+  -webkit-box-shadow: 1px 1px 2px 0 black;
+  -o-box-shadow: 1px 1px 2px 0 black;
+  box-shadow: 1px 1px 2px 0 black;
   z-index: 2;
   cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }
 
 .post {
@@ -180,7 +218,7 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid #161618;
 }
 .post .button-container {
   float: left;
@@ -192,7 +230,11 @@ body {
 }
 .post .button-container .vote-button {
   cursor: pointer;
-  border: 1px solid black;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  border: 1px solid #161618;
   width: 28px;
   height: 25px;
   font-size: 16px;
@@ -202,8 +244,12 @@ body {
 }
 .post .button-container .dismiss-button {
   cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
   font-size: 12px;
-  border: 1px solid black;
+  border: 1px solid #161618;
 }
 .post .text {
   height: 75px;
@@ -211,7 +257,7 @@ body {
   width: 420px;
 }
 .post .byline, .post .timestamp {
-  color: #666666;
+  color: #787882;
   font-style: italic;
   font-size: 12px;
 }
