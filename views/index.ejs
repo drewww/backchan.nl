@@ -14,7 +14,10 @@
 				$(this).removeClass("pressed");
 				
 				// Make the new window!.
-				window.open("/app", "backchannl &mdash; thing", "left=0px,top="+screen.height-180+"resizable=no,menubar=no,scrollbars=no,toolbar=no,location=no,height=180,width=" + screen.width);
+				
+				var optionsString = "left=0px,top="+(screen.height-180)+",resizable=no,menubar=no,scrollbars=no,toolbar=no,location=no,height=180,width=" + screen.width;
+				
+				window.open("/app", "backchannl &mdash; thin", optionsString);
 			})
 
 			
