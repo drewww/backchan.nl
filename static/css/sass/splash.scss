@@ -1,5 +1,13 @@
 @import "compass";
 @import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+
+@mixin user-select($select) {
+  $select: unquote($select);
+  @include experimental(user-select, $select,
+    -moz, -webkit, not -o, not -ms, -khtml, official
+  );
+}
 
 /* Define colors */
 
@@ -51,6 +59,9 @@ body {
     }
     
     & > div {
+        
+        @include box-shadow(#000, 1px, 1px, 2px, 0, inset);
+        
         background-color: #eee;
         color: #161618;
         
@@ -76,6 +87,23 @@ body {
         margin-right: auto;
         
         text-align: center;
+        
+        font-weight: bold;
+        font-size: 1.2em;
+        
+        @include box-shadow(none);
+        
+        border: 1px solid #aaa;
+        color: #eee;
+        
+        @include background-image(linear-gradient(#575757, #171717));
+        cursor: pointer;
+        
+        @include user-select(none);
+    }
+    
+    .button.pressed {
+        @include background-image(linear-gradient(#171717, #575757));
     }
     
 }

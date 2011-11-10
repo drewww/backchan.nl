@@ -8,6 +8,25 @@
 	
 	<script type="text/javascript" charset="utf-8">
 		
+		$(document).ready(function() {
+			
+			$(".button").mousedown(function() {
+				$(this).addClass("pressed");
+			});
+
+			$(".button").mouseup(function() {
+				$(this).removeClass("pressed");
+			});
+			
+			$(".button").click(function() {
+				
+				// Make the new window!.
+				console.log("opening window!");
+			})
+
+			
+		});
+		
 	</script>
 	
 	<link rel="stylesheet" href="/static/css/splash.css" type="text/css" media="screen"  charset="utf-8">

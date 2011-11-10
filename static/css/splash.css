@@ -24,6 +24,10 @@ body {
   margin-bottom: 2px;
 }
 #container > div {
+  -moz-box-shadow: inset 1px 1px 2px 0 black;
+  -webkit-box-shadow: inset 1px 1px 2px 0 black;
+  -o-box-shadow: inset 1px 1px 2px 0 black;
+  box-shadow: inset 1px 1px 2px 0 black;
   background-color: #eee;
   color: #161618;
   padding: 10px;
@@ -47,4 +51,31 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #aaa;
+  color: #eee;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #575757), color-stop(100%, #171717));
+  background-image: -webkit-linear-gradient(#575757, #171717);
+  background-image: -moz-linear-gradient(#575757, #171717);
+  background-image: -o-linear-gradient(#575757, #171717);
+  background-image: -ms-linear-gradient(#575757, #171717);
+  background-image: linear-gradient(#575757, #171717);
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+#container .button.pressed {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #171717), color-stop(100%, #575757));
+  background-image: -webkit-linear-gradient(#171717, #575757);
+  background-image: -moz-linear-gradient(#171717, #575757);
+  background-image: -o-linear-gradient(#171717, #575757);
+  background-image: -ms-linear-gradient(#171717, #575757);
+  background-image: linear-gradient(#171717, #575757);
 }
