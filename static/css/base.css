@@ -168,17 +168,33 @@ body {
 
 #add-post-container {
   position: absolute;
-  top: -131px;
+  top: -133px;
   left: 50%;
-  margin-left: -250px;
-  width: 500px;
+  margin-left: -150px;
+  width: 300px;
   z-index: 2;
 }
-
-#post {
-  background-color: #eeeeee;
+#add-post-container #post {
+  background-color: white;
   border: 1px solid #161618;
-  height: 130px;
+  padding: 5px;
+  -moz-box-shadow: 1px 1px 2px 0 black;
+  -webkit-box-shadow: 1px 1px 2px 0 black;
+  -o-box-shadow: 1px 1px 2px 0 black;
+  box-shadow: 1px 1px 2px 0 black;
+  height: 120px;
+}
+#add-post-container #post h1 {
+  margin-bottom: 5px;
+  margin-top: 0px;
+  font-size: 20px;
+}
+#add-post-container #post textarea {
+  width: 280px;
+  height: 40px;
+}
+#add-post-container #post #submit-post {
+  float: right;
 }
 
 #toggle-post {
@@ -213,6 +229,48 @@ body {
   -webkit-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+}
+
+.button {
+  margin: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8em;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #aaa;
+  color: #eee;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #575757), color-stop(100%, #171717));
+  background-image: -webkit-linear-gradient(#575757, #171717);
+  background-image: -moz-linear-gradient(#575757, #171717);
+  background-image: -o-linear-gradient(#575757, #171717);
+  background-image: -ms-linear-gradient(#575757, #171717);
+  background-image: linear-gradient(#575757, #171717);
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  text-shadow: rgba(0, 0, 0, 0.5) -1px 0, rgba(0, 0, 0, 0.3) 0 -1px, rgba(255, 255, 255, 0.5) 0 1px, rgba(0, 0, 0, 0.3) -1px -2px;
+}
+
+.button:active {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #171717), color-stop(100%, #575757));
+  background-image: -webkit-linear-gradient(#171717, #575757);
+  background-image: -moz-linear-gradient(#171717, #575757);
+  background-image: -o-linear-gradient(#171717, #575757);
+  background-image: -ms-linear-gradient(#171717, #575757);
+  background-image: linear-gradient(#171717, #575757);
+  text-shadow: rgba(0, 0, 0, 0.5) -1px 0, rgba(0, 0, 0, 0.3) 0 -1px, rgba(255, 255, 255, 0.5) 0 1px, rgba(0, 0, 0, 0.3) -1px -2px;
 }
 
 .post {

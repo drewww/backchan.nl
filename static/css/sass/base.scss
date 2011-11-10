@@ -233,22 +233,44 @@ body {
 
 #add-post-container {
 	position: absolute;
-	top: -($body-height + 1);
+	top: -($body-height) - 3;
 	left: 50%;
 	
-	$width: 500px;
+	$width: 300px;
 	margin-left: -$width/2;
 	width: $width;
 	
 	z-index: 2;
+	
+	#post {
+    	background-color: white;
+    	border: 1px solid $background;
+
+        padding: 5px;
+
+    	@include box-shadow(#000, 1px, 1px, 2px, 0);
+
+    	height: $body-height - 10;
+
+    	h1 {
+    	    margin-bottom: 5px;
+    	    margin-top: 0px;
+
+    	    font-size: $header-height;
+        }
+
+    	textarea {
+    	    width: $width - 20;
+    	    height: 40px;
+    	}
+    	
+    	#submit-post {
+    	    float: right;
+    	}
+
+    }
 }
 
-#post {
-	background-color: $foreground;
-	border: 1px solid $background;
-	
-	height: $body-height;
-}
 
 #toggle-post {
 	position: relative;
@@ -276,6 +298,43 @@ body {
 	
 	@include clickable;
 }
+
+
+
+
+.button {
+    margin: 5px;
+    text-align: center;
+    
+    font-weight: bold;
+    font-size: 0.8em;
+    
+    @include box-shadow(none);
+    @include border-radius(5px);
+    
+    padding: 5px;
+    
+    border: 1px solid #aaa;
+    color: #eee;
+    
+    @include background-image(linear-gradient(#575757, #171717));
+
+    @include clickable;
+    
+    @include text-shadow(rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px);
+}
+
+.button:active {
+    @include background-image(linear-gradient(#171717, #575757));
+    
+    @include text-shadow(rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px);
+    
+}
+
+
+
+
+
 
 #post-text {
 	
