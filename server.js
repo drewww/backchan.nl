@@ -142,6 +142,7 @@ io.sockets.on('connection', function(socket) {
                 post.add_vote(Date.now(), user.id);
             } else {
                 logger.debug("user has already voted on that post");
+                socket.emit("post.vote_failed");
             }
             
             processHotPosts();

@@ -312,6 +312,31 @@ body {
 	@include clickable;
 }
 
+#dialog {
+    position: fixed;
+    
+    top: 50%;
+    left: 50%;
+    
+    margin-left: -110px;
+    margin-top: -25px;
+    
+    padding: 5px;
+    
+    width: 200px;
+    height: 40px;
+    
+    background-color: white;
+    color: black;
+    border: 1px solid $background;
+    
+	@include box-shadow(#000, 1px, 1px, 2px, 0);
+	@include border-radius(5px);
+    
+    z-index: 20;
+    
+    overflow:hidden;
+}
 
 
 

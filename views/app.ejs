@@ -34,6 +34,9 @@
 				$("#toggle-post").hide();
 				
 			}
+			
+			$("#dialog").hide();
+			$("#dialog").click(hideDialog);
 
 			
 			
@@ -118,6 +121,8 @@
 			
 			if(newPostModel.get("from_name")!=identity["name"] && newPostModel.get("from_affiliation")!=identity["affiliation"]) {
 				newPostsList.add(newPostModel);
+			} else {
+				presentDialog("Thanks for your post!");
 			}
 			
 			allPostsList.add(newPostModel);
@@ -126,6 +131,10 @@
 		socket.on("post.vote", function(data) {
 			var post = allPostsList.get(data["id"]);
 			post.add_vote(data["timestamp"]);
+		});
+		
+		socket.on("post.vote_failed", function() {
+			presentDialog("You've already voted on that post.");
 		});
 		
 		socket.on("post.hot", function(data) {
@@ -195,6 +204,17 @@
 			}
 		}
 		
+		function presentDialog(dialogText) {
+			$("#dialog").text(dialogText);
+			$("#dialog").show(150);
+			
+			setTimeout(hideDialog, 3000);
+		}
+		
+		function hideDialog() {
+			$("#dialog").hide(150);
+		}
+		
 	</script>
 	
 	<link rel="stylesheet" href="/static/css/base.css" type="text/css" media="screen"  charset="utf-8">
@@ -248,6 +268,10 @@ post a thought
 </div>
 </div>
 
+
+<div id="dialog">
+	this is my dialog message. HOORAY!
+</div>
 
 <script src="/static/js/backchannl-backbone.js" type="text/javascript"></script>
 </body>
