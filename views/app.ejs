@@ -31,11 +31,13 @@
 				$("#identify").hide();
 			} else {
 				$("#dashboard").hide();
+				$("#toggle-post").hide();
+				
 			}
 
 			
 			
-			$("#identify form").submit(function(event) {
+			$("#set_identity").click(function(event) {
 				// Send a message to the server.
 				
 				var name = $("#name").val();
@@ -102,6 +104,7 @@
 			// and show the main one.
 			$("#identify").hide();
 			$("#dashboard").show();
+			$("#toggle-post").show();
 			
 		});
 		
@@ -206,7 +209,7 @@
 	<table border="0">
 		<tr><td>Name</td><td><input type="text" name="name" value="" id="name"></tr>
 		<tr><td>Affiliation</td><td><input type="text" name="affiliation" value="" id="affiliation"></td></tr>
-		<tr><td></td><td><input type="submit" name="set_identity" value="login" id="set_identity"<></td></tr>
+		<tr><td></td><td><div class="button" id="set_identity">login</div></td></tr>
 	</table>
 	</form>
 </div>

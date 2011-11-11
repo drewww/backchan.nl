@@ -180,7 +180,7 @@ body {
   left: 50%;
   margin-left: -150px;
   width: 300px;
-  z-index: 2;
+  z-index: 10;
 }
 #add-post-container #post {
   background-color: white;
@@ -231,7 +231,6 @@ body {
   -webkit-box-shadow: 1px 1px 2px 0 black;
   -o-box-shadow: 1px 1px 2px 0 black;
   box-shadow: 1px 1px 2px 0 black;
-  z-index: 2;
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;

@@ -75,6 +75,8 @@ body {
     input[type="text"] {
     	width: 175px;
     }
+    
+    
 }
 
 
@@ -254,7 +256,7 @@ body {
 	margin-left: -$width/2;
 	width: $width;
 	
-	z-index: 2;
+	z-index: 10;
 	
 	#post {
     	background-color: white;
@@ -307,9 +309,6 @@ body {
 	@include border-bottom-left-radius(5px);
 	
 	@include box-shadow(#000, 1px, 1px, 2px, 0);
-	
-	z-index: 2;
-	
 	@include clickable;
 }
 
