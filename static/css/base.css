@@ -54,6 +54,10 @@ body {
 #hot .post, #new .post {
   margin-top: 28px;
 }
+#hot .post-container, #new .post-container {
+  position: relative;
+  top: 0px;
+}
 
 .empty-notice {
   margin-left: auto;
@@ -78,6 +82,7 @@ body {
   -ms-border-bottom-right-radius: 5px;
   -khtml-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  z-index: 5;
 }
 #hot .dismiss-button {
   display: none;
@@ -96,6 +101,7 @@ body {
   -ms-border-bottom-left-radius: 5px;
   -khtml-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  z-index: 5;
 }
 #new .num-more {
   background-color: #161618;
@@ -104,10 +110,6 @@ body {
   text-align: center;
   width: 100px;
   margin-left: 200px;
-}
-#new .post-container {
-  position: relative;
-  top: 0px;
 }
 
 #all {
@@ -137,6 +139,7 @@ body {
   color: #eeeeee;
   height: 20px;
   font-size: 0.8em;
+  z-index: 5;
 }
 
 #identity, #presence {

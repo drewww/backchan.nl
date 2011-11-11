@@ -161,21 +161,36 @@ function processHotPosts(repeat) {
     
     logger.debug("process hot posts");
     
-    
     // Run through all posts and figure out which has the most recent votes.
     var topPost = null;
     var topPostScore = 0;
+    var mostRecentVoteTimestamp = 0;
     
     allPosts.each(function (post) {
         var postScore = post.recent_votes();
+        console.log("postScore: " + postScore);
+        
         if(post.recent_votes() > topPostScore) {
+            console.log("\t setting new top post on score");
+            
             topPost = post;
             topPostScore = postScore;
+            mostRecentVoteTimestamp = post.most_recent_vote()["timestamp"];
+        } else if(post.recent_votes() == topPostScore) {
+            
+            console.log("score conflict, evaluating timestamps")
+            console.log("cur top time: " + mostRecentVoteTimestamp + " postTop: " + post.most_recent_vote()["timestamp"]);
+            if(post.most_recent_vote()["timestamp"]>mostRecentVoteTimestamp) {
+                console.log("\t setting new top post on time");
+                topPost = post;
+                topPostScore = postScore;
+                mostRecentVoteTimestamp = post.most_recent_vote()["timestamp"];
+            }
         }
     });
     
     var outputId = null;
-    if(topPost != null) {
+    if(topPost != null && topPostScore > 0) {
         logger.info("Found top post, id " + topPost.id + " w/ score " + topPostScore);
         outputId = topPost.id;
     } 

@@ -126,13 +126,27 @@
 		});
 		
 		socket.on("post.hot", function(data) {
+
+			// 
+			// if(hotPostsList.length > 0) {
+			// 	hotPostsList.remove(hotPostsList.at(0));
+			// }
 			
-			if(hotPostsList.length > 0) {
-				hotPostsList.remove(hotPostsList.at(0));
-			}
 			
+			// Just add it directly. The list view will manage the removal
+			// of the previous item at an appropriate time (eg after 
+			// animating it off the screen.)
 			if(data["id"]!=null) {
-				hotPostsList.add(allPostsList.get(data["id"]));
+				var post = allPostsList.get(data["id"]);
+				console.log("new hot post: " + data["id"]);
+				if(hotPostsList.indexOf(post)==-1) {
+					hotPostsList.add(post);
+				} else {
+					console.log("skipping hot post because we already have it in the list");
+				}
+			} else {
+				console.log("empty hot posts list, emptying collection");
+				hotPostsList.remove(hotPostsList.at(0));
 			}
 		});
 		

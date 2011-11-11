@@ -70,6 +70,14 @@ Backchannl.Post = Backbone.Model.extend({
         return votesInWindow.length;
     },
     
+    most_recent_vote: function() {
+        var sortedVotes = _.sortBy(this.get("votes"), function(vote) {
+            return vote["timestamp"];
+        });
+        sortedVotes.reverse();
+        return sortedVotes[0];
+    },
+    
     has_vote_from: function(userId) {
         return _.find(this.get("votes"), function(vote) {
             return vote["id"]==userId;
@@ -300,8 +308,6 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
     },
     
     postDismissed: function() {
-        
-        
         var targetEl = $(this.el).children(".post-container");
         var curTop = parseInt(targetEl.css("top"));
         var theCollection = this.collection;
@@ -310,34 +316,6 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
             theCollection.remove(theCollection.at(0));
             theView.render();
         });
-        
-        
-        
-        
-        // var el = $(this.curShownView.el);
-        // var theCollection = this.collection;
-        // el.css("position", "relative");
-        // el.animate({
-        //     top:120
-        // },500, "linear", function() {
-        //     console.log("in post animation callback");
-        //     theCollection.remove(theCollection.at(0));
-        // });
-        // 
-        // if(this.collection.length > 1) {
-        //     console.log("sliding in a new one");
-        //     // queue up the next one.
-        //     var viewForNext = new Backchannl.PostView(
-        //         {model:this.collection.at(1)});
-        //     
-        //     viewForNext.render();
-        //     $(viewForNext.el).css("top", -30);
-        //     $(this.el).append(viewForNext.el);
-        //     $(viewForNext.el).animate({top:0}, 500, "linear",  function() {
-        //         $(this).remove();
-        //     });
-        // }
-        // 
     }
 });
 
@@ -345,7 +323,81 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
 Backchannl.HotPostListView = Backchannl.BasePostListView.extend({
     id: 'hot',
 
-    template: _.template('<h1>hot</h1>'),
+    template: _.template('<h1>hot</h1><div class="post-container"></div>'),
+    
+    initialize: function(params) {
+        this.collection.bind("dismiss", this.postDismissed, this);
+        this.collection.bind("add", this.postAdded, this);
+        this.collection.bind("remove", this.postAdded, this);
+    },
+    
+    render: function() {
+        $(this.el).html(this.template());
+
+        var targetEl = $(this.el).children(".post-container");
+        
+        if(this.collection.length == 0) {
+            $(this.el).append("<div class='empty-notice'>\
+            there are no new posts right now</div>");
+            
+            targetEl.css("top", -127);
+        } else {
+            // loop through all the items and put them in the list.
+            
+            // console.log("start index: " + (this.collection.length-1));
+            
+            for(var index = 0; index<this.collection.length; index++) {
+                console.log("render index: " + index);
+                targetEl.append(new Backchannl.PostView(
+                    {model:this.collection.at(index)}).render().el);
+            }
+        }
+        
+        // Now set the position properly.
+        targetEl.css("top", -127*(this.collection.length-1));
+        
+        return this;
+    },
+    
+    postAdded: function() {
+        if(this.collection.length==1) {
+            console.log("animating first one in");
+            // in this branch, we've added to an empty list.
+            
+            var targetEl = $(this.el).children(".post-container");
+            targetEl.append(new Backchannl.PostView(
+                {model:this.collection.at(0)}).render().el);
+            
+            targetEl.css("top", -127);
+            targetEl.animate({top:0});
+        } else if(this.collection.length > 1) {
+            console.log("animating subsequent ones in");
+            
+            // otherwise, the length should be 2 and we want to remove the
+            // 0th item and shift the new one in.
+            this.render();
+            
+            // now start the animation to put the new one into view and remove
+            // the older one.
+            var targetEl = $(this.el).children(".post-container");
+            var curTop = parseInt(targetEl.css("top"));
+            var theCollection = this.collection;
+            var theView = this;
+            targetEl.animate({top:curTop + 127}, 500, "linear", function() {
+                theCollection.remove(theCollection.at(theCollection.length-1));
+                theView.render();
+            });
+        } else if(this.collection.length==0) {
+            // In this case, slide off the bottom.
+            var targetEl = $(this.el).children(".post-container");
+            var curTop = parseInt(targetEl.css("top"));
+            var theCollection = this.collection;
+            var theView = this;
+            targetEl.animate({top:curTop + 127}, 500, "linear", function() {
+                theView.render();
+            });
+        }
+    },
 });
 
 })()

@@ -102,6 +102,11 @@ body {
 	.post {
 	    margin-top: 28px;
     }
+    
+    .post-container {
+        position: relative;
+        top: 0px;
+    }
 }
 
 
@@ -128,6 +133,8 @@ body {
     	float: left;
     	
     	@include border-bottom-right-radius(5px);
+    	
+    	z-index: 5;
     }
     
     .dismiss-button {
@@ -146,7 +153,7 @@ body {
 	h1 {
     	float: right;
     	@include border-bottom-left-radius(5px);
-        
+        z-index: 5;
     }
     
     .num-more {
@@ -158,11 +165,6 @@ body {
         $width: 100px;
         width: $width;
         margin-left: $new-width/2 - $width/2;
-    }
-    
-    .post-container {
-        position: relative;
-        top: 0px;
     }
 }
 
@@ -203,6 +205,8 @@ body {
 	height: $footer-height;
 	
 	font-size: 0.8em;
+	
+	z-index: 5;
 }
 
 #identity, #presence {
