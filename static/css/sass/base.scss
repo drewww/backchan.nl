@@ -92,6 +92,10 @@ body {
     	margin-bottom: 0px;
     	
     	font-size: $header-height;
+    	
+    	z-index: 5;
+    	
+    	position: relative;
     }
 }
 
@@ -205,7 +209,8 @@ body {
 	height: $footer-height;
 	
 	font-size: 0.8em;
-	
+
+	position: relative;
 	z-index: 5;
 }
 
@@ -366,10 +371,10 @@ body {
     .button-container {
         float: left;
 /*        height: 100%;*/
-        height: $post-height - 11;
+        height: $post-height - 12;
         padding: 10px 2px 2px 2px;
 
-        margin-right: 5px;
+        margin-right: 4px;
         
         text-align: center;
         

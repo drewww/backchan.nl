@@ -102,7 +102,12 @@ io.sockets.on('connection', function(socket) {
         // broadcast them to all clients.
         socket.get("identity", function(err, userId) {
             var user = allUsers.get(userId);
-                        
+            
+            if(user==null) {
+                logger.warning("Had null user in post.");
+                return;
+            }
+            
             data["from_name"] = user.get("name");
             data["from_affiliation"] = user.get("affiliation");
             data["timestamp"] = Date.now();
@@ -120,6 +125,12 @@ io.sockets.on('connection', function(socket) {
         socket.get("identity", function(err, userId) {
             
             logger.debug("userId: " + userId);
+            
+            if(userId==null) {
+                logger.warning("Found a null userId in voting.");
+                return;
+            }
+            
             var user = allUsers.get(userId);
             
             logger.debug("fetchedUser: " + user.id);
