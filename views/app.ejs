@@ -17,6 +17,8 @@
 		var hotPostsList;
 		var newPostsList;
 		var allPostsList;
+		
+		var identity = {};
 	
 		$(document).ready(function() {
 			console.log("Document is ready!");
@@ -94,6 +96,8 @@
 			$("#presence").text("1 person connected");
 			
 			
+			identity = data;
+			
 			// When the server ACKS our identify operation, hide that pane
 			// and show the main one.
 			$("#identify").hide();
@@ -108,7 +112,10 @@
 			
 			console.log(newPostModel);
 			
-			newPostsList.add(newPostModel);
+			
+			if(newPostModel.get("from_name")!=identity["name"] && newPostModel.get("from_affiliation")!=identity["affiliation"]) {
+				newPostsList.add(newPostModel);
+			}
 			
 			allPostsList.add(newPostModel);
 		});

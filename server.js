@@ -110,6 +110,8 @@ io.sockets.on('connection', function(socket) {
             
             var newPost = new model.ServerPost(data);
             
+            newPost.add_vote(Date.now(), user.id);
+            
             allPosts.add(newPost);
         });
     });
