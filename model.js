@@ -2,11 +2,12 @@ var _ = require('underscore')._
     Backbone = require('backbone'),
     base_model = require('./static/js/backchannl-backbone.js'),
     crypto = require('crypto'),
-    logger = require('winston');
+    logger = require('winston'),
+    redis = require('redis'),
+    client = redis.createClient();
 
 logger.cli();
 logger.default.transports.console.timestamp = true;
-
 
 var nextPostId=0;
 exports.ServerPost = base_model.Post.extend({
@@ -17,18 +18,23 @@ exports.ServerPost = base_model.Post.extend({
         // Set and increment the post id.
         this.set({id:nextPostId++});
         
+        client.set("global:nextPostId", nextPostId);
+        
         // setup listeners for particular change events that we're going to 
         // want to send to clients. 
-        this.bind("changed", this.handleChanged, this);
+        this.bind("change", this.save, this);
         
         // now we're going to want to send a notice to all the clients
         // of this new post.
         io.sockets.emit("post.new", this.toJSON());
     },
     
-    handleChanged: function() {
+    save: function() {
         // when a post is changed, this is called.
         logger.info("Handling change on post object.");
+        
+        // write the whole thing into redis.
+        client.hset("posts", this.id, JSON.stringify(this.toJSON()));
     },
     
     add_vote: function(at_timestamp, from_user) {
@@ -52,8 +58,6 @@ exports.ServerPostList = base_model.PostList.extend({
             logger.info("removing post from post list");
         });
     },
-    
-    
 });
 
 var nextUserId = 0;
@@ -63,6 +67,14 @@ exports.ServerUser = Backbone.Model.extend({
         Backbone.Model.prototype.initialize.call(this, params);
         
         this.set({id:nextUserId++});
+        
+        client.set("global:nextUserId", nextUserId);
+        
+        this.bind("change", this.handleChange, this);
+    },
+    
+    handleChange: function() {
+        client.hset("users", this.id, JSON.stringify(this.toJSON()));
     },
     
     defaults: function() {
