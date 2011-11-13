@@ -93,8 +93,11 @@ Backchannl.PostView = Backbone.View.extend({
 
     template: _.template('<div class="post">\
     <div class="button-container">\
+    <div class="votes">\
+    	+<%=votes.length%>\
+    </div>\
     <div class="vote-button button">\
-    	<%=votes.length%>\
+    +like\
     </div>\
     <div class="dismiss-button button">\
     dismiss\

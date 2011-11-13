@@ -89,6 +89,9 @@ body {
 #hot .dismiss-button {
   display: none;
 }
+#hot .vote-button {
+  display: none;
+}
 
 #new {
   width: 500px;
@@ -307,7 +310,7 @@ body {
 }
 
 .post {
-  width: 489px;
+  width: 486px;
   margin-left: 5px;
   margin-right: 10px;
   height: 95px;
@@ -323,8 +326,8 @@ body {
 .post .button-container {
   float: left;
   /*        height: 100%;*/
-  height: 84px;
-  padding: 10px 2px 2px 2px;
+  height: 91px;
+  padding: 2px 2px 2px 2px;
   margin-right: 4px;
   text-align: center;
   border-right: 1px solid #ccc;
@@ -342,20 +345,16 @@ body {
   -khtml-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-.post .button-container .vote-button {
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  user-select: none;
-  border: 1px solid #161618;
+.post .button-container .votes {
   width: 55px;
   height: 33px;
   font-size: 25px;
   padding: 3px 0px 0px 0px;
-  text-aligin: center;
+  text-align: center;
+  color: white;
+  font-weight: bold;
 }
-.post .button-container .dismiss-button {
+.post .button-container .dismiss-button .vote-button {
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -367,7 +366,6 @@ body {
 .post .text {
   height: 75px;
   overflow: hidden;
-  width: 419px;
 }
 .post .byline, .post .timestamp {
   color: #787882;

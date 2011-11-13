@@ -146,6 +146,10 @@ body {
     .dismiss-button {
         display: none;
     }
+    
+    .vote-button {
+        display: none;
+    }
 }
 
 #new {
@@ -380,7 +384,7 @@ body {
 
     .post {
     
-    width: 489px;
+    width: 486px;
     margin-left: 5px;
     margin-right: 10px;
     
@@ -395,8 +399,8 @@ body {
     .button-container {
         float: left;
 /*        height: 100%;*/
-        height: $post-height - 11;
-        padding: 10px 2px 2px 2px;
+        height: $post-height - 4;
+        padding: 2px 2px 2px 2px;
 
         margin-right: 4px;
         
@@ -410,20 +414,21 @@ body {
         @include border-top-left-radius(5px);
         @include border-bottom-left-radius(5px);
         
-        .vote-button {
-            @include clickable;
+        .votes {
             
-            border: 1px solid $background;
             width: 55px;
             height: 33px;
             font-size: 25px;
             
             padding: 3px 0px 0px 0px;
             
-            text-aligin: center;
+            text-align: center;
+            
+            color: white;
+            font-weight: bold;
         }
         
-        .dismiss-button {
+        .dismiss-button .vote-button {
             @include clickable;
             font-size: 12px;
             
@@ -434,7 +439,6 @@ body {
     .text {
         height: 75px;
         overflow: hidden;
-        width: 419px;
     }
     
     .byline, .timestamp {
