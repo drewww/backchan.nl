@@ -178,6 +178,8 @@ body {
         float: left;
         text-align: center;
         
+        text-style: italic;
+        
         $width: 100px;
         width: $width;
         margin-left: $new-width/2 - $width/2;
