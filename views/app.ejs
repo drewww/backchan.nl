@@ -192,6 +192,8 @@
 			if(parseInt(postContainerEl.css("top")) < 0) {
 				// Animate to expose it.
 				postContainerEl.animate({top:0});
+				
+				$("#post-text").focus();
 			} else {
 				// Animate to hide it.
 				postContainerEl.animate({top:-133});
