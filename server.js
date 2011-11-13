@@ -107,6 +107,7 @@ io.sockets.on('connection', function(socket) {
             
             if(user==null) {
                 logger.error("Had null user in post.");
+                socket.emit("reset");
                 return;
             }
             
@@ -130,6 +131,7 @@ io.sockets.on('connection', function(socket) {
             
             if(userId==null) {
                 logger.warning("Found a null userId in voting.");
+                socket.emit("reset");
                 return;
             }
             
@@ -253,7 +255,6 @@ function loadStateFromRedis() {
             model.initNextIds(nextUserId, nextPostId);
         });
     });
-    
     
     client.hgetall("users", function(err, users) {
         for(id in users) {

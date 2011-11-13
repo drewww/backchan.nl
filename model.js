@@ -19,7 +19,6 @@ exports.ServerPost = base_model.Post.extend({
         if(!("id" in params)) {
             this.set({id:nextPostId++});
             
-            console.log("Setting next post id: " + nextPostId);
             client.set("global:nextPostId", nextPostId);
         }
         

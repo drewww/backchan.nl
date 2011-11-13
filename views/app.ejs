@@ -173,6 +173,18 @@
 			$("#presence").text(text);
 		});
 		
+		socket.on("reset", function() {
+			// Give the server a way to force a refresh. This is a lame way to
+			// fix the user/null issue, but probably easier than doing it
+			// properly.
+			
+			presentDialog("Reconnecting to the server...")
+			
+			setTimeout(function() {
+				window.location.reload(false);
+			}, 2900);
+		});
+		
 		function togglePostContainer() {
 			// Decide what our current state is.
 			var postContainerEl = $("#add-post-container");
