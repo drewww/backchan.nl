@@ -16,7 +16,9 @@ exports.ServerPost = base_model.Post.extend({
         base_model.Post.prototype.initialize.call(this, params);
 
         // Set and increment the post id.
-        this.set({id:nextPostId++});
+        if(!("id" in params)) {
+            this.set({id:nextPostId++});
+        }
         
         client.set("global:nextPostId", nextPostId);
         
@@ -65,8 +67,9 @@ exports.ServerUser = Backbone.Model.extend({
     
     initialize: function(params) {
         Backbone.Model.prototype.initialize.call(this, params);
-        
-        this.set({id:nextUserId++});
+        if(!("id" in params)) {
+            this.set({id:nextUserId++});
+        } 
         
         client.set("global:nextUserId", nextUserId);
         
@@ -119,3 +122,13 @@ exports.setIo = function(existingIo) {
     io = existingIo;
 }
 
+exports.initNextIds = function(startingUserId, startingPostId) {
+    if(startingUserId!=null)
+        nextUserId = startingUserId;
+        
+    if(startingPostId!=null)
+        nextPostId = startingPostId;
+    
+    console.log("Set starting user + post ids; " +
+        nextUserId + ", " + nextPostId);
+}

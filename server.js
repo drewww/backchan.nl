@@ -75,6 +75,8 @@ io.sockets.on('connection', function(socket) {
         var user = allUsers.get_user(data["name"], data["affiliation"]);
         
         if(_.isUndefined(user)) {
+            logger.info("Unknown user, making a new one for " +
+                data["name"] + " / " + data["affiliation"]);
             // Make a new user and save it.
             user = new model.ServerUser(data);
             allUsers.add(user);
@@ -225,12 +227,57 @@ client.once("ready", function(err) {
         if(program.database == parseInt(program.database)) {
             client.select(program.database, function() {
                 logger.info("Selected database " + program.database);
+                
+               loadStateFromRedis();
             });
         }
+    } else {
+        loadStateFromRedis();
     }
+    
+    
     
     // TODO technically, we should block other startup binding until this is
     // done. 
     
     setTimeout(processHotPosts, 5000, true);
 });
+
+function loadStateFromRedis() {
+    
+    logger.info("Loading state from redis.");
+    
+    // Load in all the models from Redis.
+    client.get("global:nextUserId", function(err, nextUserId) {
+        client.get("global:nextPostId", function(err, nextPostId){
+            model.initNextIds(nextUserId, nextPostId);
+        });
+    });
+    
+    
+    client.hgetall("users", function(err, users) {
+        for(id in users) {
+            logger.debug("processing user: " + id);
+            var userParams = users[id];
+            logger.debug("with data: "
+                + userParams);
+
+            user = new model.ServerUser(JSON.parse(userParams));
+            allUsers.add(user);
+        }
+
+        logger.info("Loaded " + allUsers.length + " users.");
+    });
+    
+    client.hgetall("posts", function(err, posts) {
+        for(id in posts) {
+            var postParams = posts[id];
+            
+            post = new model.ServerPost(JSON.parse(postParams));
+            allPosts.add(post);
+        }
+        
+        logger.info("Loaded " + allPosts.length + " posts.");
+    });
+    
+}
