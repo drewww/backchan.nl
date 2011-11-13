@@ -57,7 +57,7 @@ body {
   margin-top: 28px;
 }
 #hot .post-container, #new .post-container {
-  position: relative;
+  position: absolute;
   top: 0px;
 }
 
