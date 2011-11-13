@@ -40,13 +40,22 @@ body {
     font-family: Helvetica, sans-serif;
     
     color: #eee;
+
+    background-color: #161618;
+
     
     @include background-image(linear-gradient(#242429, #161618));
+    
+    
+/*    -pie-background: linear-gradient(#242429, #161618);*/
+    
 /*    background-repeat: no-repeat;*/
     
 /*    background-color: #161618;*/
 
     margin: 0px;
+    
+    behavior: url(/static/css/PIE.htc);
 }
 
 #container {
@@ -78,6 +87,8 @@ body {
         & > p:last-child {
             margin-bottom: 0px;
         }
+        
+        behavior: url(/static/css/PIE.htc);
     }
 
     .button {
@@ -97,18 +108,27 @@ body {
         color: #eee;
         
         @include background-image(linear-gradient(#575757, #171717));
+        
+        -pie-background: linear-gradient(#575757, #171717);
+        
         cursor: pointer;
         
         @include user-select(none);
         
         @include text-shadow(rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px);
+        
+        behavior: url(/static/css/PIE.htc);
+        
     }
     
     .button:active {
         @include background-image(linear-gradient(#171717, #575757));
+        -pie-background: linear-gradient(#171717, #575757);
+
         
         @include text-shadow(rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px);
         
+        behavior: url(/static/css/PIE.htc);
     }
     
 }
