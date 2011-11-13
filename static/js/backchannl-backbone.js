@@ -44,7 +44,7 @@ Backchannl.Post = Backbone.Model.extend({
             from_name: "default name",
             from_affiliation: "nowhere",
             text: "default text",
-            timestamp: Date.now(),
+            timestamp: new Date().getTime(),
             votes: []
         };
     },

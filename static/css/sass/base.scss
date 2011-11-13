@@ -145,6 +145,8 @@ body {
     	float: left;
     	
     	@include border-bottom-right-radius(5px);
+    	/*behavior: url(/static/css/PIE.htc);*/
+        
     	
     	z-index: 5;
     }
@@ -169,6 +171,8 @@ body {
 	h1 {
     	float: right;
     	@include border-bottom-left-radius(5px);
+    	/*behavior: url(/static/css/PIE.htc);*/
+        
         z-index: 5;
     }
     
@@ -266,6 +270,8 @@ body {
 	
 	@include border-top-right-radius(5px);
 	@include border-top-left-radius(5px);
+	/*behavior: url(/static/css/PIE.htc);*/
+    
 	
 	color: white;
 	
@@ -295,6 +301,8 @@ body {
         padding: 5px;
 
     	@include box-shadow(#000, 1px, 1px, 2px, 0);
+    	/*behavior: url(/static/css/PIE.htc);*/
+        
 
     	height: $body-height - 10;
 
@@ -345,6 +353,9 @@ body {
 	@include box-shadow(#000, 1px, 1px, 2px, 0);
 	@include clickable;
 	
+	/*behavior: url(/static/css/PIE.htc);*/
+    
+	
 	&:hover {
 	    color: #E8E5FA;
 	    padding-top: 10px;
@@ -374,6 +385,7 @@ body {
     
 	@include box-shadow(#000, 1px, 1px, 2px, 0);
 	@include border-radius(5px);
+    /*behavior: url(/static/css/PIE.htc);*/
     
     z-index: 20;
     
@@ -392,23 +404,33 @@ body {
     @include box-shadow(none);
     @include border-radius(5px);
     
+    
+    
     padding: 5px;
     
     border: 1px solid #aaa;
     color: #eee;
     
-    @include background-image(linear-gradient(#575757, #171717));
-
+    background-color: #171717;
+    
+/*    @include background-image(linear-gradient(#575757, #171717));
+    -pie-background: linear-gradient(#575757, #171717);
+*/
     @include clickable;
     
     @include text-shadow(rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px);
+/*    behavior: url(/static/css/PIE.htc);*/
+    
 }
 
 .button:active {
     @include background-image(linear-gradient(#171717, #575757));
+    -pie-background: linear-gradient(#171717, #575757);
+    
+    background-color: #575757;
     
     @include text-shadow(rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px);
-    
+/*    behavior: url(/static/css/PIE.htc);*/
 }
 
 
@@ -420,9 +442,9 @@ body {
 	
 }
 
-    .post {
+.post {
     
-    width: 486px;
+    width: 484px;
     margin-left: 5px;
     margin-right: 10px;
     
@@ -433,6 +455,8 @@ body {
     background-color: #fff;
     
     @include border-radius(5px);
+    /*behavior: url(/static/css/PIE.htc);*/
+    
     
     .button-container {
         float: left;
@@ -451,6 +475,7 @@ body {
         
         @include border-top-left-radius(5px);
         @include border-bottom-left-radius(5px);
+        /*behavior: url(/static/css/PIE.htc);*/
         
         .votes {
             

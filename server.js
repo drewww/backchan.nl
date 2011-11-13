@@ -106,7 +106,7 @@ io.sockets.on('connection', function(socket) {
             var user = allUsers.get(userId);
             
             if(user==null) {
-                logger.warning("Had null user in post.");
+                logger.error("Had null user in post.");
                 return;
             }
             

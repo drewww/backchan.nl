@@ -87,6 +87,7 @@ body {
   -ms-border-bottom-right-radius: 5px;
   -khtml-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  /*behavior: url(/static/css/PIE.htc);*/
   z-index: 5;
 }
 #hot .dismiss-button {
@@ -109,6 +110,7 @@ body {
   -ms-border-bottom-left-radius: 5px;
   -khtml-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  /*behavior: url(/static/css/PIE.htc);*/
   z-index: 5;
 }
 #new .num-more {
@@ -196,6 +198,7 @@ body {
   -ms-border-top-left-radius: 5px;
   -khtml-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
+  /*behavior: url(/static/css/PIE.htc);*/
   color: white;
 }
 #show-posts:hover {
@@ -220,6 +223,7 @@ body {
   -webkit-box-shadow: 1px 1px 2px 0 black;
   -o-box-shadow: 1px 1px 2px 0 black;
   box-shadow: 1px 1px 2px 0 black;
+  /*behavior: url(/static/css/PIE.htc);*/
   height: 120px;
 }
 #add-post-container #post h1 {
@@ -268,6 +272,7 @@ body {
   -webkit-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  /*behavior: url(/static/css/PIE.htc);*/
 }
 #toggle-post:hover {
   color: #E8E5FA;
@@ -296,6 +301,7 @@ body {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  /*behavior: url(/static/css/PIE.htc);*/
   z-index: 20;
   overflow: hidden;
 }
@@ -318,18 +324,17 @@ body {
   padding: 5px;
   border: 1px solid #aaa;
   color: #eee;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #575757), color-stop(100%, #171717));
-  background-image: -webkit-linear-gradient(#575757, #171717);
-  background-image: -moz-linear-gradient(#575757, #171717);
-  background-image: -o-linear-gradient(#575757, #171717);
-  background-image: -ms-linear-gradient(#575757, #171717);
-  background-image: linear-gradient(#575757, #171717);
+  background-color: #171717;
+  /*    @include background-image(linear-gradient(#575757, #171717));
+      -pie-background: linear-gradient(#575757, #171717);
+  */
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   user-select: none;
   text-shadow: rgba(0, 0, 0, 0.5) -1px 0, rgba(0, 0, 0, 0.3) 0 -1px, rgba(255, 255, 255, 0.5) 0 1px, rgba(0, 0, 0, 0.3) -1px -2px;
+  /*    behavior: url(/static/css/PIE.htc);*/
 }
 
 .button:active {
@@ -339,11 +344,14 @@ body {
   background-image: -o-linear-gradient(#171717, #575757);
   background-image: -ms-linear-gradient(#171717, #575757);
   background-image: linear-gradient(#171717, #575757);
+  -pie-background: linear-gradient(#171717, #575757);
+  background-color: #575757;
   text-shadow: rgba(0, 0, 0, 0.5) -1px 0, rgba(0, 0, 0, 0.3) 0 -1px, rgba(255, 255, 255, 0.5) 0 1px, rgba(0, 0, 0, 0.3) -1px -2px;
+  /*    behavior: url(/static/css/PIE.htc);*/
 }
 
 .post {
-  width: 486px;
+  width: 484px;
   margin-left: 5px;
   margin-right: 10px;
   height: 95px;
@@ -355,6 +363,7 @@ body {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  /*behavior: url(/static/css/PIE.htc);*/
 }
 .post .button-container {
   float: left;
@@ -377,6 +386,7 @@ body {
   -ms-border-bottom-left-radius: 5px;
   -khtml-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  /*behavior: url(/static/css/PIE.htc);*/
 }
 .post .button-container .votes {
   width: 55px;
