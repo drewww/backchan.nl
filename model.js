@@ -18,9 +18,11 @@ exports.ServerPost = base_model.Post.extend({
         // Set and increment the post id.
         if(!("id" in params)) {
             this.set({id:nextPostId++});
+            
+            console.log("Setting next post id: " + nextPostId);
+            client.set("global:nextPostId", nextPostId);
         }
         
-        client.set("global:nextPostId", nextPostId);
         
         // setup listeners for particular change events that we're going to 
         // want to send to clients. 
@@ -53,7 +55,7 @@ exports.ServerPostList = base_model.PostList.extend({
         base_model.PostList.prototype.initialize.call(this, params);
         
         this.bind("add", function(post) {
-            logger.info("adding post to post list");
+            logger.info("adding post to post list: " + post.get("text"));
         });
         
         this.bind("remove", function(post) {

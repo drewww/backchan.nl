@@ -155,7 +155,7 @@ io.sockets.on('connection', function(socket) {
         // Do something.
         numConnectedUsers--;
         io.sockets.emit("presence", {"num":numConnectedUsers});
-        
+        logger.info("connected users now: " + numConnectedUsers);
         socket.get("identity", function(err, userId) {
             var user = allUsers.get(userId);
             
@@ -182,20 +182,20 @@ function processHotPosts(repeat) {
     
     allPosts.each(function (post) {
         var postScore = post.recent_votes();
-        console.log("postScore: " + postScore);
+        // console.log("postScore: " + postScore);
         
         if(post.recent_votes() > topPostScore) {
-            console.log("\t setting new top post on score");
+            // console.log("\t setting new top post on score");
             
             topPost = post;
             topPostScore = postScore;
             mostRecentVoteTimestamp = post.most_recent_vote()["timestamp"];
         } else if(post.recent_votes() == topPostScore) {
             
-            console.log("score conflict, evaluating timestamps")
-            console.log("cur top time: " + mostRecentVoteTimestamp + " postTop: " + post.most_recent_vote()["timestamp"]);
+            // console.log("score conflict, evaluating timestamps")
+            // console.log("cur top time: " + mostRecentVoteTimestamp + " postTop: " + post.most_recent_vote()["timestamp"]);
             if(post.most_recent_vote()["timestamp"]>mostRecentVoteTimestamp) {
-                console.log("\t setting new top post on time");
+                // console.log("\t setting new top post on time");
                 topPost = post;
                 topPostScore = postScore;
                 mostRecentVoteTimestamp = post.most_recent_vote()["timestamp"];
@@ -204,7 +204,7 @@ function processHotPosts(repeat) {
     });
     
     var outputId = null;
-    if(topPost != null && topPostScore > 0) {
+    if(topPost != null && topPostScore > 1) {
         logger.info("Found top post, id " + topPost.id + " w/ score " + topPostScore);
         outputId = topPost.id;
     } 
