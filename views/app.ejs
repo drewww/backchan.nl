@@ -194,13 +194,16 @@
 			if(parseInt(allPostsEl.css("top")) > 0) {
 				// Animate to expose it.
 				allPostsEl.animate({top:-290});
-				window.resizeBy(0, -500);
-				window.moveBy(0, 500);
+				window.resizeBy(0, -423);
+				window.moveBy(0, 423);
 				
 			} else {
 				// Animate to hide it.
 				allPostsEl.animate({top:152});
-				window.resizeBy(0, 500);
+				window.moveBy(0, -423);
+				window.resizeBy(0, 423);
+				// window.resizeTo($(document).width(), $(document).height()+423);
+				
 			}
 		}
 		
