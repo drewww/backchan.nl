@@ -97,7 +97,13 @@ body {
     	
     	z-index: 5;
     	
+    	font-weight: normal;
+    	font-style: italic;
+    	
     	position: relative;
+    	
+    	font-size: 1.0em;
+    	
     }
 }
 
@@ -215,6 +221,7 @@ body {
 	height: $footer-height;
 	
 	font-size: 0.8em;
+    font-style: italic;
 
 	position: relative;
 	z-index: 5;
@@ -238,16 +245,33 @@ body {
 	position: absolute;
 	left: 50%;
 	
+	top: -10px;
 	$width: 150px;
 	width: $width;
 	margin-left: -$width/2;
 	
-	font-size: 1.3em;
+	font-size: 1.6em;
 	
-	background-color: $background-light;
+	padding-bottom: 10px;
+	
+	font-weight: bold;
+	font-style: normal;
+	
+	background-color: #43424D;
 	border: 1px solid $light-text-color;
 	
 	@include clickable;
+	
+	@include border-top-right-radius(5px);
+	@include border-top-left-radius(5px);
+	
+	color: white;
+	
+	&:hover {
+	    color: #E8E5FA;
+	    padding-bottom: 20px;
+	    top: -20px;
+	}
 }
 
 
@@ -297,24 +321,36 @@ body {
 	top: 0px;
 	left: 50%;
 	
-	height: 20px;
+	height: 25px;
 	
-	$width: 150px;
+	$width: 175px;
 	width: $width;
 	margin-left: -$width/2;
 	
 	text-align: center;
 	
-	background-color: $background-light;
+	font-weight: bold;
+	font-size: 1.2em;
 	
-	color: $foreground;
+	background-color: #43424D;
+	
+	color: white;
+	
 	
 	@include border-bottom-right-radius(5px);
 	@include border-bottom-left-radius(5px);
 	
 	@include box-shadow(#000, 1px, 1px, 2px, 0);
 	@include clickable;
+	
+	&:hover {
+	    color: #E8E5FA;
+	    padding-top: 10px;
+	}
 }
+
+
+
 
 #dialog {
     position: fixed;
