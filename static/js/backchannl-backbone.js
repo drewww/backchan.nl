@@ -245,7 +245,7 @@ Backchannl.BasePostListView = Backbone.View.extend({
 Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
     id: 'new',
 
-    template: _.template('<h1>new</h1><div class="num-more"></div><div class="post-container"></div></div>'),
+    template: _.template('<h1>new posts</h1><div class="num-more"></div><div class="post-container"></div></div>'),
     
     initialize: function(params) {
         this.collection.bind("dismiss", this.postDismissed, this);
@@ -323,7 +323,7 @@ Backchannl.NewPostListView = Backchannl.BasePostListView.extend({
 Backchannl.HotPostListView = Backchannl.BasePostListView.extend({
     id: 'hot',
 
-    template: _.template('<h1>hot</h1><div class="post-container"></div>'),
+    template: _.template('<h1>top post</h1><div class="post-container"></div>'),
     
     initialize: function(params) {
         this.collection.bind("dismiss", this.postDismissed, this);
@@ -338,7 +338,7 @@ Backchannl.HotPostListView = Backchannl.BasePostListView.extend({
         
         if(this.collection.length == 0) {
             $(this.el).append("<div class='empty-notice'>\
-            there are no new posts right now</div>");
+            there is no top post right now</div>");
             
             targetEl.css("top", -127);
         } else {

@@ -40,7 +40,7 @@ body {
 #dashboard > div h1 {
   background-color: #161618;
   color: #eeeeee;
-  width: 50px;
+  width: 110px;
   text-align: center;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -323,12 +323,24 @@ body {
 .post .button-container {
   float: left;
   /*        height: 100%;*/
-  height: 83px;
+  height: 84px;
   padding: 10px 2px 2px 2px;
   margin-right: 4px;
   text-align: center;
   border-right: 1px solid #ccc;
   background-color: #aaa;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -o-border-top-left-radius: 5px;
+  -ms-border-top-left-radius: 5px;
+  -khtml-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -o-border-bottom-left-radius: 5px;
+  -ms-border-bottom-left-radius: 5px;
+  -khtml-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 .post .button-container .vote-button {
   cursor: pointer;

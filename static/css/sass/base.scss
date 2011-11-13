@@ -87,7 +87,7 @@ body {
 	& > div h1 {
     	background-color: $background;
     	color: $foreground;
-    	width: 50px;
+    	width: 110px;
     	text-align: center;
 
     	margin-top: 0px;
@@ -395,7 +395,7 @@ body {
     .button-container {
         float: left;
 /*        height: 100%;*/
-        height: $post-height - 12;
+        height: $post-height - 11;
         padding: 10px 2px 2px 2px;
 
         margin-right: 4px;
@@ -405,6 +405,10 @@ body {
         border-right: 1px solid #ccc;
         
         background-color: #aaa;
+        
+        
+        @include border-top-left-radius(5px);
+        @include border-bottom-left-radius(5px);
         
         .vote-button {
             @include clickable;
