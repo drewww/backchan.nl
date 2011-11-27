@@ -11,6 +11,11 @@
 	<script src="/socket.io/socket.io.js"></script>
 	
 	<script type="text/javascript" charset="utf-8">
+		/* Deal with IE not having console.log */
+	    if (typeof console === "undefined" || typeof console.log === "undefined") {
+	     console = {};
+	     console.log = function() {};
+	   }
 	
 		/* STARTUP & SETUP */
 		var socket = io.connect("http://<% server %>:<%= port %>");
