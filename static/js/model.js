@@ -28,7 +28,7 @@ model.Post = Backbone.Model.extend({
     },
     
     addVote: function(atTimestamp, fromUser) {
-        console.log("incoming: " + atTimestamp + " / " + fromUser);
+        // console.log("incoming: " + atTimestamp + " / " + fromUser);
         if (_.isUndefined(atTimestamp) || _.isNull(atTimestamp)) {
             atTimestamp = Date.now();
         }
@@ -37,8 +37,11 @@ model.Post = Backbone.Model.extend({
             fromUser = null;
         }
         
-        console.log("adding vote: " + atTimestamp + " from user: " + fromUser);
-
+        // console.log("adding vote: " + atTimestamp + " from user: " + fromUser);
+        
+        // reject votes from the same person
+        if(this.hasVoteFrom(fromUser)) return;
+        
         var currentVoteList = this.get("votes");
         currentVoteList.push({"timestamp":atTimestamp, "id":fromUser});
         this.set({
@@ -80,7 +83,7 @@ model.Post = Backbone.Model.extend({
     hasVoteFrom: function(userId) {
         return _.find(this.get("votes"), function(vote) {
             return vote["id"]==userId;
-        });
+        })!=null;
     }
 });
 
