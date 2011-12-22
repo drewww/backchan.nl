@@ -2,7 +2,6 @@
   var server = false,
     model;
   if (typeof exports !== 'undefined') {
-      console.log("on server");
     model = exports;
     server = true;
     
@@ -17,13 +16,7 @@
 
 model.Post = Backbone.Model.extend({
     
-    initialize: function(attributes) {
-        Backbone.Model.initialize(attributes);
-        
-        // further extensions go here
-    },
-    
-    defaults: functions() {
+    defaults: function() {
         return {
             fromName: "default name",
             fromAffiliation: "nowhere",
@@ -89,5 +82,6 @@ model.Post = Backbone.Model.extend({
             return vote["id"]==userId;
         });
     }
-    
 });
+
+})()
