@@ -1,6 +1,6 @@
 backchan.nl thin
 ==================
-Designed for non-co-located events, backchan.nl thin is a minimized UI that can be easily organized on your screen along with whatever else you need to see at the same time. This makes it easy to participate in conference calls or video presentations while still participating in a simple, accessible group posting and voting system.
+Designed for non-co-located events with a video stream, backchan.nl thin is a minimized UI that leaves room for an embedded video stream.
 
 backchan.nl thin is a ground-up rewrite of backchannl with a totally distinct software stack. It uses a variety of technologies to be more responsive, support a better sense of presence, and be more scalable.
 
