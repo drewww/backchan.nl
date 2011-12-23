@@ -97,7 +97,6 @@ model.User = Backbone.Model.extend({
         return {
             name: "default name",
             affiliation: "default affiliation",
-            connected: false
         };
     }
 });

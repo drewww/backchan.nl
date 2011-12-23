@@ -86,7 +86,6 @@ describe('client model', function() {
         
         newUser.get("name").should.equal("default name");
         newUser.get("affiliation").should.equal("default affiliation");
-        newUser.get("connected").should.equal(false);
       });
       
       it('should accept custom values', function(){
@@ -98,7 +97,6 @@ describe('client model', function() {
 
         newUser.get("name").should.equal("Drew Harry");
         newUser.get("affiliation").should.equal("MIT Media Lab");
-        newUser.get("connected").should.equal(false);
       });
     })
     
