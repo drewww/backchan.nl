@@ -2,7 +2,7 @@ var should = require('should'),
     model = require('../static/js/model.js');
 
 
-describe('models: ', function() {
+describe('client model', function() {
     describe('Post', function() {
         it('should have default values when created with no attributes',
             function() {

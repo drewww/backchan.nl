@@ -1,3 +1,7 @@
+// This is include-able both in a browser environment and in a v8/node env,
+// so it needs to figure out which situation it is in. If it's on the server,
+// put everything in exports and behave like a module. If it's on the client,
+// fake it and expect the client to understand how to deal with things.
 (function () {
   var server = false,
     model;
@@ -9,7 +13,6 @@
     Backbone = require('backbone');
     
   } else {
-      console.log("on client");
     model = this.model = {};
   }
 
