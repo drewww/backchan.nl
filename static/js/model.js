@@ -87,4 +87,16 @@ model.Post = Backbone.Model.extend({
     }
 });
 
+
+model.User = Backbone.Model.extend({
+    
+    defaults: function() {
+        return {
+            name: "default name",
+            affiliation: "default affiliation",
+            connected: false
+        };
+    }
+});
+
 })()

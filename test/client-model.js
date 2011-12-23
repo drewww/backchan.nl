@@ -14,7 +14,7 @@ describe('models: ', function() {
                 newPost.votes().should.equal(0);
             });
             
-        it('should respond to alterate constructor values properly', 
+        it('should respond to alternate constructor values properly', 
             function() {
             var newPost = new model.Post({"fromName":"Drew",
                 "fromAffiliation":"MIT Media Lab",
@@ -75,5 +75,32 @@ describe('models: ', function() {
                 newPost.recentVotes(10000).should.equal(1);
                 newPost.mostRecentVote().should.have.property('id', 1);
         });
-    });    
+    });
+    
+    
+    describe('User', function(){
+      it('should have default values', function(){
+        var newUser = new model.User();
+        
+        should.exist(newUser);
+        
+        newUser.get("name").should.equal("default name");
+        newUser.get("affiliation").should.equal("default affiliation");
+        newUser.get("connected").should.equal(false);
+      });
+      
+      it('should accept custom values', function(){
+        
+        var newUser = new model.User({"name":"Drew Harry",
+            "affiliation":"MIT Media Lab"});
+        
+        should.exist(newUser);
+
+        newUser.get("name").should.equal("Drew Harry");
+        newUser.get("affiliation").should.equal("MIT Media Lab");
+        newUser.get("connected").should.equal(false);
+      });
+    })
+    
+    
 });
