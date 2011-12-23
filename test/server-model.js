@@ -74,4 +74,48 @@ describe('server model', function(){
             secondNewUser.get("id").should.equal(1);
         });
     });
+    
+    
+    describe('ServerUserList', function(){
+        beforeEach(function(done) {
+            model.resetIds();
+            done();
+        });
+        
+        it('should respond properly when empty', function(){
+            var list = new model.ServerUserList();
+            
+            list.numConnectedUsers().should.equal(0);
+            should.not.exist(list.getUser("foo", "bar"));
+            list.getConnectedUsers().should.have.length(0);
+        });
+        
+        it('should return users when it has them', function(){
+            var list = new model.ServerUserList();
+            var fooUser = new model.ServerUser({"name":"Foo",
+                "affiliation":"Foo Corp"});
+            var barUser = new model.ServerUser({"name":"Bar",
+                    "affiliation":"Bar Corp"});
+            list.add(fooUser);
+            list.add(barUser);
+            
+            list.length.should.equal(2);
+            list.getUser("Foo", "Foo Corp").should.equal(fooUser);
+            list.getUser("Bar", "Bar Corp").should.equal(barUser);
+            should.not.exist(list.getUser("foo", "bar"));
+        });
+        
+        it('should report no connected users when it has users, but none conneted', function(){
+            var list = new model.ServerUserList();
+            var fooUser = new model.ServerUser({"name":"Foo",
+                "affiliation":"Foo Corp"});
+            var barUser = new model.ServerUser({"name":"Bar",
+                    "affiliation":"Bar Corp"});
+            list.add(fooUser);
+            list.add(barUser);
+
+            list.numConnectedUsers().should.equal(0);
+            list.getConnectedUsers().should.have.length(0);
+        })
+    });
 });
