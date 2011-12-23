@@ -1,14 +1,14 @@
 var should = require('should'),
     model = require('../lib/server-model.js');
 
-describe('server model', function(){
+describe('server.model', function(){
     beforeEach(function(done) {
         model.resetIds();
         done();
     });
     
     
-    describe('ServerPost', function(){
+    describe('.ServerPost', function(){
         it('should create properly with no arguments', function(){
           var newServerPost = new model.ServerPost();
       
@@ -42,7 +42,7 @@ describe('server model', function(){
         });
   });
   
-  describe('ServerUser', function(){
+  describe('.ServerUser', function(){
       
       beforeEach(function(done) {
           model.resetIds();
@@ -76,7 +76,7 @@ describe('server model', function(){
     });
     
     
-    describe('ServerUserList', function(){
+    describe('.ServerUserList', function(){
         beforeEach(function(done) {
             model.resetIds();
             done();
