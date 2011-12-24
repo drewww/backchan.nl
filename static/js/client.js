@@ -7,37 +7,46 @@ if (typeof console === "undefined" || typeof console.log === "undefined") {
   console.log = function() {};
 }
 
-ConnectionManager = {
+function ConnectionManager() {
+    // Initialize a ConnectionManager object.
+}
+
+ConnectionManager.prototype = {
     
     user: null,
     states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2},
     state: null,
-    socket: null;
+    socket: null,
     
     
     connect: function(server, port) {
-        setupGlobals();
-        this.setState("DISCONNECTED");
         this.socket = io.connect("http://"+server+":"+port);
+        
+        // I don't love this hack, but I'm stupid about closures and so I'm
+        // not 100% sure how to get the "this" context into socket callbacks
+        // as defined below. This is safe and not totally bad form.
+        this.socket["manager"] = this;
+        
+        this.setState("DISCONNECTED");
     },
     
     setState: function(newState) {
-        if(state in states) {
-            this.state = state;
-            this.configureCallbacksForState();
+        if(newState in this.states) {
+            this.state = newState;
+            this.configureCallbacksForState(this.state);
         }
-    }
+    },
     
     configureCallbacksForState: function(state) {
         switch(state) {
             case "DISCONNECTED":
-                socket.on('connect', function(data) {
+                this.socket.on('connect', function(data) {
                     console.log("Connected to server.");
-                    this.setState("CONNECTED");
+                    this.manager.setState("CONNECTED");
                 });
                 break;
             case "CONNECTED":
-                socket.on('identity-ok', function(data) {
+                this.socket.on('identity-ok', function(data) {
                     // Server accepted our identity.
 
                     // Eventually, the payload here should probably be a fully-encoded
@@ -49,13 +58,13 @@ ConnectionManager = {
                     localUser = new model.User(data);
                     console.log("Identity accepted: " + localUser.get("name") +" / " + localUser.get("affiliation"));
 
-                    this.setState("IDENTIFIED");
+                    this.manager.setState("IDENTIFIED");
                     
                     // I sort of want to remove these callbacks, but I'm not sure how to
                     // do that easily without converting all these closures into functions
                 });
 
-                socket.on('identity-err', function(data) {
+                this.socket.on('identity-err', function(data) {
                     // Server rejected our identity. Cases:
                     // 1. That user is passworded.
                     // 2. ???
@@ -64,19 +73,19 @@ ConnectionManager = {
                 break;
             
             case "IDENTIFIED":
-                socket.on('chat', function(data) {
+                this.socket.on('chat', function(data) {
                     // Handle a chat message.
                     console.log("chat: " + data.text);
                 });
                 break;
         }
-    }
+    },
     
     ///////////////////////////////////////////////////////////////////
     // THESE METHODS SEND MESSAGES TO THE SERVER OF VARIOUS SORTS    //
     ///////////////////////////////////////////////////////////////////
     
     identify: function(name, affiliation) {
-        socket.emit("identify", {"name":name, "affiliation":affiliation});
+        this.socket.emit("identify", {"name":name, "affiliation":affiliation});
     }
 }
