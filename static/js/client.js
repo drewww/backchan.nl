@@ -1,33 +1,51 @@
-// Need to do some tricky things to make this testable in node, but we'll get
-// back to that later. For now make it work in a browser.
 
+(function () {
+  var client;
+  
+  if (typeof exports !== 'undefined') {
+    client = exports;
+    
+    _ = require('underscore');
+    Backbone = require('backbone');
+    io = require('socket.io-client');
+    
+  } else {
+    client = this.client = {};
+  }
+  
 /* Deal with IE not having console.log */
 if (typeof console === "undefined" || typeof console.log === "undefined") {
   console = {};
   console.log = function() {};
 }
 
-function ConnectionManager() {
+client.ConnectionManager = function() {
     // Initialize a ConnectionManager object.
 }
 
-ConnectionManager.prototype = {
+client.ConnectionManager.prototype = {
     
     user: null,
     states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2},
     state: null,
     socket: null,
     
+    connectedCallback: null,
     
-    connect: function(server, port) {
-        this.socket = io.connect("http://"+server+":"+port);
+    connect: function(host, port, callback) {
         
+        this.connectedCallback = callback;
+        this.setState("DISCONNECTED");
+        
+        this.socket = io.connect("http://"+host+":"+port).on('connect', function(data) {
+            this.manager.setState("CONNECTED");
+        });
+
         // I don't love this hack, but I'm stupid about closures and so I'm
         // not 100% sure how to get the "this" context into socket callbacks
         // as defined below. This is safe and not totally bad form.
         this.socket["manager"] = this;
         
-        this.setState("DISCONNECTED");
     },
     
     setState: function(newState) {
@@ -38,14 +56,17 @@ ConnectionManager.prototype = {
     },
     
     configureCallbacksForState: function(state) {
+        // console.log("Switching to state: " + state);
         switch(state) {
             case "DISCONNECTED":
-                this.socket.on('connect', function(data) {
-                    console.log("Connected to server.");
-                    this.manager.setState("CONNECTED");
-                });
+                
                 break;
             case "CONNECTED":
+                if(this.connectedCallback!=null) {
+                    console.log("running callback");
+                    this.connectedCallback();
+                }
+            
                 this.socket.on('identity-ok', function(data) {
                     // Server accepted our identity.
 
@@ -89,3 +110,5 @@ ConnectionManager.prototype = {
         this.socket.emit("identify", {"name":name, "affiliation":affiliation});
     }
 }
+
+})()
