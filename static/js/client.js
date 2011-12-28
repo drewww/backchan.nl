@@ -120,8 +120,8 @@ client.ConnectionManager.prototype = {
                 // it will save us constantly packing/unpacking the relevant
                 // properties on new objects. For now, though, just do it manually.
                 // (if we just blindly pass in the data object, is it any worse?)
-                this.localUser = new model.User(data);
-                console.log("Identity accepted: " + localUser.get("name") +" / " + localUser.get("affiliation"));
+                this.user = new model.User(JSON.parse(data));
+                console.log("Identity accepted: " + this.user.get("name") +" / " + this.user.get("affiliation"));
 
                 this.setState("IDENTIFIED");
                 break;
