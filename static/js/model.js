@@ -98,6 +98,25 @@ model.User = Backbone.Model.extend({
             name: "default name",
             affiliation: "default affiliation",
         };
+    },
+    
+    // Leaving this here but not actually testing it yet. Validate is 
+    // basically broken right now for my purposes. It isn't called on 
+    // object construction, which is the majority of the times I would
+    // actually want it to be used. It's only called on set() and save(),
+    // the latter of which I never use because I'm not using that part of
+    // backbone. There are a zillion issues in their bug tracker about this 
+    // with no solution forthcoming yet.
+    validate: function(attributes) {
+        if("name" in attributes) {
+            if(attributes.name.length > 30) {
+                return "'" + attributes.name + "' is too long a name. It must be less than 30 characters.";
+            }
+            
+            if(attributes.affiliation.length>30) {
+                return "'" + attributes.affiliation + "' is too long an affiliation. It must be less than 30 characters.";
+            }
+        }
     }
 });
 

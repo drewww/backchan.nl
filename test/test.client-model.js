@@ -98,7 +98,5 @@ describe('client model', function() {
         newUser.get("name").should.equal("Drew Harry");
         newUser.get("affiliation").should.equal("MIT Media Lab");
       });
-    })
-    
-    
+    });
 });
