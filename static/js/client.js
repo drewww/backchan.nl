@@ -1,9 +1,10 @@
 
 (function () {
-  var client;
+  var client, executingOnServer;
   
   if (typeof exports !== 'undefined') {
     client = exports;
+    executingOnServer = true;
     
     _ = require('underscore');
     Backbone = require('backbone');
@@ -11,6 +12,7 @@
     
   } else {
     client = this.client = {};
+    executingOnServer = false;
   }
   
 /* Deal with IE not having console.log */
@@ -40,6 +42,11 @@ client.ConnectionManager.prototype = {
         this.socket = io.connect("http://"+host+":"+port).on('connect', function(data) {
             this.manager.setState("CONNECTED");
         });
+        
+        // For whatever reason in testing, 
+        if(executingOnServer) {
+            this.setState("CONNECTED");
+        }
 
         // I don't love this hack, but I'm stupid about closures and so I'm
         // not 100% sure how to get the "this" context into socket callbacks
@@ -62,8 +69,8 @@ client.ConnectionManager.prototype = {
                 
                 break;
             case "CONNECTED":
-                if(this.connectedCallback!=null) {
-                    console.log("running callback");
+                if(!_.isUndefined(this.connectedCallback)
+                    && !_.isNull(this.connectedCallback)) {
                     this.connectedCallback();
                 }
             
