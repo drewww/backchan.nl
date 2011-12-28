@@ -27,8 +27,18 @@ describe('client-server communication', function(){
             
             cm.bind("state.CONNECTED", function() {
                 cm.identify("Test User", "Test Affiliation");
+            });
+            
+            cm.bind("state.IDENTIFIED", function(done) {
+                
+                should.exist(cm.localUser);
+                cm.localUser.get("name").should.equal("Test User");
+                cm.localUser.get("affiliation").should
+                    .equal("Test Affiliation");
+                
                 done();
             });
+            
             cm.connect("localhost", 8888);
         });
     });
