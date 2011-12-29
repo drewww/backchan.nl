@@ -7,19 +7,38 @@ describe('server', function(){
     // This test is temporarily disabled because I don't have a way to shut
     // down the server. For now, all server tests are happening in
     // test.client.js 
-    it('should start up without errors', function(done){
-        
-        var s = new server.BackchannlServer();
-        
-        s.bind("started", function() {
-            s.stop();
+    describe('startup', function(){
+        it('should work with default configuration', function(done){
+
+            var s = new server.BackchannlServer();
+
+            s.bind("started", function() {
+                s.stop();
+            });
+
+            s.bind("stopped", function() {
+                setTimeout(done, 10);
+            });
+
+            s.start("localhost",8181);
         });
         
-        s.bind("stopped", function() {
-            setTimeout(done, 10);
+        it('should work with initial ServerEvent', function(done){
+            var s = new server.BackchannlServer({"test-event":true});
+
+            s.bind("started", function() {
+                
+                s.events.length.should.equal(1);
+                
+                s.stop();
+            });
+
+            s.bind("stopped", function() {
+                setTimeout(done, 10);
+            });
+
+            s.start("localhost",8181);
         });
-        
-        s.start("localhost",8181);
     });
     
     describe('interactions with clients', function(){
