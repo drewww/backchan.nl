@@ -7,8 +7,17 @@ describe('server', function(){
     // down the server. For now, all server tests are happening in
     // test.client.js 
     it('should start up without errors', function(done){
-        server.start("localhost",8888, function() {
-            server.stop(done);
+        
+        var s = new server.BackchannlServer();
+        
+        s.bind("started", function() {
+            s.stop();
         });
+        
+        s.bind("stopped", function() {
+            done();
+        });
+        
+        s.start("localhost",8888);
     });
 });

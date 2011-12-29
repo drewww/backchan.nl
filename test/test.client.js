@@ -3,16 +3,20 @@ var should = require('should'),
     client = require('../static/js/client.js');
    
 
-describe('client-server communication', function(){
-    beforeEach(function(done) {
-        server.start("localhost", 8181, done);
-    });
-    afterEach(function(done) {
-        server.stop(done);
-    });
+var curServer;
 
+describe('client-server communication', function(){
 
     describe('client', function(done){
+        beforeEach(function(done) {
+            curServer = new server.BackchannlServer();
+            curServer.bind("started", done);
+            curServer.start("localhost", 8181);
+        });
+        afterEach(function(done) {
+            curServer.bind("stopped", done);
+            curServer.stop();
+        });
         
         it('should connect properly', function(done){
                 // Once the server has started, make a client.
@@ -40,7 +44,6 @@ describe('client-server communication', function(){
                 
                 done();
             });
-
             cm.connect("localhost", 8181);
         });
     });

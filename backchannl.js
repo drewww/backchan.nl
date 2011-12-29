@@ -25,4 +25,5 @@ if(program.port) {
     port = program.port;
 }
 
-server.start(host, port);
+var theServer = new server.BackchannlServer();
+theServer.start(host, port);
