@@ -8,27 +8,19 @@ var curServer;
 describe('client-server communication', function(){
 
     describe('client', function(done){
-        before(function(done) {
+        beforeEach(function(done) {
             curServer = new server.BackchannlServer();
             curServer.bind("started", done);
             curServer.start("localhost", 8181);
         });
-        after(function(done) {
+        afterEach(function(done) {
             curServer.bind("stopped", done);
             curServer.stop();
         });
-        
-        it('should connect properly', function(done){
-                // Once the server has started, make a client.
-                var cm = new client.ConnectionManager();
-                
-                cm.bind("state.CONNECTED", function() {
-                    done();
-                });
-                cm.connect("localhost", 8181);
-        });
-        
+
+
         it('should handle identify commands', function(done) {
+            
             var cm = new client.ConnectionManager();
             
             cm.bind("state.CONNECTED", function() {
@@ -42,9 +34,23 @@ describe('client-server communication', function(){
                 cm.user.get("affiliation").should
                      .equal("Test Affiliation");
                 
-                done();
+                cm.disconnect();
+                setTimeout(done, 0);
             });
             cm.connect("localhost", 8181);
         });
+        
+        
+        it('should connect properly', function(done){
+                // Once the server has started, make a client.
+                var cm = new client.ConnectionManager();
+                
+                cm.bind("state.CONNECTED", function() {
+                    cm.disconnect();
+                    done();
+                });
+                cm.connect("localhost", 8181);
+        });
+        
     });
 });

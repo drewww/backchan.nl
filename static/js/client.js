@@ -39,7 +39,6 @@ client.ConnectionManager = function() {
 client.ConnectionManager.prototype = {
     
     user: null,
-    // states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3},
     states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3},
     state: null,
     socket: null,
@@ -48,10 +47,11 @@ client.ConnectionManager.prototype = {
         
         this.setState("DISCONNECTED");
         
-        this.socket = io.connect("http://"+host+":"+port).on('connect',
-            function(data) {
-                this.manager.setState.call(this.manager, "CONNECTED");
-        });
+        this.socket = io.connect("http://"+host+":"+port,
+            {'force new connection': true}).on('connect',
+                function(data) {
+                    this.manager.setState.call(this.manager, "CONNECTED");
+                });
         
         // I don't love this hack, but I'm stupid about closures and so I'm
         // not 100% sure how to get the "this" context into socket callbacks
@@ -139,6 +139,10 @@ client.ConnectionManager.prototype = {
     //
     // The tricky part is that you can only register for 'message.' type 
     // events if they've already been registered on the socket. 
+    
+    disconnect: function() {
+        this.socket.disconnect();
+    },
     
     ///////////////////////////////////////////////////////////////////
     // THESE METHODS SEND MESSAGES TO THE SERVER OF VARIOUS SORTS    //

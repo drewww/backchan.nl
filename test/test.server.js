@@ -15,7 +15,7 @@ describe('server', function(){
         });
         
         s.bind("stopped", function() {
-            done();
+        setTimeout(done, 10);
         });
         
         s.start("localhost",8888);
