@@ -44,9 +44,25 @@ client.ConnectionManager.prototype = {
     state: null,
     socket: null,
     
-    connect: function(host, port) {
+    connect: function(host, port, options) {
         
         this.setState("DISCONNECTED");
+        
+        if(_.isUndefined(options)) options = {};
+        _.defaults(options, {
+            "auto-identify": false
+        });
+        
+        if(options["auto-identify"]) {
+            // Setup a default call and response behavior with
+            // identification (and ultimately joining) to make testing
+            // with this client more streamlined and not having quite
+            // so much indirection.
+            this.bind("state.CONNECTED", function() {
+                this.identify("user-" + (Math.floor(Math.random()*1000)),
+                    "company-" + (Math.floor(Math.random()*1000)));
+            });
+        }
         
         this.socket = io.connect("http://"+host+":"+port,
             {'force new connection': true}).on('connect',
@@ -58,8 +74,6 @@ client.ConnectionManager.prototype = {
         // not 100% sure how to get the "this" context into socket callbacks
         // as defined below. This is safe and not totally bad form.
         this.socket["manager"] = this;
-        
-        
     },
     
     setState: function(newState) {

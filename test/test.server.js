@@ -50,12 +50,7 @@ describe('server', function(){
                 c.disconnect();
             });
             
-            c.bind("state.CONNECTED", function() {
-                c.identify("Test", "Test");
-            });
-            
-            
-            c.connect("localhost", 8181);
+            c.connect("localhost", 8181, {"auto-identify":true});
         })
     });
 });
