@@ -99,4 +99,16 @@ describe('client model', function() {
         newUser.get("affiliation").should.equal("MIT Media Lab");
       });
     });
+    
+    describe('Chat', function(){
+        it('should have default values', function(){
+            var newChat = new model.Chat();
+            
+            should.exist(newChat);
+            newChat.get("fromName").should.equal("default");
+            newChat.get("fromAffiliation").should.equal("default affiliation");
+            newChat.get("text").should.equal("default message");
+            newChat.get("admin").should.be.false;
+        });
+    });
 });

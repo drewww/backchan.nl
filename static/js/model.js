@@ -120,4 +120,16 @@ model.User = Backbone.Model.extend({
     }
 });
 
+model.Chat = Backbone.Model.extend({
+    defaults: function() {
+        return {
+            fromName: "default",
+            fromAffiliation: "default affiliation",
+            text: "default message",
+            timestamp: new Date().getTime(),
+            admin: false
+        }
+    },
+});
+
 })()
