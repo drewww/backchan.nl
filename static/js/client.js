@@ -21,11 +21,6 @@
                 })
         ]
     });
-    
-    // override console.log to make for better testing but still allow 
-    // output.
-    console.log = logger.info;
-    
   } else {
     client = this.client = {};
     executingOnServer = false;
@@ -44,7 +39,8 @@ client.ConnectionManager = function() {
 client.ConnectionManager.prototype = {
     
     user: null,
-    states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2},
+    // states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3},
+    states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3},
     state: null,
     socket: null,
     
@@ -57,11 +53,6 @@ client.ConnectionManager.prototype = {
                 this.manager.setState.call(this.manager, "CONNECTED");
         });
         
-        // For whatever reason in testing, 
-        if(executingOnServer) {
-            this.setState("CONNECTED");
-        }
-
         // I don't love this hack, but I'm stupid about closures and so I'm
         // not 100% sure how to get the "this" context into socket callbacks
         // as defined below. This is safe and not totally bad form.
@@ -71,16 +62,17 @@ client.ConnectionManager.prototype = {
     },
     
     setState: function(newState) {
+        // client.log("this.states: " + this.states);
         if(newState in this.states) {
             this.state = newState;
             this.configureCallbacksForState(this.state);
             this.trigger("state." + this.state);
-            console.log("Switched to state: " + this.state);
+            client.log("Switched to state: " + this.state);
         }
     },
     
     configureCallbacksForState: function(state) {
-        // console.log("Switching to state: " + state);
+        // client.log("Switching to state: " + state);
         switch(state) {
             case "DISCONNECTED":
                 
@@ -98,22 +90,20 @@ client.ConnectionManager.prototype = {
     },
     
     registerSocketListener: function(type) {
-        console.log("Registering socket listener: " + type);
+        client.log("Registering socket listener: " + type);
         this.socket.on(type, function(data) {
-            console.log("Received message of type: " + type);
             this.manager.receivedMessage.call(this.manager, type, data);
         });
     },
     
     receivedMessage: function(type, data) {
-        console.log("message." + type);
+        client.log("message." + type);
         switch(type) {
             case "chat":
-                console.log("chat: " + data.text);
+                client.log("chat: " + data.text);
                 break;
             case "identity-ok":
                 // Server accepted our identity.
-
                 // Eventually, the payload here should probably be a fully-encoded
                 // object for us to create a model object out of. Even if we're not
                 // relying on a full save/sync setup, in a situation like this
@@ -121,7 +111,7 @@ client.ConnectionManager.prototype = {
                 // properties on new objects. For now, though, just do it manually.
                 // (if we just blindly pass in the data object, is it any worse?)
                 this.user = new model.User(JSON.parse(data));
-                console.log("Identity accepted: " + this.user.get("name") +" / " + this.user.get("affiliation"));
+                client.log("Identity accepted: " + this.user.get("name") +" / " + this.user.get("affiliation"));
 
                 this.setState("IDENTIFIED");
                 break;
@@ -156,6 +146,14 @@ client.ConnectionManager.prototype = {
     
     identify: function(name, affiliation) {
         this.socket.emit("identify", {"name":name, "affiliation":affiliation});
+    }
+}
+
+client.log = function(msg) {
+    if(executingOnServer) {
+        logger.info(msg);
+    } else {
+        console.log(msg);
     }
 }
 
