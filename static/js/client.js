@@ -9,6 +9,7 @@
     _ = require('underscore');
     Backbone = require('backbone');
     io = require('socket.io-client');
+    model = require('./model.js');
     winston = require('winston');
     
     logger= new (winston.Logger)({
@@ -141,6 +142,7 @@ client.ConnectionManager.prototype = {
     // events if they've already been registered on the socket. 
     
     disconnect: function() {
+        this.setState("DISCONNECTED");
         this.socket.disconnect();
     },
     

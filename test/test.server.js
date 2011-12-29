@@ -1,5 +1,6 @@
 var should = require('should'),
     server = require('../lib/server.js');
+    client = require('../static/js/client.js');
 
 describe('server', function(){
     
@@ -15,9 +16,46 @@ describe('server', function(){
         });
         
         s.bind("stopped", function() {
-        setTimeout(done, 10);
+            setTimeout(done, 10);
         });
         
-        s.start("localhost",8888);
+        s.start("localhost",8181);
+    });
+    
+    describe('interactions with clients', function(){
+        var curServer;
+        
+        beforeEach(function(done) {
+            curServer = new server.BackchannlServer();
+            curServer.bind("started", done);
+            curServer.start("localhost", 8181);
+        });
+        afterEach(function(done) {
+            curServer.bind("stopped", done);
+            curServer.stop();
+        });
+        
+        it('should count connected users properly', function(done){
+            var c = new client.ConnectionManager();
+            
+            curServer.allUsers.numConnectedUsers().should.equal(0);
+            
+            c.bind("state.IDENTIFIED", function() {
+                curServer.allUsers.numConnectedUsers().should.equal(1);
+                
+                curServer.bind("client.disconnected", function() {
+                    curServer.allUsers.numConnectedUsers().should.equal(0);
+                    setTimeout(done(), 50);
+                });
+                c.disconnect();
+            });
+            
+            c.bind("state.CONNECTED", function() {
+                c.identify("Test", "Test");
+            });
+            
+            
+            c.connect("localhost", 8181);
+        })
     });
 });
