@@ -8,12 +8,12 @@ var curServer;
 describe('client-server communication', function(){
 
     describe('client', function(done){
-        beforeEach(function(done) {
+        before(function(done) {
             curServer = new server.BackchannlServer();
             curServer.bind("started", done);
             curServer.start("localhost", 8181);
         });
-        afterEach(function(done) {
+        after(function(done) {
             curServer.bind("stopped", done);
             curServer.stop();
         });
