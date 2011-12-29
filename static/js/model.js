@@ -132,4 +132,25 @@ model.Chat = Backbone.Model.extend({
     },
 });
 
+model.PostList = Backbone.Collection.extend({
+    // Placeholder.
+});
+
+model.ChatList = Backbone.Collection.extend({
+    // Placeholder.
+    // We might want this to be a moving window of a certain size, but
+    // for now we'll just accumulate everything (e.g. leave this as a
+    // default collection.)
+});
+
+model.Event = Backbone.Model.extend({
+    defaults: function() {
+        return {
+            title: "Default Event Title",
+            posts: new model.PostList(),
+            chat: new model.ChatList()
+        }
+    }
+});
+
 })()

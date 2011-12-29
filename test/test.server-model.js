@@ -40,6 +40,33 @@ describe('server.model', function(){
             firstServerPost.get("id").should.equal(0);
             secondServerPost.get("id").should.equal(1);
         });
+    });
+  
+  describe('ServerEvent', function(){
+      it('should create properly with no arguments', function(){
+          var newServerEvent = new model.ServerEvent();
+          
+          should.exist(newServerEvent);
+          
+          newServerEvent.get("posts").length.should.equal(0);
+          newServerEvent.get("chat").length.should.equal(0);
+          newServerEvent.get("title").should.equal("Default Event Title");
+      });
+      
+      it('should create properly with arguments', function(){
+          var newServerEvent = new model.ServerEvent({"title":"Best Event"});
+
+          should.exist(newServerEvent);
+          newServerEvent.get("title").should.equal("Best Event");
+      });
+      
+      it('should increment ids on each new Event', function(){
+          var first = new model.ServerEvent();
+          var second = new model.ServerEvent();
+          
+          first.get("id").should.equal(0);
+          second.get("id").should.equal(1);
+      })
   });
   
   describe('.ServerUser', function(){
