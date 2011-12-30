@@ -107,6 +107,9 @@ client.ConnectionManager.prototype = {
             
             case "IDENTIFIED":
                 this.registerSocketListener("chat");
+                this.registerSocketListener("chat-ok");
+                this.registerSocketListener("chat-err");
+                
                 break;
         }
         
