@@ -262,12 +262,32 @@ describe('client-server communication', function(){
                     });
                     
                     curClient.bind("message.leave-ok", function() {
+                        curServer.events.get(0).get("users")
+                            .length.should.equal(0);
+                        curServer.allUsers.get(0).isInEvent().should.be.false;                        
                         done();
                     });
                     
                     curClient.identify("Test", "Test");
             });
-                
+            
+            it('should fail to leave if not actually in an event',
+                function(done) {
+                    curClient.bind("state.IDENTIFIED", function() {
+                        curClient.leave();
+                    });
+                    
+                    
+                    curClient.bind("message.leave-err", function() {
+                        done();
+                    });
+                    
+                    curClient.bind("message.leave-ok", function() {
+                        should.fail("Leave should not succeed if client is not in an event.");
+                    });
+                    
+                    curClient.identify("Test", "Test");
+            });
                 
                 
             it('should properly move users from one event to another if they try to join a new event', 
