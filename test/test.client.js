@@ -165,6 +165,8 @@ describe('client-server communication', function(){
             });
             
             it('should join the user to the event channel');
+            
+            it('should remove users from the event when they disconnect');
         });
     });
 });
