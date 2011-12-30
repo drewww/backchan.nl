@@ -1,6 +1,7 @@
 var should = require('should'),
     server = require('../lib/server.js'),
-    client = require('../static/js/client.js');
+    client = require('../static/js/client.js'),
+    model = require('../lib/server-model.js');
    
 
 var curServer, curClient;
@@ -158,6 +159,8 @@ describe('client-server communication', function(){
                 
                 curClient.bind("message.join-ok", function() {
                     curServer.events.get(0).get("users").length.should.equal(1);
+                    curServer.allUsers.get(0).get("inEvent").should.equal(0);
+                    curServer.allUsers.get(0).isInEvent().should.be.true;
                     done();
                 });
                 
@@ -233,21 +236,53 @@ describe('client-server communication', function(){
                         setTimeout(function() {
                             curServer.events.get(0).get("users")
                                 .length.should.equal(0);
+                            
+                            curServer.allUsers.get(0).isInEvent().should.be.false;
                             done();
                         }, 200);
                         // After disconnecting, poke at the server to see if
                         // the user was removed from the event properly.
                     });
 
-                    curClient.bind("messages.test", function() {
-                        should.fail("Should not have received this message");
-                    });
-
                     curClient.identify("Test", "Test");
             });
 
             it('should remove users when they send a \'leave\' command');
-            it('should properly move users from one event to another if they try to join a new event');
+            it('should properly move users from one event to another if they try to join a new event', 
+                function(done) {
+                    curClient.bind("state.IDENTIFIED", function() {
+                        curClient.join(0);
+                    });
+                    
+                    curClient.bind("message.join-err", function() {
+                        should.fail("Shouldn't get a join-err message.");
+                    });
+                    
+                    var secondJoin = false;
+                    
+                    curClient.bind("message.join-ok", function() {
+                        
+                        if(!secondJoin) {
+                            // Now create a new event, and have the client join
+                            // that one.
+                        
+                            curClient.join(1);
+                            secondJoin = true;
+                        } else {
+                            
+                            // Make sure we left one and joined the other.
+                            curServer.events.get(0).get("users").length.should.equal(0);
+                            curServer.events.get(1).get("users").length.should.equal(1);
+                            
+                            curServer.allUsers.get(0).get("inEvent").should.equal(1);
+                            done();
+                        }
+                    });
+                    
+                    curServer.events.add(new model.ServerEvent());
+
+                    curClient.identify("Test", "Test");
+                });
         });
     });
 });
