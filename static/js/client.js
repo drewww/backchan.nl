@@ -99,6 +99,9 @@ client.ConnectionManager.prototype = {
                 this.registerSocketListener("join-ok");
                 this.registerSocketListener("join-err");
                 
+                this.registerSocketListener("leave-ok");
+                this.registerSocketListener("leave-err");
+                
                 this.registerSocketListener("test");
                 break;
             
@@ -175,6 +178,10 @@ client.ConnectionManager.prototype = {
     
     join: function(eventId) {
         this.socket.emit("join", {"eventId":eventId});
+    },
+    
+    leave: function() {
+        this.socket.emit("leave");
     }
 }
 

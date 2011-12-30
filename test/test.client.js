@@ -247,7 +247,29 @@ describe('client-server communication', function(){
                     curClient.identify("Test", "Test");
             });
 
-            it('should remove users when they send a \'leave\' command');
+            it('should remove users when they send a \'leave\' command',
+                function(done) {
+                    curClient.bind("state.IDENTIFIED", function() {
+                        curClient.join(0);
+                    });
+                    
+                    curClient.bind("message.join-ok", function() {
+                        curClient.leave();
+                    });
+                    
+                    curClient.bind("message.leave-err", function() {
+                        should.fail("Shouldn't get a leave-err message.");
+                    });
+                    
+                    curClient.bind("message.leave-ok", function() {
+                        done();
+                    });
+                    
+                    curClient.identify("Test", "Test");
+            });
+                
+                
+                
             it('should properly move users from one event to another if they try to join a new event', 
                 function(done) {
                     curClient.bind("state.IDENTIFIED", function() {
