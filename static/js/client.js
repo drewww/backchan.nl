@@ -40,7 +40,8 @@ client.ConnectionManager = function() {
 client.ConnectionManager.prototype = {
     
     user: null,
-    states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3},
+    states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3,
+             "JOINED":4},
     state: null,
     socket: null,
     
@@ -50,7 +51,8 @@ client.ConnectionManager.prototype = {
         
         if(_.isUndefined(options)) options = {};
         _.defaults(options, {
-            "auto-identify": false
+            "auto-identify": false,
+            "auto-join": false
         });
         
         if(options["auto-identify"]) {
@@ -61,6 +63,15 @@ client.ConnectionManager.prototype = {
             this.bind("state.CONNECTED", function() {
                 this.identify("user-" + (Math.floor(Math.random()*1000)),
                     "company-" + (Math.floor(Math.random()*1000)));
+            });
+        }
+        
+        if(options["auto-join"]) {
+            this.bind("state.IDENTIFIED", function() {
+                // This requires that the server have an event with id 0.
+                // This will be true if the server is started with 
+                // test-event: true in its constructor/reset options.
+                this.join(0);
             });
         }
         
@@ -106,11 +117,14 @@ client.ConnectionManager.prototype = {
                 break;
             
             case "IDENTIFIED":
+                break;
+            
+            case "JOINED":
                 this.registerSocketListener("chat");
                 this.registerSocketListener("chat-ok");
                 this.registerSocketListener("chat-err");
-                
                 break;
+            
         }
         
     },
@@ -145,6 +159,19 @@ client.ConnectionManager.prototype = {
             case "identity-err":
                 break;
             
+            case "join-ok":
+                this.setState("JOINED");
+                break;
+            
+            case "leave-ok":
+                
+                // Need to be careful about dropping back into this state - 
+                // I think there are some implicit assumptions about only
+                // moving up in the state path, not reverting.
+                // Adding this in caused some truly weird problems. Come
+                // back to it later. We probably need some sort of 
+                // this.setState("IDENTIFIED");
+                break;
             
             default:
                 break;
@@ -185,6 +212,10 @@ client.ConnectionManager.prototype = {
     
     leave: function() {
         this.socket.emit("leave");
+    },
+    
+    chat: function(text) {
+        this.socket.emit("chat", {"text":text});
     }
 }
 

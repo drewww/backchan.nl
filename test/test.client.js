@@ -95,7 +95,7 @@ describe('client-server communication', function(){
         });
         
         
-        describe('join process', function(){
+        describe('join/leave process', function(){
             before(function(done) {
                 curServer = new server.BackchannlServer();
                 curServer.bind("started", done);
@@ -277,7 +277,9 @@ describe('client-server communication', function(){
                     curClient.bind("message.leave-ok", function() {
                         curServer.events.get(0).get("users")
                             .length.should.equal(0);
+                            
                         curServer.allUsers.get(0).isInEvent().should.be.false;                        
+                        
                         done();
                     });
                     
@@ -338,6 +340,108 @@ describe('client-server communication', function(){
 
                     curClient.identify("Test", "Test");
                 });
+        });
+        
+        
+        describe('chat', function(){
+            before(function(done) {
+                curServer = new server.BackchannlServer();
+                curServer.bind("started", done);
+                curServer.start("localhost", 8181);
+            });
+            
+            beforeEach(function(done) {
+                curServer.reset({"test-event":true});
+
+                curClient = new client.ConnectionManager();
+                
+                curClient.bind("state.JOINED", function() {
+                    done();
+                });
+                
+                curClient.connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });
+            });
+            
+            after(function(done) {
+                curServer.bind("stopped", done);
+                curServer.stop();
+            });
+            
+            it('should correctly reject bad chat messages', function(done) {
+                // These tests start in the JOINED state, so we can just send
+                // a message immediately.
+                curClient.bind("message.chat-ok", function() {
+                    should.fail("Chat should not succeed.");
+                });
+                
+                curClient.bind("message.chat-err", function() {
+                    done();
+                });
+                
+                curClient.chat();
+            });
+            
+            it('should accept good chat messages',
+                function(done) {
+                    // These tests start in the JOINED state, so we can just send
+                    // a message immediately.
+                    curClient.bind("message.chat-ok", function() {
+                        done();
+                    });
+
+                    curClient.bind("message.chat-err", function() {
+                        should.fail("Chat should not fail.");
+                    });
+
+                    curClient.chat("hello world");
+            });
+            
+            it('should send chat messages to other people in the event',
+                function(done){
+                    var otherClient = new client.ConnectionManager();
+                    otherClient.bind("state.JOINED", function() {
+                        
+                        curClient.chat("hello world");
+                    });
+                    
+                    otherClient.bind("message.chat", function() {
+                        done();
+                    });
+                    
+                    otherClient.connect("localhost", 8181, {
+                        "auto-identify":true,
+                        "auto-join":true
+                    });
+                    
+                    curClient.bind("message.chat-err", function() {
+                        should.fail("Chat should not fail.");
+                    });
+            });
+            
+            it('should not send chat messages to people not in the event',
+                function(done) {
+                    var otherClient = new client.ConnectionManager();
+                    otherClient.bind("state.IDENTIFIED", function() {
+                        curClient.chat("hello world");
+                    });
+                    
+                    otherClient.bind("message.chat", function() {
+                        console.log("Got a bad chat message.");
+                        should.fail("The other client shouldn't receive the message because they're not joined to that event.");
+                    });
+                    
+                    otherClient.connect("localhost", 8181, {
+                        "auto-identify":true
+                    });
+                    
+                    curClient.bind("message.chat", function() {
+                        done();
+                    });
+            });
+            
         });
     });
 });
