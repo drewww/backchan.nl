@@ -216,7 +216,38 @@ describe('client-server communication', function(){
                 
             });
             
-            it('should remove users from the event when they disconnect');
+            it('should remove users from the event when they disconnect', 
+                function(done) {
+                    curClient.bind("state.IDENTIFIED", function() {
+                        curClient.join(0);
+                    });
+                    
+                    curClient.bind("message.join-err", function() {
+                        should.fail("Shouldn't get a join-err message.");
+                    });
+                    
+                    curClient.bind("message.join-ok", function() {
+                        // Now disconnect.
+                        curClient.disconnect();
+                        
+                        setTimeout(function() {
+                            curServer.events.get(0).get("users")
+                                .length.should.equal(0);
+                            done();
+                        }, 200);
+                        // After disconnecting, poke at the server to see if
+                        // the user was removed from the event properly.
+                    });
+
+                    curClient.bind("messages.test", function() {
+                        should.fail("Should not have received this message");
+                    });
+
+                    curClient.identify("Test", "Test");
+            });
+
+            it('should remove users when they send a \'leave\' command');
+            it('should properly move users from one event to another if they try to join a new event');
         });
     });
 });
