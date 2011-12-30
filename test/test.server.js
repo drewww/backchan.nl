@@ -29,7 +29,8 @@ describe('server', function(){
             s.bind("started", function() {
                 
                 s.events.length.should.equal(1);
-                
+                s.events.get(0).should.exist;
+                s.events.get(0).get("title").should.equal("Default Event Title");
                 s.stop();
             });
 
@@ -39,37 +40,21 @@ describe('server', function(){
 
             s.start("localhost",8181);
         });
-    });
-    
-    describe('interactions with clients', function(){
-        var curServer;
         
-        beforeEach(function(done) {
-            curServer = new server.BackchannlServer();
-            curServer.bind("started", done);
-            curServer.start("localhost", 8181);
-        });
-        afterEach(function(done) {
-            curServer.bind("stopped", done);
-            curServer.stop();
-        });
-        
-        it('should count connected users properly', function(done){
-            var c = new client.ConnectionManager();
+        it('should have no events when it started', function(done){
+            var s = new server.BackchannlServer();
             
-            curServer.allUsers.numConnectedUsers().should.equal(0);
             
-            c.bind("state.IDENTIFIED", function() {
-                curServer.allUsers.numConnectedUsers().should.equal(1);
-                
-                curServer.bind("client.disconnected", function() {
-                    curServer.allUsers.numConnectedUsers().should.equal(0);
-                    setTimeout(done(), 50);
-                });
-                c.disconnect();
+            s.bind("started", function() {
+               s.events.length.should.equal(0);
+               s.stop(); 
             });
             
-            c.connect("localhost", 8181, {"auto-identify":true});
-        })
+            s.bind("stopped", function() {
+                setTimeout(done, 10);
+            });
+            
+            s.start("localhost", 8181);
+        });
     });
 });

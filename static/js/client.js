@@ -95,6 +95,9 @@ client.ConnectionManager.prototype = {
             case "CONNECTED":
                 this.registerSocketListener("identity-ok");
                 this.registerSocketListener("identity-err");
+                
+                this.registerSocketListener("join-ok");
+                this.registerSocketListener("join-err");
                 break;
             
             case "IDENTIFIED":
@@ -166,6 +169,10 @@ client.ConnectionManager.prototype = {
     
     identify: function(name, affiliation) {
         this.socket.emit("identify", {"name":name, "affiliation":affiliation});
+    },
+    
+    join: function(eventId) {
+        this.socket.emit("join", {"eventId":eventId});
     }
 }
 
