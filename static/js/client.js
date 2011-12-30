@@ -98,6 +98,8 @@ client.ConnectionManager.prototype = {
                 
                 this.registerSocketListener("join-ok");
                 this.registerSocketListener("join-err");
+                
+                this.registerSocketListener("test");
                 break;
             
             case "IDENTIFIED":

@@ -164,7 +164,57 @@ describe('client-server communication', function(){
                 curClient.identify("Test", "Test");
             });
             
-            it('should join the user to the event channel');
+            it('should receive messages on the right channel', function(done){
+                curClient.bind("state.IDENTIFIED", function() {
+                    curClient.join(0);
+                });
+                
+                curClient.bind("message.join-err", function() {
+                    should.fail("Shouldn't get a join-err message.");
+                });
+                
+                curClient.bind("message.join-ok", function() {
+                    // Now have the server send a message to that channel.
+                    curServer.io.sockets.in(
+                        curServer.events.get(0).getChannel())
+                        .emit("test");
+                });
+                
+                curClient.bind("message.test", function() {
+                    done();
+                })
+                
+                curClient.identify("Test", "Test");
+            });
+            
+            
+            it('should not receive messages on other channels', function(done) {
+                curClient.bind("state.IDENTIFIED", function() {
+                    curClient.join(0);
+                });
+                
+                curClient.bind("message.join-err", function() {
+                    should.fail("Shouldn't get a join-err message.");
+                });
+                
+                curClient.bind("message.join-ok", function() {
+                    // Send a message to some other channel. We shouldn't
+                    // receive anything.
+                    curServer.io.sockets.in("foo").emit("test");
+                    
+                    // Wait 100ms and then pass the test - if the server
+                    // was going to actually send us the wrong thing, it would
+                    // have done it by then.
+                    setTimeout(done, 100);
+                });
+                
+                curClient.bind("messages.test", function() {
+                    should.fail("Should not have received this message");
+                })
+                
+                curClient.identify("Test", "Test");
+                
+            });
             
             it('should remove users from the event when they disconnect');
         });
