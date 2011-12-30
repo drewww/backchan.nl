@@ -52,6 +52,10 @@ describe('client-server communication', function(){
                 });
                 cm.connect("localhost", 8181);
         });
+        
+        // This is going to be a bit of a bear to test + figure out. But worth
+        // doing at some point. Leaving it here a a reminder.
+        it('should handle the server disappearing and reconnect gracefully');
     });
     
     describe('server', function(){
