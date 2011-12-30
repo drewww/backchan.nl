@@ -9,16 +9,18 @@ var curServer, curClient;
 describe('client-server communication', function(){
 
     describe('client', function(done){
-        beforeEach(function(done) {
+        before(function(done) {
             curServer = new server.BackchannlServer();
             curServer.bind("started", done);
             curServer.start("localhost", 8181);
         });
-        afterEach(function(done) {
+        beforeEach(function() {
+            curServer.reset();
+        });
+        after(function(done) {
             curServer.bind("stopped", done);
             curServer.stop();
         });
-
 
         it('should handle identify commands', function(done) {
             
@@ -60,12 +62,15 @@ describe('client-server communication', function(){
     
     describe('server', function(){
         describe('connect process', function(){
-            beforeEach(function(done) {
+            before(function(done) {
                 curServer = new server.BackchannlServer();
                 curServer.bind("started", done);
                 curServer.start("localhost", 8181);
             });
-            afterEach(function(done) {
+            beforeEach(function() {
+                curServer.reset();
+            });
+            after(function(done) {
                 curServer.bind("stopped", done);
                 curServer.stop();
             });
@@ -91,20 +96,24 @@ describe('client-server communication', function(){
         
         
         describe('join process', function(){
-            beforeEach(function(done) {
-                curServer = new server.BackchannlServer({"test-event":true});
-                curServer.bind("started", function() {
-                    curClient = new client.ConnectionManager();
-                    curClient.bind("state.CONNECTED", done);
-                    curClient.connect("localhost", 8181);
-                });
+            before(function(done) {
+                curServer = new server.BackchannlServer();
+                curServer.bind("started", done);
                 curServer.start("localhost", 8181);
             });
-            afterEach(function(done) {
+            beforeEach(function(done) {
+                curServer.reset({"test-event":true});
+
+                curClient = new client.ConnectionManager();
+                curClient.bind("state.CONNECTED", done);
+                curClient.connect("localhost", 8181);
+                
+            });
+            after(function(done) {
                 curServer.bind("stopped", done);
                 curServer.stop();
             });
-
+            
             it('should reject joins from users who haven\'t identified yet',
                 function(done) {
                     curClient.bind("message.join-err", function() {
