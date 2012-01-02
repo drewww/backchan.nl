@@ -125,6 +125,7 @@ model.Chat = Backbone.Model.extend({
         return {
             fromName: "default",
             fromAffiliation: "default affiliation",
+            fromId: -1,
             text: "default message",
             timestamp: new Date().getTime(),
             admin: false

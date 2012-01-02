@@ -161,6 +161,10 @@ client.ConnectionManager.prototype = {
                 break;
                 
             case "identity-err":
+            case "join-err":
+            case "chat-err":
+            case "post-err":
+                client.log("ERR: " + data);
                 break;
             
             case "join-ok":
@@ -237,6 +241,10 @@ client.ConnectionManager.prototype = {
     
     chat: function(text) {
         this.socket.emit("chat", {"text":text});
+    },
+    
+    post: function(text) {
+        this.socket.emit("post", {"text":text});
     }
 }
 
