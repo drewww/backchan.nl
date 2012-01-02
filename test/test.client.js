@@ -440,8 +440,157 @@ describe('client-server communication', function(){
               
                 curClient.post("hello world post");
             });
+        });
+        
+        describe('vote', function() {
+            before(function(done) {
+                curServer = new server.BackchannlServer();
+                curServer.bind("started", done);
+                curServer.start("localhost", 8181);
+            });
             
+            beforeEach(function(done) {
+                curServer.reset({"test-event":true});
+
+                curClient = new client.ConnectionManager();
+                
+                curClient.bind("state.JOINED", function() {
+                    done();
+                });
+                
+                curClient.connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });
+            });
             
+            after(function(done) {
+                curServer.bind("stopped", done);
+                curServer.stop();
+            });
+            
+            it('should reject votes on ids that aren\'t numbers',
+                function(done){
+                
+                curClient.bind("message.post-ok", function() {
+                    curClient.vote("asdf");
+                });
+                
+                curClient.bind("message.vote-ok", function() {
+                    should.fail("Voted with a non-number postId");
+                });
+
+                curClient.bind("message.vote-err", function() {
+                    curServer.events.get(0).get("posts")
+                        .get(0).votes().should.equal(1);
+                    done();
+                });
+                
+                curClient.post("Hello World Post");
+            });
+            
+            it('should reject votes on ids that aren\'t valid postIds',
+                function(done){
+                    curClient.bind("message.post-ok", function() {
+                        curClient.vote(7);
+                    });
+
+                    curClient.bind("message.vote-ok", function() {
+                        should.fail("Voted with an invalid postId");
+                    });
+
+                    curClient.bind("message.vote-err", function() {
+                        curServer.events.get(0).get("posts")
+                            .get(0).votes().should.equal(1);
+                        done();
+                    });
+
+                    curClient.post("Hello World Post");
+            });
+            
+            it('should reject votes on posts created by that person',
+                function(done){
+                    curClient.bind("message.post-ok", function() {
+                        curClient.vote(0);
+                    });
+
+                    curClient.bind("message.vote-ok", function() {
+                        should.fail("Voted from the same client that created a post.");
+                    });
+
+                    curClient.bind("message.vote-err", function() {
+                        curServer.events.get(0).get("posts")
+                            .get(0).votes().should.equal(1);
+                        done();
+                    });
+
+                    curClient.post("Hello World Post");
+            });
+            
+            it('should accept votes that well formed', function(done){
+                var otherClient = new client.ConnectionManager();
+                otherClient.bind("state.JOINED", function() {
+                    otherClient.post("Hello World Post");
+                });
+
+                otherClient.bind("message.post-ok", function() {
+                    curClient.vote(0);
+                });
+                
+                curClient.bind("message.vote-ok", function() {
+                    curServer.events.get(0).get("posts")
+                        .get(0).votes().should.equal(2);
+                    done();
+                });
+
+                curClient.bind("message.vote-err", function() {
+                    should.fail("Vote should succeed.");
+                });
+                
+                otherClient.connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });
+            });
+            
+            it('should reject successive votes from a non-creator', function(done){
+                var otherClient = new client.ConnectionManager();
+                otherClient.bind("state.JOINED", function() {
+                    otherClient.post("Hello World Post");
+                });
+
+                otherClient.bind("message.post-ok", function() {
+                    curClient.vote(0);
+                });
+                
+                var secondVote = false;
+                
+                curClient.bind("message.vote-ok", function() {
+                    if(!secondVote) {
+                        curServer.events.get(0).get("posts")
+                            .get(0).votes().should.equal(2);
+                        curClient.vote(0);
+                        
+                        secondVote = true;
+                    } else {
+                        should.fail("Second vote on the same post should fail.");
+                    }
+                });
+
+                curClient.bind("message.vote-err", function() {
+                    if(secondVote) {
+                        curServer.events.get(0).get("posts")
+                            .get(0).votes().should.equal(2);
+                        done();
+                    } else {
+                        should.fail("First vote should succeed.");
+                    }
+                });
+                
+                otherClient.connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });            });
         });
         
         describe('chat', function(){
