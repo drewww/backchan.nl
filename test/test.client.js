@@ -511,6 +511,9 @@ describe('client-server communication', function(){
             it('should reject votes on posts created by that person',
                 function(done){
                     curClient.bind("message.post-ok", function() {
+                        curServer.events.get(0).get("posts")
+                            .get(0).votes().should.equal(1);
+                        
                         curClient.vote(0);
                     });
 

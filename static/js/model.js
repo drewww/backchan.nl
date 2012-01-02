@@ -26,27 +26,31 @@ model.Post = Backbone.Model.extend({
             fromId: -1,
             text: "default text",
             timestamp: new Date().getTime(),
-            votes: []
+            votes: [],
+            promotedAt: null
         };
     },
     
-    addVote: function(fromUser, atTimestamp) {
+    addVote: function(fromUserId, atTimestamp) {
         // console.log("incoming: " + atTimestamp + " / " + fromUser);
         if (_.isUndefined(atTimestamp) || _.isNull(atTimestamp)) {
             atTimestamp = Date.now();
         }
         
-        if(_.isUndefined(fromUser)) {
+        if(_.isUndefined(fromUserId)) {
             fromUser = null;
         }
         
-        // console.log("adding vote: " + atTimestamp + " from user: " + fromUser);
+        if(fromUserId instanceof model.User) {
+            console.log("Tried to pass in a User object when addVote expects an id. Fixing the problem, but fix your code!");
+            fromUserId = fromUserId.id;
+        }
         
         // reject votes from the same person
-        if(this.hasVoteFrom(fromUser)) return false;
+        if(this.hasVoteFrom(fromUserId)) return false;
         
         var currentVoteList = this.get("votes");
-        currentVoteList.push({"timestamp":atTimestamp, "id":fromUser});
+        currentVoteList.push({"timestamp":atTimestamp, "id":fromUserId});
         this.set({
             "votes": currentVoteList
         });
@@ -54,7 +58,6 @@ model.Post = Backbone.Model.extend({
         // TODO think about this - why is it here? this might be a vestige
         // of the old system. 
         this.trigger("change");
-        
         return true;
     },
     
@@ -91,6 +94,10 @@ model.Post = Backbone.Model.extend({
         return _.find(this.get("votes"), function(vote) {
             return vote["id"]==userId;
         })!=null;
+    },
+    
+    isPromoted: function() {
+        return !(_.isNull(this.get("promotedAt")));
     }
 });
 

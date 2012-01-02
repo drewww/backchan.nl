@@ -75,6 +75,13 @@ describe('client model', function() {
                 newPost.recentVotes(10000).should.equal(1);
                 newPost.mostRecentVote().should.have.property('id', 1);
         });
+        
+        it('should be non-promoted on creation', function(){
+            var newPost = new model.Post();
+            should.exist(newPost);
+            
+            newPost.isPromoted().should.be.false;
+        });
     });
     
     
