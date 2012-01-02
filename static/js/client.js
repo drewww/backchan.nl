@@ -40,6 +40,7 @@ client.ConnectionManager = function() {
 client.ConnectionManager.prototype = {
     
     user: null,
+    event: null,
     states: {"DISCONNECTED":0, "IDENTIFYING":1, "CONNECTED":2, "IDENTIFIED":3,
              "JOINED":4},
     state: null,
@@ -138,10 +139,10 @@ client.ConnectionManager.prototype = {
     
     receivedMessage: function(type, data) {
         client.log("message." + type);
+        
+        var arg = null;
+        
         switch(type) {
-            case "chat":
-                client.log("chat: " + data.text);
-                break;
             case "identity-ok":
                 // Server accepted our identity.
                 // Eventually, the payload here should probably be a fully-encoded
@@ -151,8 +152,11 @@ client.ConnectionManager.prototype = {
                 // properties on new objects. For now, though, just do it manually.
                 // (if we just blindly pass in the data object, is it any worse?)
                 this.user = new model.User(JSON.parse(data));
-                client.log("Identity accepted: " + this.user.get("name") +" / " + this.user.get("affiliation"));
-
+                client.log("Identity accepted: " + this.user.get("name") +
+                    " / " + this.user.get("affiliation"));
+                
+                arg = this.user;
+                
                 this.setState("IDENTIFIED");
                 break;
                 
@@ -160,6 +164,11 @@ client.ConnectionManager.prototype = {
                 break;
             
             case "join-ok":
+                this.event = new model.Event(JSON.parse(data));
+                client.log("Local event set: " + this.event.get("title"));
+                
+                arg = this.event;
+                
                 this.setState("JOINED");
                 break;
             
@@ -173,11 +182,20 @@ client.ConnectionManager.prototype = {
                 // this.setState("IDENTIFIED");
                 break;
             
+            case "chat":
+                var chat = new model.Chat(JSON.parse(data));
+                client.log("Received chat: " + chat.get("fromName") + ": "
+                    + chat.get("text"));
+                
+                arg = chat;
+                break;
+                
+            
             default:
                 break;
         }
         
-        this.trigger("message." + type, data);
+        this.trigger("message." + type, arg);
     },
     
     // There are two kinds of callbacks clients of ConnectionManager might

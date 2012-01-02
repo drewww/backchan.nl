@@ -442,6 +442,28 @@ describe('client-server communication', function(){
                     });
             });
             
+            it('should reinflate the chat object on the client with\
+ the right data', function(done) {
+     
+                curClient.bind("message.chat", function(chat) {
+                    chat.get("text").should.equal("hello world");
+                    chat.get("admin").should.be.false;
+                    
+                    // check and see if the timestamp is within the last 
+                    // second.
+                    var timeSinceMessage = new Date().getTime() -
+                        chat.get("timestamp");
+                    
+                    (timeSinceMessage<1000).should.be.true;
+                    done();
+                });
+
+                curClient.bind("message.chat-err", function() {
+                    should.fail("Chat should not fail.");
+                });
+
+                curClient.chat("hello world");
+            });
         });
     });
 });
