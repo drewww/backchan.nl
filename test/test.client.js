@@ -440,6 +440,54 @@ describe('client-server communication', function(){
               
                 curClient.post("hello world post");
             });
+            
+            it('should send post objects to their creators on creation', function(done){
+                
+                curClient.bind("message.post.err", function() {
+                    should.fail("Should accept a properly formed post.");
+                });
+                
+                curClient.bind("message.post", function(post) {
+                    post.should.exist;
+                    
+                    post.get("text").should.equal("hello world post");
+                    curClient.event.get("posts").length.should.equal(1);
+                    
+                    done();
+                });
+              
+                curClient.post("hello world post");
+            });
+            
+            it('should not send post objects to non-subscribed users', function(done){
+                var otherClient = new client.ConnectionManager();
+                otherClient.bind("state.JOINED", function() {
+                    curClient.post("hello world post");
+                });
+                
+                otherClient.bind("message.post", function() {
+                    should.fail("Received a post message even though the post wasn't published to this client.");
+                });
+                
+                otherClient.connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });
+                
+                curClient.bind("message.post.err", function() {
+                    should.fail("Should accept a properly formed post.");
+                });
+                
+                curClient.bind("message.post", function(post) {
+                    post.should.exist;
+                    
+                    post.get("text").should.equal("hello world post");
+                    curClient.event.get("posts").length.should.equal(1);
+                    
+                    done();
+                });
+            });
+            
         });
         
         describe('vote', function() {

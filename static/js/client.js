@@ -206,9 +206,17 @@ client.ConnectionManager.prototype = {
                 
                 arg = chat;
                 break;
+            
+            case "post":
+                var post = new model.Post(JSON.parse(data));
+                client.log("Received post: " + post.get("text"));
                 
+                this.event.addPost(post);
+                arg = post;
+                break;
             
             default:
+                client.log("Received an unknown message type: " + type);
                 break;
         }
         
