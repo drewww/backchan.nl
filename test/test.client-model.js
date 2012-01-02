@@ -34,9 +34,9 @@ describe('client model', function() {
             var newPost = new model.Post();
             should.exist(newPost);
             
-            newPost.addVote(null, 0);
-            newPost.addVote(null, 1);
-            newPost.addVote(null, 2);
+            newPost.addVote(0);
+            newPost.addVote(1);
+            newPost.addVote(2);
             
             newPost.votes().should.equal(3);
         });
@@ -45,9 +45,9 @@ describe('client model', function() {
             var newPost = new model.Post();
             should.exist(newPost);
             
-            newPost.addVote(null, 0);
-            newPost.addVote(null, 0);
-            newPost.addVote(null, 0);
+            newPost.addVote(0);
+            newPost.addVote(0);
+            newPost.addVote(0);
             
             newPost.votes().should.equal(1);
         });
@@ -56,7 +56,7 @@ describe('client model', function() {
             var newPost = new model.Post();
             should.exist(newPost);
             
-            newPost.addVote(null, 0);
+            newPost.addVote(0);
             
             newPost.hasVoteFrom(0).should.be.true;
             newPost.hasVoteFrom(1).should.be.false;
@@ -68,8 +68,8 @@ describe('client model', function() {
                 var newPost = new model.Post();
                 should.exist(newPost);
                 
-                newPost.addVote(Date.now()-5000, 1);
-                newPost.addVote(Date.now()-20000, 2);
+                newPost.addVote(1, Date.now()-5000);
+                newPost.addVote(2, Date.now()-20000);
 
                 
                 newPost.recentVotes(10000).should.equal(1);

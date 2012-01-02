@@ -396,19 +396,19 @@ describe('client-server communication', function(){
                 curServer.stop();
             });
             
-            it('should reject malformed posts', function(){
+            it('should reject malformed posts', function(done){
                 curClient.bind("message.post-ok", function() {
                     should.fail("Should reject a malformed post.");
                 });
                 
-                curClient.bind("message.post.err", function() {
+                curClient.bind("message.post-err", function() {
                     done();
                 });
               
                 curClient.post();
             });
             
-            it('should accept proper posts', function(){
+            it('should accept proper posts', function(done){
                 curClient.bind("message.post-ok", function() {
                     done();
                 });
@@ -420,7 +420,7 @@ describe('client-server communication', function(){
                 curClient.post("hello world post");
             });
             
-            it('should accumulate posts in the server event object', function(){
+            it('should accumulate posts in the server event object', function(done){
                 curClient.bind("message.post-ok", function() {
                     
                     var posts = curServer.events.get(0).get("posts");

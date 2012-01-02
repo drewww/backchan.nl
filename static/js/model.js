@@ -30,7 +30,7 @@ model.Post = Backbone.Model.extend({
         };
     },
     
-    addVote: function(atTimestamp, fromUser) {
+    addVote: function(fromUser, atTimestamp) {
         // console.log("incoming: " + atTimestamp + " / " + fromUser);
         if (_.isUndefined(atTimestamp) || _.isNull(atTimestamp)) {
             atTimestamp = Date.now();
@@ -43,7 +43,7 @@ model.Post = Backbone.Model.extend({
         // console.log("adding vote: " + atTimestamp + " from user: " + fromUser);
         
         // reject votes from the same person
-        if(this.hasVoteFrom(fromUser)) return;
+        if(this.hasVoteFrom(fromUser)) return false;
         
         var currentVoteList = this.get("votes");
         currentVoteList.push({"timestamp":atTimestamp, "id":fromUser});
@@ -51,7 +51,11 @@ model.Post = Backbone.Model.extend({
             "votes": currentVoteList
         });
 
+        // TODO think about this - why is it here? this might be a vestige
+        // of the old system. 
         this.trigger("change");
+        
+        return true;
     },
     
     votes: function() {

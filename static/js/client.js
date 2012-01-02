@@ -124,6 +124,15 @@ client.ConnectionManager.prototype = {
                 this.registerSocketListener("chat");
                 this.registerSocketListener("chat-ok");
                 this.registerSocketListener("chat-err");
+                
+                this.registerSocketListener("vote");
+                this.registerSocketListener("vote-ok");
+                this.registerSocketListener("vote-err");
+                
+                this.registerSocketListener("post");
+                this.registerSocketListener("post-ok");
+                this.registerSocketListener("post-err");
+                
                 break;
             
         }
@@ -164,6 +173,7 @@ client.ConnectionManager.prototype = {
             case "join-err":
             case "chat-err":
             case "post-err":
+            case "vote-err":
                 client.log("ERR: " + data);
                 break;
             
@@ -245,7 +255,11 @@ client.ConnectionManager.prototype = {
     
     post: function(text) {
         this.socket.emit("post", {"text":text});
-    }
+    },
+    
+    vote: function(postId) {
+        this.socket.emit("vote", {"postId":postId});
+    },
 }
 
 client.log = function(msg) {
