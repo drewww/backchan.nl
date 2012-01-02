@@ -340,6 +340,33 @@ describe('client-server communication', function(){
 
                     curClient.identify("Test", "Test");
                 });
+                
+                it('should reinflate the Event object', function(done) {
+                    curClient.bind("state.IDENTIFIED", function() {
+                        
+                        // Join eventId 1 because ID 0 is the default test
+                        // event.
+                        curClient.join(1);
+                    });
+                    
+                    curClient.bind("message.join-err", function() {
+                        should.fail("Shouldn't get a join-err message.");
+                    });
+                    
+                    curClient.bind("message.join-ok", function(newEvent) {
+                        
+                        (newEvent instanceof model.Event).should.be.true;
+                        newEvent.get("title").should.equal("Test Event");
+                        
+                        done();
+                    });
+                    
+                    curServer.events.add(new model.ServerEvent({
+                        title:"Test Event"
+                        }));
+
+                    curClient.identify("Test", "Test");
+                });
         });
         
         
@@ -446,6 +473,8 @@ describe('client-server communication', function(){
  the right data', function(done) {
      
                 curClient.bind("message.chat", function(chat) {
+                    
+                    (chat instanceof model.Chat).should.be.true;
                     chat.get("text").should.equal("hello world");
                     chat.get("admin").should.be.false;
                     
