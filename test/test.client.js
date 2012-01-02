@@ -369,6 +369,80 @@ describe('client-server communication', function(){
                 });
         });
         
+        describe('post', function() {
+            before(function(done) {
+                curServer = new server.BackchannlServer();
+                curServer.bind("started", done);
+                curServer.start("localhost", 8181);
+            });
+            
+            beforeEach(function(done) {
+                curServer.reset({"test-event":true});
+
+                curClient = new client.ConnectionManager();
+                
+                curClient.bind("state.JOINED", function() {
+                    done();
+                });
+                
+                curClient.connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });
+            });
+            
+            after(function(done) {
+                curServer.bind("stopped", done);
+                curServer.stop();
+            });
+            
+            it('should reject malformed posts', function(){
+                curClient.bind("message.post-ok", function() {
+                    should.fail("Should reject a malformed post.");
+                });
+                
+                curClient.bind("message.post.err", function() {
+                    done();
+                });
+              
+                curClient.post();
+            });
+            
+            it('should accept proper posts', function(){
+                curClient.bind("message.post-ok", function() {
+                    done();
+                });
+                
+                curClient.bind("message.post.err", function() {
+                    should.fail("Should accept a properly formed post.");
+                });
+              
+                curClient.post("hello world post");
+            });
+            
+            it('should accumulate posts in the server event object', function(){
+                curClient.bind("message.post-ok", function() {
+                    
+                    var posts = curServer.events.get(0).get("posts");
+
+                    posts.should.exist;
+                    posts.length.should.equal(1);
+                    posts.get(0).should.exist;
+                    posts.get(0).get("text").should.equal("hello world post");
+                    
+                    
+                    done();
+                });
+                
+                curClient.bind("message.post.err", function() {
+                    should.fail("Should accept a properly formed post.");
+                });
+              
+                curClient.post("hello world post");
+            });
+            
+            
+        });
         
         describe('chat', function(){
             before(function(done) {
