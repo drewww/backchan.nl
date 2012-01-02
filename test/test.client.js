@@ -493,6 +493,28 @@ describe('client-server communication', function(){
 
                 curClient.chat("hello world");
             });
+            
+            it('should accumulate chat messages in the event object',
+                function(done){
+                    var receivedCount = 0;
+                    
+                    curClient.bind("message.chat", function() {
+                        receivedCount++;
+                        
+                        if(receivedCount==3) {
+                            curClient.event.get("chat").length.should.equal(3);
+                            done();
+                        }
+                    });
+
+                    curClient.bind("message.chat-err", function() {
+                        should.fail("Chat should not fail.");
+                    });
+
+                    curClient.chat("hello world");
+                    curClient.chat("hello world");                    
+                    curClient.chat("hello world");
+            });
         });
     });
 });

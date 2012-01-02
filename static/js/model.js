@@ -144,13 +144,33 @@ model.ChatList = Backbone.Collection.extend({
 });
 
 model.Event = Backbone.Model.extend({
+    initialize: function(args) {
+        Backbone.Model.prototype.initialize.call(this, args);
+        
+        // These tests handle a situation where a client Event is inflated 
+        // based on server data that has simple arrays in posts/chat fields
+        // because Collections get JSON'd down to arrays. annoying, but this
+        // will replace them with empty lists. If we end up with some fancier
+        // serialization strategy later, will need to replace this.
+        if(!(this.get("posts") instanceof model.PostList)) this.set({"posts":this.defaults()["posts"]});
+        if(!(this.get("chat") instanceof model.ChatList)) this.set({"chat":this.defaults()["chat"]});
+    },
+    
     defaults: function() {
         return {
             title: "Default Event Title",
             posts: new model.PostList(),
             chat: new model.ChatList()
         }
-    }
+    },
+    
+    addChat: function(newChat) {
+        this.get("chat").add(newChat);
+    },
+    
+    addPost: function(newPost) {
+        this.get("posts").add(newPost);
+    },
 });
 
 })()

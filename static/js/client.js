@@ -187,6 +187,9 @@ client.ConnectionManager.prototype = {
                 client.log("Received chat: " + chat.get("fromName") + ": "
                     + chat.get("text"));
                 
+                // register the new chat message with the event.
+                this.event.addChat(chat);
+                
                 arg = chat;
                 break;
                 

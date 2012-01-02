@@ -111,4 +111,15 @@ describe('client model', function() {
             newChat.get("admin").should.be.false;
         });
     });
+    
+    describe('Event', function(){
+      it('should have default values', function(){
+        var newEvent = new model.Event();
+        
+        should.exist(newEvent);
+        newEvent.get("title").should.equal("Default Event Title");
+        (newEvent.get("chat") instanceof model.ChatList).should.be.true;
+        (newEvent.get("posts") instanceof model.PostList).should.be.true;
+      });
+    });
 });
