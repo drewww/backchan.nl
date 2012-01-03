@@ -611,10 +611,19 @@ describe('client-server communication', function(){
                     curClient.vote(0);
                 });
                 
+                var voteCount = 0;
+                otherClient.bind("message.vote", function(post) {
+                    voteCount++;
+                    
+                    if(voteCount==2) {
+                        post.votes().should.equal(2);
+                        done();
+                    }
+                });
+                
                 curClient.bind("message.vote-ok", function() {
                     curServer.events.get(0).get("posts")
                         .get(0).votes().should.equal(2);
-                    done();
                 });
 
                 curClient.bind("message.vote-err", function() {
