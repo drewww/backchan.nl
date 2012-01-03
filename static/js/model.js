@@ -164,8 +164,10 @@ model.Event = Backbone.Model.extend({
         // because Collections get JSON'd down to arrays. annoying, but this
         // will replace them with empty lists. If we end up with some fancier
         // serialization strategy later, will need to replace this.
-        if(!(this.get("posts") instanceof model.PostList)) this.set({"posts":this.defaults()["posts"]});
-        if(!(this.get("chat") instanceof model.ChatList)) this.set({"chat":this.defaults()["chat"]});
+        if(!(this.get("posts") instanceof model.PostList)) 
+            this.set({"posts":this.defaults()["posts"]});
+        if(!(this.get("chat") instanceof model.ChatList))
+            this.set({"chat":this.defaults()["chat"]});
     },
     
     defaults: function() {
