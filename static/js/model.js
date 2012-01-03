@@ -38,7 +38,7 @@ model.Post = Backbone.Model.extend({
         }
         
         if(_.isUndefined(fromUserId)) {
-            fromUser = null;
+            fromUserId = null;
         }
         
         if(fromUserId instanceof model.User) {

@@ -459,6 +459,30 @@ describe('client-server communication', function(){
                 curClient.post("hello world post");
             });
             
+            it('should send post objects with proper vote data', function(done){
+                
+                curClient.bind("message.post.err", function() {
+                    should.fail("Should accept a properly formed post.");
+                });
+                
+                curClient.bind("message.post", function(post) {
+                    post.should.exist;
+                    
+                    post.get("text").should.equal("hello world post");
+                    curClient.event.get("posts").length.should.equal(1);
+                    
+                    post.votes().should.equal(0);
+                });
+                
+                curClient.bind("message.vote", function(post) {
+                    post.votes().should.equal(1);
+                    post.hasVoteFrom(curClient.user.id).should.be.true;
+                    done();
+                });
+              
+                curClient.post("hello world post");
+            });
+            
             it('should not send post objects to non-subscribed users', function(done){
                 var otherClient = new client.ConnectionManager();
                 otherClient.bind("state.JOINED", function() {
@@ -487,7 +511,6 @@ describe('client-server communication', function(){
                     done();
                 });
             });
-            
         });
         
         describe('vote', function() {

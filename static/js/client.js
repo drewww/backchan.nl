@@ -215,6 +215,19 @@ client.ConnectionManager.prototype = {
                 arg = post;
                 break;
             
+            case "vote":
+                var post = this.event.get("posts").get(data["postId"]);
+                
+                if(_.isUndefined(post) || _.isNull(post)) {
+                    client.log("WARN: Tried to update votes for a post that doesn't seem to exist: " + data["postId"]);
+                    break;
+                }
+                
+                post.addVote(data["fromUserId"]);
+                
+                arg = post;
+                break;
+            
             default:
                 client.log("Received an unknown message type: " + type);
                 break;
