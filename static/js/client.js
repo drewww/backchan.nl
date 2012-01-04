@@ -133,6 +133,7 @@ client.ConnectionManager.prototype = {
                 this.registerSocketListener("post-ok");
                 this.registerSocketListener("post-err");
                 
+                this.registerSocketListener("promoted");
                 break;
             
         }

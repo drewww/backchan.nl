@@ -752,8 +752,36 @@ describe('client-server communication', function(){
                 clients[0].post("hello world");
             });
             
-            it('should handle promotes properly', function(){
-              
+            it('should handle promotes properly', function(done){
+                
+                // basically the goal here is just to call promote and see
+                // if the second client gets a post event and if the first
+                // client gets a promoted message
+                var dispatch = curServer.events.get(0).get("dispatch");
+                var thePost;
+                
+                dispatch.should.exist;
+                
+                dispatch.bind("post.new", function(post) {
+                    // now promote the post.
+                    dispatch.promotePost(post);
+                    thePost = post;
+                    
+                });
+                
+                clients[1].bind("message.post", function(post) {
+                    // did the second client get added to the post properly?
+                    thePost.isPromoted().should.be.true;
+                    
+                    post.isPromoted().should.be.true;
+                    
+                    post.get("text").should.equal("hello world");
+                    post.votes().should.equal(1);
+                    
+                    done();
+                })
+                
+                clients[0].post("hello world");
             });
             
         });
