@@ -15,13 +15,14 @@
     logger= new (winston.Logger)({
         transports: [
             new (winston.transports.File)({
-                filename:'client.log',
+                filename:'server.log',
                 timestamp:true,
-                levels:winston.syslog,
-                json:false
+                json:false,
                 })
-        ]
+        ],
+        levels: winston.config.syslog.levels
     });
+    
   } else {
     client = this.client = {};
     executingOnServer = false;
