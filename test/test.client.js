@@ -5,6 +5,7 @@ var should = require('should'),
    
 
 var curServer, curClient;
+var clients;
 
 describe('client-server communication', function(){
 
@@ -674,6 +675,87 @@ describe('client-server communication', function(){
                     "auto-identify":true,
                     "auto-join":true
                 });            });
+        });
+        
+        describe('basic dispatch', function() {
+            before(function(done) {
+                curServer = new server.BackchannlServer();
+                curServer.bind("started", done);
+                curServer.start("localhost", 8181);
+            });
+            
+            beforeEach(function(done) {
+                curServer.reset({"test-event":true});
+                
+                clients = [];
+                
+                clients.push(new client.ConnectionManager());
+                clients.push(new client.ConnectionManager());
+                
+                clients[0].bind("state.JOINED", function() {
+                    clients[1].connect("localhost", 8181, {
+                        "auto-identify":true,
+                        "auto-join":true
+                    });                    
+                });
+                
+                clients[1].bind("state.JOINED", function() {
+                    done();
+                })
+                
+                clients[0].connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });
+            });
+            
+            after(function(done) {
+                curServer.bind("stopped", done);
+                curServer.stop();
+            });
+            
+            it('should receive notices about new posts', function(done){
+                var dispatch = curServer.events.get(0).get("dispatch");
+                
+                dispatch.should.exist;
+                
+                dispatch.bind("post.new", function(post) {
+                   
+                   post.should.exist;
+                   post.get("text").should.equal("hello world");
+                   
+                   done();
+                });
+                
+                clients[0].post("hello world");
+            });
+            
+            it('should receive notices about post votes', function(done){
+                var dispatch = curServer.events.get(0).get("dispatch");
+                
+                dispatch.should.exist;
+                
+                dispatch.bind("post.new", function(post) {
+                    // now vote with other client
+                    clients[1].vote(post.id);
+                });
+
+                dispatch.bind("post.vote", function(post, voter) {
+                    post.should.exist;
+                    voter.should.exist;
+                    
+                    post.get("fromId").should.not.equal(voter.id);
+                    voter.id.should.equal(clients[1].user.id);
+                    done();
+                });
+                
+                clients[0].post("hello world");
+            });
+            
+            it('should handle promotes properly', function(){
+              
+            });
+            
         });
         
         describe('chat', function(){
