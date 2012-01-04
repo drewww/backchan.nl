@@ -15,9 +15,10 @@
     logger= new (winston.Logger)({
         transports: [
             new (winston.transports.File)({
-                filename:'server.log',
+                filename:'client.log',
                 timestamp:true,
                 json:false,
+                level: "debug"
                 })
         ],
         levels: winston.config.syslog.levels
