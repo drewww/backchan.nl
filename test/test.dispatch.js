@@ -179,4 +179,106 @@ describe('dispatcher', function() {
             clients[0].post("testing broadcast dispatch");
         });
     });
+    
+    describe('BroadcastDispatch', function() {
+        before(function(done) {
+            curServer = new server.BackchannlServer({"test-event":true,
+                "dispatcher":"broadcast"
+            });
+            curServer.bind("started", done);
+            curServer.start("localhost", 8181);
+        });
+
+        beforeEach(function(done) {
+            curServer.reset({"test-event":true,
+                "dispatcher":"spread",
+                "dispatcher-options":{"starting-spread":1, "on-vote-spread":1}
+            });
+
+            clients = [];
+
+            clients.push(new client.ConnectionManager());
+            clients.push(new client.ConnectionManager());
+            clients.push(new client.ConnectionManager());
+            
+            clients[0].bind("state.JOINED", function() {
+                clients[1].connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });                    
+            });
+
+            clients[1].bind("state.JOINED", function() {
+                clients[2].connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });                    
+            });
+
+
+            clients[2].bind("state.JOINED", function() {
+                done();
+            })
+
+            clients[0].connect("localhost", 8181, {
+                "auto-identify":true,
+                "auto-join":true
+            });
+        });
+
+        after(function(done) {
+            curServer.bind("stopped", done);
+            curServer.stop();
+        });
+    
+        it('should send the message to one other client on post', function(done){
+            
+            clients[1].bind("message.post", function(post) {
+                done();
+            });
+            
+            clients[2].bind("message.post", function(post) {
+                done();
+            });
+            
+            // TODO is there a nice way to make sure clients[0] doesn't get
+            // the post a second time? That should be a check on ServerPost.
+            
+            clients[0].post("testing spreading dispatcher");
+        });
+        
+        it('should send to another client when it gets a vote',function(done){
+            
+            var selectedClient;
+            var receivedMessage = false;
+            clients[1].bind("message.post", function(post) {
+                if(receivedMessage) return;
+                receivedMessage = true;
+                
+                clients[2].bind("message.post", function() {
+                    done();
+                });
+                
+                clients[1].vote(post.id);
+            });
+            
+            clients[2].bind("message.post", function(post) {
+                if(receivedMessage) return;
+                receivedMessage = true;
+                
+                clients[1].bind("message.post", function() {
+                    done();
+                });
+                
+                clients[2].vote(post.id);
+            });
+            
+            // TODO is there a nice way to make sure clients[0] doesn't get
+            // the post a second time? That should be a check on ServerPost.
+            
+            clients[0].post("testing spreading dispatcher");
+        });
+        
+        it('should be okay when it tries to spread beyond the last user in an event');
+    });
 });
