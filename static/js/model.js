@@ -62,7 +62,7 @@ model.Post = Backbone.Model.extend({
 
         // TODO think about this - why is it here? this might be a vestige
         // of the old system. 
-        this.trigger("change");
+        this.trigger("vote");
         return true;
     },
     
@@ -174,7 +174,19 @@ model.Chat = Backbone.Model.extend({
 });
 
 model.PostList = Backbone.Collection.extend({
-    // Placeholder.
+    comparator: function(post) {
+        return post.getScore();
+    },
+    
+    add: function(newPost) {
+        Backbone.Collection.prototype.add.call(this, newPost);
+        
+        // register a listener on the vote listener, because that
+        // should cause a re-sort.
+        newPost.bind("vote", function() {
+            this.sort();
+        }, this);
+    }
 });
 
 model.ChatList = Backbone.Collection.extend({
