@@ -175,7 +175,7 @@ model.Chat = Backbone.Model.extend({
 
 model.PostList = Backbone.Collection.extend({
     comparator: function(post) {
-        return post.getScore();
+        return -1*post.getScore();
     },
     
     add: function(newPost) {
@@ -220,10 +220,10 @@ model.Event = Backbone.Model.extend({
             
             // sets the scaling factor for votes; how many points a post gets per
             // vote/(second of age). If this was 1, then votes one second apart
-            // would be twice as valuable. Some value in the 10^-7 range
+            // would be twice as valuable. Some value in the 10^-6 range
             // should be okay (we used 10^-4 in the orig version, but we
             // were using seconds not ms, so added in extra 0s)
-            voteTimeScoreFactor: 0.0000001
+            voteTimeScoreFactor: 0.000001
         }
     },
     

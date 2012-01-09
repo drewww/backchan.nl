@@ -162,4 +162,51 @@ describe('client model', function() {
         (newEvent.get("posts") instanceof model.PostList).should.be.true;
       });
     });
+    
+    describe('PostList', function(){
+        it('should create properly', function(){
+            var newList = new model.PostList();
+            
+            newList.should.exist;
+            newList.length.should.equal(0);
+        });
+        
+        it('should sort a simple list properly', function(){
+            var postList = new model.PostList();
+            
+            var event = new model.Event({"start":0});
+            
+            postList.add(new model.Post({"id":0,
+                "event":event}));
+            postList.add(new model.Post({"id":1,
+                "event":event}));
+            postList.add(new model.Post({"id":2,
+                "event":event}));
+            postList.add(new model.Post({"id":3,
+                    "event":event}));
+
+            
+            // should be ranked third
+            postList.get(0).addVote(0, 0);
+            postList.get(0).addVote(1, 0);
+            
+            // should be ranked second
+            postList.get(1).addVote(0, 10000);
+            postList.get(1).addVote(1, 10000);
+            postList.get(1).addVote(2, 10000);
+            
+            // should be ranked first
+            postList.get(2).addVote(0, 600000);
+            postList.get(2).addVote(1, 600000);
+            
+            // should be ranked last
+            postList.get(3).addVote(0, 600000);
+            
+            // OKAY ACTUAL TEST HERE
+            postList.at(0).id.should.equal(2);
+            postList.at(1).id.should.equal(1);
+            postList.at(2).id.should.equal(0);
+            postList.at(3).id.should.equal(3);
+        });
+    });
 });
