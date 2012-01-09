@@ -82,8 +82,41 @@ describe('client model', function() {
             
             newPost.isPromoted().should.be.false;
         });
+        
+        var post;
+        describe('.getScore()', function(){
+            beforeEach(function() {
+             // make an event and a post.
+             // we're hardcoding the start time to make vote math
+             // more sensible.
+             var event = new model.Event({"start":0});
+             
+             post = new model.Post({"event":event});
+            });
+            
+            it('should have zero score when created', function(){
+                post.getScore().should.equal(0);
+            });
+            
+            it('should have 1 point with one vote at start time', function(){
+                post.addVote(0, 0);
+                post.getScore().should.equal(1);
+            });
+            
+            it('should have slightly more than 1 point with one vote after start time', function(){
+                post.addVote(0, 30000);
+                (post.getScore()>1).should.be.true;
+                (post.getScore()<1.1).should.be.true;
+            });
+            
+            it('should have slightly more than 2 points with two votes', function(){
+                post.addVote(0, 30000);
+                post.addVote(1, 60000);
+                (post.getScore()>2).should.be.true;
+                (post.getScore()<2.1).should.be.true;
+            });
+        });
     });
-    
     
     describe('User', function(){
       it('should have default values', function(){

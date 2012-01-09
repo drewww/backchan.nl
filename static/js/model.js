@@ -19,6 +19,10 @@
 
 model.Post = Backbone.Model.extend({
     
+    initialize: function(args) {
+        Backbone.Model.prototype.initialize.call(this, args);
+    },
+    
     defaults: function() {
         return {
             fromName: "default name",
@@ -27,7 +31,8 @@ model.Post = Backbone.Model.extend({
             text: "default text",
             timestamp: new Date().getTime(),
             votes: [],
-            promotedAt: null
+            promotedAt: null,
+            event: null,
         };
     },
     
@@ -94,6 +99,30 @@ model.Post = Backbone.Model.extend({
         return _.find(this.get("votes"), function(vote) {
             return vote["id"]==userId;
         })!=null;
+    },
+    
+    getScore: function() {
+        // We're going to do this cherrie's way because it's super
+        // computationally inexpensive. Just compare the vote times to the
+        // event start times (times some scaling factor) and we have our
+        // time-adjusted score. This does cause rampant score inflation, but
+        // since scores are never exposed to the client, it's not that big
+        // a deal.
+        
+        // loop across each vote, checking how old it is and assigning 
+        // score points appropriately.
+        
+        if(_.isNull(this.get("event"))) {
+            // This should not happen! Event is a required parameters.
+            console.log("Tried to getScore() without the post having an event context set. Returning 0.");
+            return 0;
+        }
+        
+        return _.reduce(this.get("votes"), function(memo, vote) {
+            return memo + 1 + 
+                ((vote["timestamp"] - this.get("event").get("start")) * 
+                this.get("event").get("voteTimeScoreFactor"))
+        }, 0, this);
     },
     
     isPromoted: function() {
@@ -175,7 +204,14 @@ model.Event = Backbone.Model.extend({
             title: "Default Event Title",
             posts: new model.PostList(),
             chat: new model.ChatList(),
-            start: new Date().getTime()
+            start: new Date().getTime(),
+            
+            // sets the scaling factor for votes; how many points a post gets per
+            // vote/(second of age). If this was 1, then votes one second apart
+            // would be twice as valuable. Some value in the 10^-7 range
+            // should be okay (we used 10^-4 in the orig version, but we
+            // were using seconds not ms, so added in extra 0s)
+            voteTimeScoreFactor: 0.0000001
         }
     },
     

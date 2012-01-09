@@ -211,7 +211,18 @@ client.ConnectionManager.prototype = {
                 break;
             
             case "post":
-                var post = new model.Post(JSON.parse(data));
+                
+                var args = JSON.parse(data);
+
+                if(_.isNull(this.event)) {
+                    console.log("ERR: Created a Post on the client without an event.");
+                }
+                
+                _.defaults(args, {"event":this.event});
+                
+                var post = new model.Post(args);
+                
+                post.set({"event":this.event});
                 client.log("Received post: " + post.get("text"));
                 
                 this.event.addPost(post);
