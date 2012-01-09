@@ -186,6 +186,11 @@ model.PostList = Backbone.Collection.extend({
         newPost.bind("vote", function() {
             this.sort();
         }, this);
+    },
+    
+    getPostRank: function(post) {
+        // we can just use indexOf here, but this is nicer semantics.
+        return this.indexOf(post);
     }
 });
 

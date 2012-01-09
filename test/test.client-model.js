@@ -203,10 +203,10 @@ describe('client model', function() {
             postList.get(3).addVote(0, 600000);
             
             // OKAY ACTUAL TEST HERE
-            postList.at(0).id.should.equal(2);
-            postList.at(1).id.should.equal(1);
-            postList.at(2).id.should.equal(0);
-            postList.at(3).id.should.equal(3);
+            postList.getPostRank(postList.get(0)).should.equal(2);
+            postList.getPostRank(postList.get(1)).should.equal(1);
+            postList.getPostRank(postList.get(2)).should.equal(0);
+            postList.getPostRank(postList.get(3)).should.equal(3);
         });
     });
 });
