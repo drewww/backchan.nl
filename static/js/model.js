@@ -174,7 +174,8 @@ model.Event = Backbone.Model.extend({
         return {
             title: "Default Event Title",
             posts: new model.PostList(),
-            chat: new model.ChatList()
+            chat: new model.ChatList(),
+            start: new Date().getTime()
         }
     },
     
