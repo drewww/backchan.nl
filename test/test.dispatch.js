@@ -74,10 +74,17 @@ describe('dispatcher', function() {
                     dispatcher.bind("post.vote", function(post, voter) {
                         post.should.exist;
                         voter.should.exist;
-        
-                        post.get("fromId").should.not.equal(voter.id);
-                        voter.id.should.equal(clients[1].user.id);
-                        done();
+
+                        // we expect to get two votes, one when the 
+                        // post is created (from its creator) and then
+                        // one followup vote from clients[1].
+                        if(post.votes()==1) {
+                            voter.id.should.equal(clients[0].user.id);
+                        } else {
+                            post.get("fromId").should.not.equal(voter.id);
+                            voter.id.should.equal(clients[1].user.id);
+                            done();
+                        }
                     });
         
                     clients[0].post("hello world");
@@ -107,7 +114,7 @@ describe('dispatcher', function() {
                         post.isPromoted().should.be.true;
         
                         post.get("text").should.equal("hello world");
-                        post.votes().should.equal(1);
+                        post.votes().should.equal(0);
         
                         done();
                     })
@@ -180,11 +187,9 @@ describe('dispatcher', function() {
         });
     });
     
-    describe('BroadcastDispatch', function() {
+    describe('SpreadingDispatch, no promotion', function() {
         before(function(done) {
-            curServer = new server.BackchannlServer({"test-event":true,
-                "dispatcher":"broadcast"
-            });
+            curServer = new server.BackchannlServer();
             curServer.bind("started", done);
             curServer.start("localhost", 8181);
         });
@@ -192,7 +197,8 @@ describe('dispatcher', function() {
         beforeEach(function(done) {
             curServer.reset({"test-event":true,
                 "dispatcher":"spread",
-                "dispatcher-options":{"starting-spread":1, "on-vote-spread":1}
+                "dispatcher-options":{"starting-spread":1, "on-vote-spread":1,
+                    "promotion-window":0}
             });
 
             clients = [];
@@ -215,7 +221,6 @@ describe('dispatcher', function() {
                 });                    
             });
 
-
             clients[2].bind("state.JOINED", function() {
                 done();
             })
@@ -233,12 +238,19 @@ describe('dispatcher', function() {
     
         it('should send the message to one other client on post', function(done){
             
+            var lock = false;
             clients[1].bind("message.post", function(post) {
-                done();
+                if(!lock) {
+                    lock = true;
+                    done();
+                }
             });
             
             clients[2].bind("message.post", function(post) {
-                done();
+                if(!lock) {
+                    lock = true;
+                    done();
+                }
             });
             
             // TODO is there a nice way to make sure clients[0] doesn't get
@@ -281,4 +293,75 @@ describe('dispatcher', function() {
         
         it('should be okay when it tries to spread beyond the last user in an event');
     });
+    
+    describe('SpreadingDispatch, with promotion', function() {
+        before(function(done) {
+            curServer = new server.BackchannlServer();
+            curServer.bind("started", done);
+            curServer.start("localhost", 8181);
+        });
+        
+        beforeEach(function(done) {
+            curServer.reset({"test-event":true,
+                "dispatcher":"spread",
+                "dispatcher-options":{"starting-spread":1, "on-vote-spread":1,
+                    "promotion-window":2}
+            });
+            
+            clients = [];
+            
+            clients.push(new client.ConnectionManager());
+            clients.push(new client.ConnectionManager());
+            clients.push(new client.ConnectionManager());
+            
+            clients[0].bind("state.JOINED", function() {
+                clients[1].connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });                    
+            });
+    
+            clients[1].bind("state.JOINED", function() {
+                clients[2].connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });                    
+            });
+    
+            clients[2].bind("state.JOINED", function() {
+                done();
+            })
+    
+            clients[0].connect("localhost", 8181, {
+                "auto-identify":true,
+                "auto-join":true
+            });
+        });
+    
+        after(function(done) {
+            curServer.bind("stopped", done);
+            curServer.stop();
+        });
+    
+        it('should promote the first 3 unvoted posts',function(done){
+            var firstPost = true;
+            clients[1].bind("message.post", function(post) {
+                if(firstPost) {
+                    post.should.exist;
+                    post.get("text").should.equal("first post");
+                    
+                    firstPost = false;
+                    clients[0].post("second post");
+                } else {
+                    post.should.exist;
+                    post.get("text").should.equal("second post");
+                    done();
+                }
+            });
+            
+            clients[0].post("first post");
+        });
+    
+    });
+    
 });

@@ -36,8 +36,9 @@ model.Post = Backbone.Model.extend({
         };
     },
     
-    addVote: function(fromUserId, atTimestamp) {
-        // console.log("incoming: " + atTimestamp + " / " + fromUser);
+    addVote: function(fromUserId, atTimestamp, silent) {
+        // console.log("incoming: " + atTimestamp + " / " + fromUserId);
+        
         if (_.isUndefined(atTimestamp) || _.isNull(atTimestamp)) {
             atTimestamp = Date.now();
         }
@@ -45,6 +46,9 @@ model.Post = Backbone.Model.extend({
         if(_.isUndefined(fromUserId)) {
             fromUserId = null;
         }
+        
+        if(_.isUndefined(silent))
+            silent = false;
         
         if(fromUserId instanceof model.User) {
             console.log("Tried to pass in a User object when addVote expects an id. Fixing the problem, but fix your code!");
@@ -59,10 +63,11 @@ model.Post = Backbone.Model.extend({
         this.set({
             "votes": currentVoteList
         });
-
-        // TODO think about this - why is it here? this might be a vestige
-        // of the old system. 
-        this.trigger("vote");
+        
+        // this is a sort of annoying hack because if this is run in server
+        // mode we don't want to double-trigger vote - let the superclass do
+        // the triggering. 
+        if(!silent) this.trigger("vote");
         return true;
     },
     

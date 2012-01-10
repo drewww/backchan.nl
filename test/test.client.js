@@ -512,6 +512,8 @@ describe('client-server communication', function(){
                     done();
                 });
             });
+            
+            it('should send existing promoted posts to a newly connected user');
         });
         
         describe('vote', function() {
