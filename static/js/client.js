@@ -241,7 +241,12 @@ client.ConnectionManager.prototype = {
                 
                 arg = post;
                 break;
-            
+            case "promoted":
+                var post = this.event.get("posts").get(data["postId"]);
+                post.promote()
+                
+                arg = post;
+                break;
             default:
                 client.log("Received an unknown message type: " + type);
                 break;

@@ -359,6 +359,55 @@ describe('dispatcher', function() {
             
             clients[0].post("first post");
         });
+        
+        it('should trigger promotion events in the client', function(done){
+            clients[0].bind("message.promoted", function(post) {
+                post.id.should.equal(0);
+                done();
+            });
+            
+            clients[0].post("hello world");
+        });
+        
+        it('should not publish a post if original posts have more votes', function(done){
+            
+            var voteCount = 0;
+            clients[2].bind("message.vote-ok", function() {
+                voteCount++;
+                
+                if(voteCount==2) {
+                    clients[0].bind("message.promoted", function(post) {
+                        should.fail("post should not immediately be promoted");
+                    });
+                    
+                    clients[1].bind("message.post", function(post) {
+                        post.id.should.equal(2);
+                        done();
+                    });
+
+                    clients[2].bind("message.post", function(post) {
+                        post.id.should.equal(2);
+                        done();
+                    });
+                    
+                    clients[0].post("third post");
+                }
+            });
+            
+            clients[0].bind("message.post", function(post) {
+               if(post.id==0) {
+                   clients[1].vote(0);
+                   clients[2].vote(0);
+               } else if(post.id==1) {
+                   clients[1].vote(1);
+                   clients[2].vote(1);
+               }
+            });
+            
+            // these will be insta-promoted.
+            clients[0].post("first post");
+            clients[0].post("second post");
+        });
     
     });
     
