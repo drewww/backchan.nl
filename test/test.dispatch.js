@@ -337,17 +337,22 @@ describe('dispatcher', function() {
         });
     
         it('should promote the first 3 unvoted posts',function(done){
-            var firstPost = true;
+            var postCount = 0;
             clients[1].bind("message.post", function(post) {
-                if(firstPost) {
+                if(postCount==0) {
                     post.should.exist;
                     post.get("text").should.equal("first post");
                     
-                    firstPost = false;
+                    postCount++;
                     clients[0].post("second post");
-                } else {
+                } else if(postCount==1) {
                     post.should.exist;
                     post.get("text").should.equal("second post");
+                    postCount++;
+                    clients[0].post("third post");
+                } else {
+                    post.should.exist;
+                    post.get("text").should.equal("third post");
                     done();
                 }
             });
