@@ -238,19 +238,12 @@ describe('dispatcher', function() {
     
         it('should send the message to one other client on post', function(done){
             
-            var lock = false;
             clients[1].bind("message.post", function(post) {
-                if(!lock) {
-                    lock = true;
                     done();
-                }
             });
             
             clients[2].bind("message.post", function(post) {
-                if(!lock) {
-                    lock = true;
                     done();
-                }
             });
             
             // TODO is there a nice way to make sure clients[0] doesn't get
