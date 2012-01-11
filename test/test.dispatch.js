@@ -429,6 +429,38 @@ describe('dispatcher', function() {
             clients[0].post("first post");
             clients[0].post("second post");
         });
+        
+        it('should send already-promoted posts to clients who connect late', function(done){
+
+            var postCount=0;
+            clients[0].bind("message.promoted", function(post) {
+                postCount++;
+                
+                if(postCount==2) {
+                    // log in the new user.
+                    var newClient = new client.ConnectionManager();
+                    var newClientPostCount=0;
+                    newClient.bind("message.post", function(post) {
+                        newClientPostCount++;
+                        
+                        post.should.exist;
+                        post.isPromoted().should.be.true;
+                        
+                        if(newClientPostCount==2) {
+                            done();
+                        }
+                    });
+                    
+                    newClient.connect("localhost", 8181, {
+                        "auto-identify":true,
+                        "auto-join":true
+                    });
+                }
+            });
+            
+            clients[0].post("first post");
+            clients[0].post("second post");
+        });
     
     });
     

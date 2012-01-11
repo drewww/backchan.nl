@@ -205,6 +205,12 @@ model.PostList = Backbone.Collection.extend({
     getPostRank: function(post) {
         // we can just use indexOf here, but this is nicer semantics.
         return this.indexOf(post);
+    },
+    
+    getPromotedPosts: function() {
+        return this.filter(function(post) {
+            return post.isPromoted();
+        });
     }
 });
 
