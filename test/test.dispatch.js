@@ -284,7 +284,28 @@ describe('dispatcher', function() {
             clients[0].post("testing spreading dispatcher");
         });
         
-        it('should be okay when it tries to spread beyond the last user in an event');
+        it('should be okay when it tries to spread beyond the last user in an event', function(done) {
+            
+            // plan here is to vote for something twice (after the initial
+            // vote) which will try to spread the post again (because
+            // promotion is turned off) which will fail. see what happens!
+            
+            clients[1].bind("message.post", function(post) {
+                clients[1].vote(post.id);
+            });
+            
+            clients[2].bind("message.post", function(post) {
+                clients[2].vote(post.id);
+            });
+            
+            clients[0].bind("message.promoted", function(post) {
+                post.should.exist;
+                post.id.should.equal(0);
+                done();
+            });
+            
+            clients[0].post("spreading beyond max limit");
+        });
     });
     
     describe('SpreadingDispatch, with promotion', function() {
