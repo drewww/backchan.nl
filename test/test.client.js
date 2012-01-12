@@ -369,6 +369,91 @@ describe('client-server communication', function(){
 
                     curClient.identify("Test", "Test");
                 });
+                
+                
+                it('should allow another client to connect with the same name/pass to a different event', function(done) {
+                   // okay, this is a bit tricky. to run this test we need
+                   // 1. another client
+                   // 2. another event.
+                   
+                   curServer.events.add(new model.ServerEvent());
+                   var secondClient = new client.ConnectionManager();
+                   
+                   // keep in mind that our initial client is in the
+                   // CONNECTED state, not IDENTIFIED or JOINED.
+                   
+                   curClient.bind("state.IDENTIFIED", function() {
+                       curClient.join(0);
+                   });
+                   
+                   curClient.identify("Test", "Organization");
+                   
+                   secondClient.bind("state.CONNECTED", function() {
+                       secondClient.identify("Test", "Organization");
+                   });
+                   
+                   secondClient.bind("state.IDENTIFIED", function() {
+                       secondClient.join(1);
+                   });
+                   
+                   secondClient.bind("state.JOINED", function() {
+                       secondClient.user.id.should.equal(curClient.user.id);
+                       
+                       var serverUser = curServer.allUsers.get(secondClient.user.id);
+                       
+                       serverUser.isInEventId(0).should.be.true;
+                       serverUser.isInEventId(1).should.be.true;
+                       
+                       done();
+                   });
+                   
+                   secondClient.connect("localhost", 8181);
+                });
+                
+                it('should correctly route messages to a user connected with two clients to two events', function(done) {
+                   // okay, this is a bit tricky. to run this test we need
+                   // 1. another client
+                   // 2. another event.
+                   curServer.events.add(new model.ServerEvent());
+                   var secondClient = new client.ConnectionManager();
+                   
+                   // keep in mind that our initial client is in the
+                   // CONNECTED state, not IDENTIFIED or JOINED.
+                   
+                   curClient.bind("state.IDENTIFIED", function() {
+                       curClient.join(0);
+                   });
+                   
+                   curClient.identify("Test", "Organization");
+                   
+                   secondClient.bind("state.CONNECTED", function() {
+                       secondClient.identify("Test", "Organization");
+                   });
+                   
+                   secondClient.bind("state.IDENTIFIED", function() {
+                       secondClient.join(1);
+                   });
+                   
+                   secondClient.bind("state.JOINED", function() {
+                       // now post from curClient and make sure reception
+                       // is only by curClient, and vice-versa.
+                       curClient.post("hello event 0");
+                   });
+                   
+                   curClient.bind("message.post", function(post) {
+                       post.get("text").should.equal("hello event 0");
+                       
+                       secondClient.post("hello event 1");
+                   });
+                   
+                   secondClient.bind("message.post", function(post) {
+                       post.get("text").should.equal("hello event 1");
+                       
+                       done();
+                   });
+                   
+                   secondClient.connect("localhost", 8181);
+                });
         });
         
         describe('post', function() {
