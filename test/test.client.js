@@ -454,6 +454,54 @@ describe('client-server communication', function(){
                    
                    secondClient.connect("localhost", 8181);
                 });
+                
+                it('should correctly route message when two clients for same user are in the same event', function(){
+                    curClient.bind("state.IDENTIFIED", function() {
+                        curClient.join(0);
+                    });
+                    
+                    curClient.identify("Test", "Organization");
+                    
+                    
+                    var secondClient = new client.ConnectionManager();
+                    secondClient.connect("localhost", 8181);
+                    
+                    secondClient.bind("state.CONNECTED", function() {
+                        secondClient.identify("Test", "Organization");
+                    });
+                    
+                    secondClient.bind("state.IDENTIFIED", function() {
+                        secondClient.join(1);
+                    });
+                    
+                    secondClient.bind("state.JOINED", function() {
+                        var serverUser = curServer.allUsers.get(secondClient.user.id);
+                        
+                        serverUser.isInEventId(0).should.be.true;
+                        serverUser.get("events")[0].length.should.equal(2);
+                        
+                        curClient.post("HELLO");
+                    });
+                    
+                    var postCount = 0;
+                    curClient.bind("message.post", function(post) {
+                        post.should.exist
+                        post.get("text").should.equal("HELLO");
+                        
+                        postCount++;
+                        
+                        if(postCount==2) done();
+                    });
+                    
+                    secondClient.bind("message.post", function(post) {
+                        post.should.exist
+                        post.get("text").should.equal("HELLO");
+                        
+                        postCount++;
+                        
+                        if(postCount==2) done();
+                    });
+                });
         });
         
         describe('post', function() {
