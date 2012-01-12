@@ -173,8 +173,7 @@ describe('client-server communication', function(){
                 
                 curClient.bind("message.join-ok", function() {
                     curServer.events.get(0).get("users").length.should.equal(1);
-                    curServer.allUsers.get(0).get("inEvent").should.equal(0);
-                    curServer.allUsers.get(0).isInEvent().should.be.true;
+                    curServer.allUsers.get(0).isInEventId(0).should.be.true;
                     done();
                 });
                 
@@ -222,7 +221,7 @@ describe('client-server communication', function(){
                     // Wait 100ms and then pass the test - if the server
                     // was going to actually send us the wrong thing, it would
                     // have done it by then.
-                    setTimeout(done, 100);
+                    setTimeout(done, 50);
                 });
                 
                 curClient.bind("messages.test", function() {
@@ -251,9 +250,9 @@ describe('client-server communication', function(){
                             curServer.events.get(0).get("users")
                                 .length.should.equal(0);
                             
-                            curServer.allUsers.get(0).isInEvent().should.be.false;
+                            curServer.allUsers.get(0).isInEvent(0).should.be.false;
                             done();
-                        }, 200);
+                        }, 50);
                         // After disconnecting, poke at the server to see if
                         // the user was removed from the event properly.
                     });
@@ -279,7 +278,7 @@ describe('client-server communication', function(){
                         curServer.events.get(0).get("users")
                             .length.should.equal(0);
                             
-                        curServer.allUsers.get(0).isInEvent().should.be.false;                        
+                        curServer.allUsers.get(0).isInEvent(0).should.be.false;                        
                         
                         done();
                     });
@@ -332,7 +331,9 @@ describe('client-server communication', function(){
                             curServer.events.get(0).get("users").length.should.equal(0);
                             curServer.events.get(1).get("users").length.should.equal(1);
                             
-                            curServer.allUsers.get(0).get("inEvent").should.equal(1);
+                            curServer.allUsers.get(0).isInEventId(0).should.be.false;
+                            curServer.allUsers.get(0).isInEventId(1).should.be.true;
+                            
                             done();
                         }
                     });
