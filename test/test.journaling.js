@@ -20,7 +20,7 @@ describe('journaling', function() {
         // delete the contents of the event directory. 
         actions.flushAllJournals();
         
-        curServer.reset({"test-event":true, "journaling":true});
+        curServer.reset({"test-event":true, "persist":true});
 
         curClient = new client.ConnectionManager();
         
