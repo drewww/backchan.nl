@@ -3,6 +3,7 @@ var should = require('should'),
     client = require('../static/js/client.js'),
     fs = require('fs'),
     actions = require('../lib/actions.js'),
+    sync = require('../lib/redis-sync.js'),
     model = require('../lib/server-model.js');
    
 
@@ -21,6 +22,7 @@ describe('journaling', function() {
         actions.flushAllJournals();
         
         curServer.reset({"test-event":true, "persist":true});
+        sync.flush();
 
         curClient = new client.ConnectionManager();
         
@@ -37,6 +39,7 @@ describe('journaling', function() {
     after(function(done) {
         curServer.bind("stopped", done);
         curServer.stop();
+        sync.flush();
     });
     
     it('should not crash when journaling is turned on', function(){
