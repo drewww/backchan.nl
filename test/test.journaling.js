@@ -35,8 +35,6 @@ describe('journaling', function() {
     });
     
     it('should not crash when journaling is turned on', function(){
-      
-      curServer.events.get(0).get("journaler").should.exist;
-      
+        
     });
 });
