@@ -4,7 +4,8 @@ var should = require('should'),
     fs = require('fs'),
     actions = require('../lib/actions.js'),
     sync = require('../lib/redis-sync.js'),
-    model = require('../lib/server-model.js');
+    model = require('../lib/server-model.js'),
+    redis = require('redis').createClient();
    
 
 var curServer, curClient;
@@ -15,14 +16,15 @@ describe('journaling', function() {
         curServer = new server.BackchannlServer();
         curServer.bind("started", done);
         curServer.start("localhost", 8181);
+        sync.flush();
     });
     
     beforeEach(function(done) {
         // delete the contents of the event directory. 
+        sync.flush();
         actions.flushAllJournals();
         
         curServer.reset({"test-event":true, "persist":true});
-        sync.flush();
 
         curClient = new client.ConnectionManager();
         
@@ -81,9 +83,28 @@ describe('journaling', function() {
                 done();
             }, 10);
         });
-        
-        
         curClient.chat("hello world!");
-        
+    });
+    
+    
+    it('should create a user and event in the redis store', function(done){
+        // check redis to see if it's got a user and an event.
+        redis.hgetall("user." + curClient.user.id, function(err, user) {
+            user.should.exist;
+            parseInt(user.id).should.equal(curClient.user.id);
+            user.name.should.equal(curClient.user.get("name"));
+            user.affiliation.should.equal(curClient.user.get("affiliation"));
+
+            redis.hgetall("event." + curClient.event.id, function(err, event){
+                event.should.exist;
+
+                parseInt(event.id).should.equal(curClient.event.id);
+                event.title.should.equal(curClient.event.get("title"));
+                parseInt(event.start).should.equal(curClient.event.get("start"));
+                event.voteTimeScoreFactor.should.equal(''+curClient.event.get("voteTimeScoreFactor"));
+
+                done(); 
+            });
+        });
     });
 });
