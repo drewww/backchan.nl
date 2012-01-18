@@ -39,7 +39,6 @@ describe('journaling', function() {
     after(function(done) {
         curServer.bind("stopped", done);
         curServer.stop();
-        sync.flush();
     });
     
     it('should not crash when journaling is turned on', function(){
@@ -53,32 +52,34 @@ describe('journaling', function() {
         });
         
         curClient.bind("message.post", function() {
-            // now check the log file to see if we've got all the data.
-            var filename = actions.baseEventsDir + curClient.event.id + ".act";
-            var file = fs.readFileSync(filename, 'utf8').split("\n");
-            
-            file.should.exist;
-            
-            // it's two lines long, but the last line ends in a \n so it's 
-            //technically 3 total lines.
-            file.length.should.equal(2+1);
-            
-            var chatAction = JSON.parse(file[0]);
-            
-            chatAction.type.should.equal("CHAT");
-            chatAction.params.text.should.equal("hello world!");
-            chatAction.eventId.should.equal(0);
-            chatAction.userId.should.equal(0);
-            
-            
-            var postAction = JSON.parse(file[1]);
-            
-            postAction.type.should.equal("POST");
-            postAction.params.text.should.equal("FIRST");
-            postAction.eventId.should.equal(0);
-            postAction.userId.should.equal(0);
-            
-            done();
+            setTimeout( function(){
+                // now check the log file to see if we've got all the data.
+                var filename = actions.baseEventsDir + curClient.event.id + ".act";
+                var file = fs.readFileSync(filename, 'utf8').split("\n");
+
+                file.should.exist;
+
+                // it's two lines long, but the last line ends in a \n so it's 
+                //technically 3 total lines.
+                file.length.should.equal(2+1);
+
+                var chatAction = JSON.parse(file[0]);
+
+                chatAction.type.should.equal("CHAT");
+                chatAction.params.text.should.equal("hello world!");
+                chatAction.eventId.should.equal(0);
+                chatAction.userId.should.equal(0);
+
+
+                var postAction = JSON.parse(file[1]);
+
+                postAction.type.should.equal("POST");
+                postAction.params.text.should.equal("FIRST");
+                postAction.eventId.should.equal(0);
+                postAction.userId.should.equal(0);
+
+                done();
+            }, 10);
         });
         
         
