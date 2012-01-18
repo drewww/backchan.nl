@@ -16,6 +16,7 @@ describe('journaling', function() {
         curServer = new server.BackchannlServer();
         curServer.bind("started", done);
         curServer.start("localhost", 8181);
+        actions.flushAllJournals();
         sync.flush();
     });
     
