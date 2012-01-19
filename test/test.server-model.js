@@ -180,6 +180,28 @@ describe('server.model', function(){
 
             list.numConnectedUsers().should.equal(0);
             list.getConnectedUsers().should.have.length(0);
-        })
+        });
+        
+        it('should load users from redis (none when empty)', function(done){
+            var list = new model.ServerUserList();
+            list.fetch({success: function() {
+                list.length.should.equal(0);
+                done();
+            }});
+        });
+        
+        it('should load one user from redis', function(done){
+            var user = new model.ServerUser();
+            user.save(null, {success: function() {
+                var list = new model.ServerUserList();
+                list.fetch({success: function() {
+                    list.length.should.equal(1);
+                    list.get(user.id).should.exist;
+                    
+                    list.get(user.id).get("name").should.equal(user.get("name"));
+                    done();
+                }});
+            }});
+        });
     });
 });
