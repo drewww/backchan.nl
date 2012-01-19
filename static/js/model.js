@@ -188,6 +188,9 @@ model.Chat = Backbone.Model.extend({
 });
 
 model.PostList = Backbone.Collection.extend({
+    
+    "model":model.Post,
+    
     comparator: function(post) {
         return -1*post.getScore();
     },
@@ -215,6 +218,8 @@ model.PostList = Backbone.Collection.extend({
 });
 
 model.ChatList = Backbone.Collection.extend({
+    "model":model.Chat,
+    
     // Placeholder.
     // We might want this to be a moving window of a certain size, but
     // for now we'll just accumulate everything (e.g. leave this as a

@@ -139,8 +139,46 @@ describe('server.model', function(){
         });
     });
     
+    describe('ServerEventList', function(){
+        beforeEach(function(done) {
+            model.resetIds();
+            done();
+        });
+        
+        it('should correctly load no events when redis is empty', function(done){
+            var list = new model.ServerEventList();
+            
+            list.fetch({success:function() {
+                list.length.should.equal(0);
+                done();
+            }});
+        });
+        
+        it('should load multiple events when multiple events are stored', function(done){
+          var events = [];
+          events[0] = new model.ServerEvent();
+          events[1] = new model.ServerEvent();
+          
+          var list = new model.ServerEventList();
+          
+          events[0].save(null, {success: function() {
+              events[1].save(null, {success: function() {
+                  
+                  list.fetch({success: function() {
+                      list.length.should.equal(2);
+                      list.get(0).get("title").should.equal(events[0].get("title"));
+                      list.get(1).get("start").should.equal(events[1].get("start"));
+                      
+                      list.get(0).get("posts").length.should.equal(events[0].get("posts").length);
+                      list.get(1).get("posts").length.should.equal(events[1].get("posts").length);
+                      done();
+                  }});
+              }});
+          }});
+        });
+    });
     
-    describe('.ServerUserList', function(){
+    describe('ServerUserList', function(){
         beforeEach(function(done) {
             model.resetIds();
             done();
