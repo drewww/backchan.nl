@@ -11,7 +11,7 @@ var should = require('should'),
 var curServer, curClient;
 
 
-describe('journaling', function() {
+describe('writing actions', function() {
     before(function(done) {
         curServer = new server.BackchannlServer();
         curServer.bind("started", done);
@@ -114,4 +114,37 @@ describe('journaling', function() {
             });
         });
     });
+});
+
+describe('reading actions', function(){
+        before(function(done) {
+            curServer = new server.BackchannlServer();
+            curServer.bind("started", done);
+            curServer.start("localhost", 8181);
+        });
+
+        beforeEach(function(done) {
+            // delete the contents of the event directory. 
+            curServer.reset({"load":true, "callback":done});
+            // 
+            // curClient = new client.ConnectionManager();
+            // 
+            // curClient.bind("state.JOINED", function() {
+            //     done();
+            // });
+            // 
+            // curClient.connect("localhost", 8181, {
+            //     "auto-identify":true,
+            //     "auto-join":true
+            // });
+        });
+
+        after(function(done) {
+            curServer.bind("stopped", done);
+            curServer.stop();
+        });
+
+        it('should load properly with no files', function(){
+            
+        });
 });
