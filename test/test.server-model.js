@@ -190,16 +190,19 @@ describe('server.model', function(){
             }});
         });
         
-        it('should load one user from redis', function(done){
+        it('should load two users from redis', function(done){
             var user = new model.ServerUser();
-            user.save(null, {success: function() {
-                var list = new model.ServerUserList();
-                list.fetch({success: function() {
-                    list.length.should.equal(1);
-                    list.get(user.id).should.exist;
-                    
-                    list.get(user.id).get("name").should.equal(user.get("name"));
-                    done();
+            var user2 = new model.ServerUser();
+            user2.save(null, {success: function() {
+                user.save(null, {success: function() {
+                    var list = new model.ServerUserList();
+                    list.fetch({success: function() {
+                        list.length.should.equal(2);
+                        list.get(user.id).should.exist;
+
+                        list.get(user.id).get("name").should.equal(user.get("name"));
+                        done();
+                    }});
                 }});
             }});
         });
