@@ -116,7 +116,85 @@ describe('writing actions', function() {
     });
 });
 
-describe('reading actions', function(){
+var clients = [];
+
+describe('loading actions', function(){
+    before(function(done) {
+        curServer = new server.BackchannlServer();
+        curServer.bind("started", done);
+        curServer.start("localhost", 8181);
+    });
+
+    beforeEach(function(done) {
+        sync.flush();
+        // delete the contents of the event directory. 
+        curServer.reset({"test-event":true,
+         "callback":function () {
+            clients = [];
+        
+            clients.push(new client.ConnectionManager());
+            clients.push(new client.ConnectionManager());
+        
+            clients[0].bind("state.JOINED", function() {
+                clients[1].connect("localhost", 8181, {
+                    "auto-identify":true,
+                    "auto-join":true
+                });                    
+            });
+        
+            clients[1].bind("state.JOINED", function() {
+                done();
+            })
+        
+            clients[0].connect("localhost", 8181, {
+                "auto-identify":true,
+                "auto-join":true
+            });
+        }});
+    });
+
+    after(function(done) {
+        sync.flush();
+        sync.resetIds();
+        curServer.bind("stopped", done);
+        curServer.stop();
+    });
+    
+    it('should load an event from disk', function(done){
+        // step 1: have 2 clients connect and make a bunch of posts, chats
+        //          and vote on things.
+        
+        // okay so we have two clients joined. Have them make some noise.
+        console.log("starting test");
+        clients[0].chat("hello WORLD!");
+        clients[1].chat("how's it going?");
+        
+        clients[0].post("FIRST");
+        clients[1].post("SECOND");
+        
+        clients[1].vote(0);
+        
+        // step 2: reset the server with the load flag
+        setTimeout(function() {
+            curServer.reset({"load":true, "callback":
+                function() {
+                    
+                    
+                    // step 3: inspect the event object that gets reloaded.
+                    var event = curServer.events.get(0);
+
+                    event.should.exist; // this is loading from redis, since
+                                        // test-event: false for this reset.
+
+                    event.fetch();
+                    done();
+            }});
+        }, 100);
+    });
+
+});
+
+describe('loading redis', function(){
         before(function(done) {
             curServer = new server.BackchannlServer();
             curServer.bind("started", done);
@@ -127,17 +205,6 @@ describe('reading actions', function(){
             sync.flush();
             // delete the contents of the event directory. 
             curServer.reset({"load":true, "callback":done});
-            // 
-            // curClient = new client.ConnectionManager();
-            // 
-            // curClient.bind("state.JOINED", function() {
-            //     done();
-            // });
-            // 
-            // curClient.connect("localhost", 8181, {
-            //     "auto-identify":true,
-            //     "auto-join":true
-            // });
         });
 
         after(function(done) {
