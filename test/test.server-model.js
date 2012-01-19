@@ -1,5 +1,6 @@
 var should = require('should'),
-    model = require('../lib/server-model.js');
+    model = require('../lib/server-model.js'),
+    redis = require('redis').createClient();
 
 describe('server.model', function(){
     beforeEach(function(done) {
@@ -99,6 +100,24 @@ describe('server.model', function(){
       
             firstNewUser.get("id").should.equal(0);
             secondNewUser.get("id").should.equal(1);
+        });
+        
+        it('should save to redis properly', function(done) {
+            var newServerUser = new model.ServerUser();
+            
+            newServerUser.save(null, {success: function() {
+                redis.get("user." + newServerUser.id, function(err, userJSON) {
+                    userJSON.should.exist;
+
+                    var user = JSON.parse(userJSON);
+
+                    user.should.exist;
+                    user.id.should.equal(newServerUser.id);
+                    user.name.should.equal(newServerUser.get("name"));
+                    user.affiliation.should.equal(newServerUser.get("affiliation"));
+                    done();
+                });
+            }});
         });
     });
     
