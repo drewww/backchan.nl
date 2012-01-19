@@ -142,6 +142,7 @@ describe('server.model', function(){
     describe('ServerEventList', function(){
         beforeEach(function(done) {
             model.resetIds();
+            sync.flush();
             done();
         });
         

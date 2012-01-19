@@ -124,6 +124,7 @@ describe('reading actions', function(){
         });
 
         beforeEach(function(done) {
+            sync.flush();
             // delete the contents of the event directory. 
             curServer.reset({"load":true, "callback":done});
             // 
@@ -145,6 +146,25 @@ describe('reading actions', function(){
         });
 
         it('should load properly with no files', function(){
+            
+        });
+        
+        it('should load + remember events', function(done){
+            var events = [];
+            events[0] = new model.ServerEvent();
+            events[1] = new model.ServerEvent();
+            
+            events[0].save(null, {success:function() {
+                events[1].save(null, {success: function() {
+                    // make the events (which will save them), then reset
+                    // the server and trigger loading from scratch. 
+                    curServer.reset({"load":true, "callback": function() {
+
+                        curServer.events.length.should.equal(2);
+                        done();
+                    }});
+                }});
+            }});
             
         });
 });
