@@ -67,6 +67,24 @@ describe('server.model', function(){
           
           first.get("id").should.equal(0);
           second.get("id").should.equal(1);
+      });
+      
+      it('should save to redis properly', function(done){
+          var newServerEvent = new model.ServerEvent();
+          
+          newServerEvent.save(null, {success: function() {
+              redis.get("event." + newServerEvent.id, function(err, eventJSON) {
+                  eventJSON.should.exist;
+
+                  var event = JSON.parse(eventJSON);
+
+                  event.should.exist;
+                  event.id.should.equal(newServerEvent.id);
+                  event.title.should.equal(newServerEvent.get("title"));
+                  event.start.should.equal(newServerEvent.get("start"));
+                  done();
+              });
+          }});
       })
   });
   
