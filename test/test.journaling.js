@@ -90,19 +90,25 @@ describe('journaling', function() {
     
     it('should create a user and event in the redis store', function(done){
         // check redis to see if it's got a user and an event.
-        redis.hgetall("user." + curClient.user.id, function(err, user) {
+        redis.get("user." + curClient.user.id, function(err, userJSON) {
+            userJSON.should.exist;
+            
+            var user = JSON.parse(userJSON);
+            
             user.should.exist;
-            parseInt(user.id).should.equal(curClient.user.id);
+            user.id.should.equal(curClient.user.id);
             user.name.should.equal(curClient.user.get("name"));
             user.affiliation.should.equal(curClient.user.get("affiliation"));
 
-            redis.hgetall("event." + curClient.event.id, function(err, event){
+            redis.get("event." + curClient.event.id, function(err, eventJSON){
+                
+                var event = JSON.parse(eventJSON);
                 event.should.exist;
 
-                parseInt(event.id).should.equal(curClient.event.id);
+                event.id.should.equal(curClient.event.id);
                 event.title.should.equal(curClient.event.get("title"));
-                parseInt(event.start).should.equal(curClient.event.get("start"));
-                event.voteTimeScoreFactor.should.equal(''+curClient.event.get("voteTimeScoreFactor"));
+                event.start.should.equal(curClient.event.get("start"));
+                event.voteTimeScoreFactor.should.equal(curClient.event.get("voteTimeScoreFactor"));
 
                 done(); 
             });
