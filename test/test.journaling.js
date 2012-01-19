@@ -141,6 +141,8 @@ describe('reading actions', function(){
         });
 
         after(function(done) {
+            sync.flush();
+            sync.resetIds();
             curServer.bind("stopped", done);
             curServer.stop();
         });
@@ -149,7 +151,7 @@ describe('reading actions', function(){
             
         });
         
-        it('should load + remember events', function(done){
+        it('should save + load events', function(done){
             var events = [];
             events[0] = new model.ServerEvent();
             events[1] = new model.ServerEvent();
@@ -165,6 +167,23 @@ describe('reading actions', function(){
                     }});
                 }});
             }});
+        });
+        
+        it('should save + load users', function(done){
+            var users = [];
+            users[0] = new model.ServerUser();
+            users[1] = new model.ServerUser();
             
+            users[0].save(null, {success:function() {
+                users[1].save(null, {success: function() {
+                    // make the users (which will save them), then reset
+                    // the server and trigger loading from scratch. 
+                    curServer.reset({"load":true, "callback": function() {
+
+                        curServer.allUsers.length.should.equal(2);
+                        done();
+                    }});
+                }});
+            }});
         });
 });
