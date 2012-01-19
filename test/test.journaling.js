@@ -172,7 +172,7 @@ describe('loading actions', function(){
         clients[0].post("FIRST");
         clients[1].post("SECOND");
         
-        clients[1].vote(0);
+        clients[0].vote(0);
         
         // step 2: reset the server with the load flag
         setTimeout(function() {
@@ -187,6 +187,19 @@ describe('loading actions', function(){
                                         // test-event: false for this reset.
 
                     event.fetch();
+                    
+                    // now check its state.
+                    event.get("chat").length.should.equal(2);
+                    event.get("chat").at(1).get("text").should.equal("hello WORLD!");
+                    event.get("chat").at(0).get("text").should.equal("how's it going?");
+                    
+                    event.get("posts").length.should.equal(2);
+                    event.get("posts").get(1).get("text").should.equal("FIRST");
+                    event.get("posts").get(0).get("text").should.equal("SECOND");
+
+                    event.get("posts").get(1).votes().should.equal(2);
+                    event.get("posts").get(0).votes().should.equal(1);
+                    
                     done();
             }});
         }, 100);
