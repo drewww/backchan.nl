@@ -67,6 +67,15 @@ views.ChatBarView = Backbone.View.extend({
     
 });
 
-views.BackchannlBar = Backbone.View.extend({
+views.BackchannlBarView = Backbone.View.extend({
+    template: _.template('<div id="bar"></div>'),
     
+    initialize: function() {
+        
+    },
+    
+    render: function() {
+        $(this.el).html(this.template());
+        return this;
+    },
 });

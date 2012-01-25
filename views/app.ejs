@@ -21,6 +21,14 @@
 	     console.log = function() {};
 	   }
 		
+		var bar;
+		
+		$(document).ready(function() {
+			// when we start up, make a new BackchannlBar and attach it to
+			// the DOM.
+			bar = new views.BackchannlBarView();
+			$("body").append(bar.render().el);
+		});
 		
 		
 	</script>

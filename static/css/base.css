@@ -1,3 +1,19 @@
 /* Define colors */
 /* define sizes */
 /* define global mixins */
+body {
+  background-color: black;
+  font-family: Helvetica, sans-serif;
+  overflow-y: hidden;
+  margin: 0px;
+}
+
+#bar {
+  background-color: #444444;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid white;
+  z-index: 1000;
+}
