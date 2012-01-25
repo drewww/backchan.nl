@@ -209,4 +209,20 @@ describe('client model', function() {
             postList.getPostRank(postList.get(3)).should.equal(3);
         });
     });
+    
+    describe('ExpiringChatList', function(){
+        it('should expire chat items properly', function(done){
+            var list = new model.ExpiringChatList();
+            list.EXPIRATION_TIME = 50;
+            
+            list.bind("remove", function(chat) {
+                chat.should.exist;
+                done();
+            });
+            
+            var chat = new model.Chat();
+            
+            list.add(chat);
+        });
+    });
 });

@@ -234,9 +234,10 @@ model.ExpiringChatList = model.ChatList.extend({
         // delay a removal of the item.
         model.ChatList.prototype.add.call(this, chat);
         
-        setTimeout($.proxy(function() {
-            this.remove(chat);
-        }, this), this.EXPIRATION_TIME);
+        var that = this;
+        setTimeout(function() {
+            that.remove(chat);
+        }, this.EXPIRATION_TIME);
     }
 });
 
