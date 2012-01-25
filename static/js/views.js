@@ -64,18 +64,30 @@ views.ChatListView = Backbone.View.extend({
 });
 
 views.ChatBarView = Backbone.View.extend({
+    id: "chat",
+    template: _.template('<form id="chat-entry-form">\
+    <input type="text" name="chat-input" title="say something!" value="" id="chat-input" autocomplete="off">\
+    </form>'),
     
+    render: function() {
+        $(this.el).html(this.template());
+        return this;
+    },
 });
 
 views.BackchannlBarView = Backbone.View.extend({
-    template: _.template('<div id="bar"></div>'),
+    id: "bar",
+    template: _.template(''),
+    
+    chat: null,
     
     initialize: function() {
-        
+        this.chat = new views.ChatBarView();
     },
     
     render: function() {
         $(this.el).html(this.template());
+        $(this.el).append(this.chat.render().el);
         return this;
     },
 });
