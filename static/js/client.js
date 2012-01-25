@@ -248,7 +248,7 @@ client.ConnectionManager.prototype = {
                 arg = post;
                 break;
             default:
-                client.log("Received an unknown message type: " + type);
+                client.log("Received an unhandled message type: " + type);
                 break;
         }
         

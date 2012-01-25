@@ -69,10 +69,26 @@ views.ChatBarView = Backbone.View.extend({
     <input type="text" name="chat-input" title="say something!" value="" id="chat-input" autocomplete="off">\
     </form>'),
     
+    events: {
+        "submit #chat-entry-form":"chat"
+    },
+    
     render: function() {
         $(this.el).html(this.template());
         return this;
     },
+    
+    chat: function(event) {
+        
+        // grab the text, send it to the server, and clear the field
+        var text = this.$("#chat-input").val();
+        
+        this.$("#chat-input").val("");
+        
+        conn.chat(text);
+        
+        event.preventDefault();
+    }
 });
 
 views.BackchannlBarView = Backbone.View.extend({
