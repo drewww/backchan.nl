@@ -26,22 +26,15 @@
 		$(document).ready(function() {
 			// TODO need to make a loading screen pop up
 			
-			// when we start up, make a new BackchannlBar and attach it to
-			// the DOM.
-			bar = new views.BackchannlBarView();
-			$("body").append(bar.render().el);
-			
 			// make the client ConnectionManager and connect. Auto name
 			// and affiliation for now.
 			conn = new client.ConnectionManager();
 			conn.connect("<%=host%>", <%=port%>, {"auto-identify":true, "auto-join":true});
-			
-			conn.bind("state.JOINED", function() {
-				console.log("Client joined.");
-				
-				// TODO remove loading indicator, turn on all the features.
-			});
-			
+
+			// when we start up, make a new BackchannlBar and attach it to
+			// the DOM.
+			bar = new views.BackchannlBarView(conn);
+			$("body").append(bar.render().el);
 			
 		});
 		

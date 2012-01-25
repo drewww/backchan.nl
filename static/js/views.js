@@ -51,16 +51,47 @@ views.PostListView = Backbone.View.extend({
     
 });
 
-views.UserView = Backbone.View.extend({
-    
-});
 
-views.ChatMessageView = Backbone.View.extend({
+
+views.ChatView = Backbone.View.extend({
+    className: 'message',
+    template: _.template('<span class="name"><%=fromName%></span>\
+    <span class="affiliation"><%=fromAffiliation%></span>:\
+    <span class="text"><%=text%></span>'),
     
+    render: function() {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    },
 });
 
 views.ChatListView = Backbone.View.extend({
+    className: 'chats',
     
+    initialize: function(params) {
+        Backbone.View.prototype.initialize.call(this,params);
+        
+        this.collection.bind('add', this.render, this);
+        this.collection.bind('remove', this.render, this);
+        
+        this.render();
+    },
+    
+    render: function() {
+        console.log("Rendering ChatListView");
+        $(this.el).html("");
+        
+        if(this.collection && this.collection.length > 0) {
+            this.collection.each(function(chat) {
+                console.log("processing a chat message: " + JSON.stringify(chat));
+                var view = new views.ChatView({model:chat});
+                var newMsgView = view.render().el;
+                $(this.el).append(newMsgView);
+            }, this);
+        }
+        
+        return this;
+    }
 });
 
 views.ChatBarView = Backbone.View.extend({
@@ -73,8 +104,19 @@ views.ChatBarView = Backbone.View.extend({
         "submit #chat-entry-form":"chat"
     },
     
+    chatList: null,
+    chatListView: null,
+    
+    initialize: function() {
+        this.chatList = new model.ChatList();
+        this.chatListView = new views.ChatListView({collection:this.chatList});
+    },
+    
     render: function() {
         $(this.el).html(this.template());
+        
+        // we don't need to force a render on this - it'll render itself
+        $(this.el).append(this.chatListView.el);
         return this;
     },
     
@@ -96,9 +138,15 @@ views.BackchannlBarView = Backbone.View.extend({
     template: _.template(''),
     
     chat: null,
-    
-    initialize: function() {
+    conn: null,
+    initialize: function(conn) {
         this.chat = new views.ChatBarView();
+        this.conn = conn;
+        
+        this.conn.bind("message.chat", function(chat) {
+            console.log("Got new chat: " + JSON.stringify(chat));
+            this.chat.chatList.add(chat);
+        }, this);
     },
     
     render: function() {
