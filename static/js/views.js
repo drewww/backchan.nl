@@ -27,6 +27,8 @@
 
 views = {};
 
+views.CHAT_TIMEOUT = 10000;
+
 views.PostView = Backbone.View.extend({
     tagName: 'div',
     
@@ -67,14 +69,39 @@ views.ChatView = Backbone.View.extend({
 
 views.ChatListView = Backbone.View.extend({
     className: 'chats',
+    views: {},
     
     initialize: function(params) {
         Backbone.View.prototype.initialize.call(this,params);
         
-        this.collection.bind('add', this.render, this);
-        this.collection.bind('remove', this.render, this);
+        this.collection.bind('add', this.add, this);
+        this.collection.bind('remove', this.remove, this);
         
         this.render();
+    },
+    
+    add: function(chat) {
+        console.log("adding chat to view");
+        // append to the el
+        var newView = new views.ChatView({model:chat});
+        this.views[chat.cid] = newView;
+        $(this.el).append(newView.render().el);
+    },
+    
+    remove: function(chat) {
+        console.log("removing chat from view");
+        // animate it out of the el. the trick here is getting a hold of it,
+        // which we'll use cid for.
+        var viewToRemove = this.views[chat.cid];
+        
+        delete this.views[chat.cid];
+        
+        $(viewToRemove.el).animate({
+            opacity: 0.0
+        }, 250, "linear", function() {
+            $(viewToRemove).remove();
+            
+        });
     },
     
     render: function() {
@@ -83,7 +110,6 @@ views.ChatListView = Backbone.View.extend({
         
         if(this.collection && this.collection.length > 0) {
             this.collection.each(function(chat) {
-                console.log("processing a chat message: " + JSON.stringify(chat));
                 var view = new views.ChatView({model:chat});
                 var newMsgView = view.render().el;
                 $(this.el).append(newMsgView);
@@ -108,7 +134,7 @@ views.ChatBarView = Backbone.View.extend({
     chatListView: null,
     
     initialize: function() {
-        this.chatList = new model.ChatList();
+        this.chatList = new model.ExpiringChatList();
         this.chatListView = new views.ChatListView({collection:this.chatList});
     },
     
@@ -144,7 +170,6 @@ views.BackchannlBarView = Backbone.View.extend({
         this.conn = conn;
         
         this.conn.bind("message.chat", function(chat) {
-            console.log("Got new chat: " + JSON.stringify(chat));
             this.chat.chatList.add(chat);
         }, this);
     },

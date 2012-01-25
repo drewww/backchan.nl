@@ -226,6 +226,20 @@ model.ChatList = Backbone.Collection.extend({
     // default collection.)
 });
 
+model.ExpiringChatList = model.ChatList.extend({
+    EXPIRATION_TIME: 10000,
+    
+    add: function(chat) {
+        // every time we get an add, pass it up the chain but also
+        // delay a removal of the item.
+        model.ChatList.prototype.add.call(this, chat);
+        
+        setTimeout($.proxy(function() {
+            this.remove(chat);
+        }, this), this.EXPIRATION_TIME);
+    }
+});
+
 model.Event = Backbone.Model.extend({
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
