@@ -56,8 +56,8 @@ views.PostListView = Backbone.View.extend({
 views.ChatView = Backbone.View.extend({
     className: 'message',
     template: _.template('<span class="name"><%=fromName%></span>\
-    <span class="affiliation"><%=fromAffiliation%></span>:\
-    <span class="text"><%=text%></span>'),
+<span class="affiliation"><%=fromAffiliation%></span>: \
+<span class="text"><%=text%></span>'),
     
     render: function() {
         $(this.el).html(this.template(this.model.toJSON()));

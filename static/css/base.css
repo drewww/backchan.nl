@@ -27,3 +27,17 @@ body {
 #chat #chat-input {
   width: 290px;
 }
+#chat .chats {
+  position: fixed;
+  bottom: 51px;
+  width: 300px;
+}
+#chat .chats .message {
+  color: #CCC;
+  text-shadow: 1px 1px 0px #111;
+  width: 100%;
+  float: left;
+}
+#chat .chats .message .affiliation {
+  display: none;
+}
