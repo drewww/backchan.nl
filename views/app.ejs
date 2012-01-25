@@ -22,14 +22,24 @@
 	   }
 		
 		var bar;
-		
+		var conn;
 		$(document).ready(function() {
 			// when we start up, make a new BackchannlBar and attach it to
 			// the DOM.
 			bar = new views.BackchannlBarView();
 			$("body").append(bar.render().el);
+			
+			// make the client ConnectionManager and connect. Auto name
+			// and affiliation for now.
+			conn = new client.ConnectionManager();
+			conn.connect("<%=host%>", <%=port%>, {"auto-identify":true, "auto-join":true});
+			
+			conn.bind("state.JOINED", function() {
+				console.log("Client joined.");
+			});
 		});
 		
+
 		
 	</script>
 	

@@ -177,7 +177,7 @@ client.ConnectionManager.prototype = {
             case "chat-err":
             case "post-err":
             case "vote-err":
-                client.log("ERR: " + data);
+                client.log("ERR: " + JSON.stringify(data));
                 break;
             
             case "join-ok":

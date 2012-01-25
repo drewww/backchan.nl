@@ -62,7 +62,8 @@ logger.info("dispatch: " + dispatch);
 var theServer = new server.BackchannlServer({
     "production":production,
     "load":load,
-    "dispatcher":dispatch});
+    "dispatcher":dispatch,
+    "test-event":!load});  // if we're not loading, make a test event. 
     
     
 logger.info("starting server on " + host + ":" + port);
