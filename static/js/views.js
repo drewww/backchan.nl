@@ -55,13 +55,76 @@ views.PostListView = Backbone.View.extend({
 <div class="new-post">\
 <h1>posts</h1>\
 <form>\
-<textarea class="post-input"></textarea>\
+<input type="text" class="post-input"></textarea>\
 </form>\
 </div>\
 <div class="posts">\
 </div>\
 </div>\
 '),
+
+    events: {
+        "submit form":"post",
+        "click .post-input":"expandNewPost",
+        "click button.submit":"post",
+        "click button.cancel":"contractNewPost",
+    },
+    
+    newPostExpanded: false,
+    submitPostButton: null,
+    cancelPostButton: null,
+    
+    initialize: function(params) {
+        Backbone.View.prototype.initialize.call(this,params);
+
+        views.conn.bind("state.JOINED", function() {
+            this.collection = views.conn.event.get("posts");
+            this.collection.bind('add', this.add, this);
+            this.collection.bind('remove', this.remove, this);
+        }, this);
+        
+        this.submitPostButton = $("<button class='submit'>Submit Post</button>");
+        this.cancelPostButton = $("<button class='cancel'>Cancel Post</button>");
+    },
+    
+    add: function(post) {
+        
+    },
+    
+    remove: function(post) {
+        
+    },
+    
+    post: function(event) {
+        console.log("posting: " + this.$(".post-input").val());
+        
+        this.contractNewPost();
+        event.preventDefault();
+    },
+    
+    expandNewPost: function() {
+        if(!this.newPostExpanded) {
+            this.newPostExpanded = true;
+            this.$(".post-input").addClass("expanded");
+            this.$(".post-input").after(this.submitPostButton);
+            this.$(".post-input").after(this.cancelPostButton);
+
+            this.delegateEvents();
+        }
+    },
+    
+    contractNewPost: function() {
+        if(this.newPostExpanded) {
+            this.newPostExpanded = false;
+            this.$(".post-input").removeClass("expanded");
+            this.$(".post-input").val("");
+            this.submitPostButton.remove();
+            this.cancelPostButton.remove();
+            
+            this.delegateEvents();
+        }
+    },
+    
     render: function() {
         $(this.el).html(this.template());
         return this;
@@ -75,6 +138,7 @@ views.ChatView = Backbone.View.extend({
     template: _.template('<span class="name"><%=fromName%></span>\
 <span class="affiliation"><%=fromAffiliation%></span>: \
 <span class="text"><%=text%></span>'),
+    
     
     render: function() {
         $(this.el).html(this.template(this.model.toJSON()));
@@ -93,8 +157,6 @@ views.ChatListView = Backbone.View.extend({
             this.collection = views.conn.event.get("chat");
             this.collection.bind('add', this.add, this);
         }, this);
-        
-        this.render();
     },
     
     add: function(chat) {
@@ -130,12 +192,12 @@ views.ChatListView = Backbone.View.extend({
 
 views.ChatBarView = Backbone.View.extend({
     id: "chat",
-    template: _.template('<form id="chat-entry-form">\
+    template: _.template('<form class="chat-entry-form">\
     <input type="text" name="chat-input" title="say something!" value="" id="chat-input" autocomplete="off">\
     </form>'),
     
     events: {
-        "submit #chat-entry-form":"chat"
+        "submit .chat-entry-form":"chat"
     },
     
     chatListView: null,
