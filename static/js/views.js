@@ -26,7 +26,7 @@
 
 
 views = {};
-
+views.conn = null;
 views.CHAT_TIMEOUT = 10000;
 
 views.PostView = Backbone.View.extend({
@@ -84,13 +84,15 @@ views.ChatView = Backbone.View.extend({
 
 views.ChatListView = Backbone.View.extend({
     className: 'chats',
-    views: {},
+    fadeDelay: 10000,
     
     initialize: function(params) {
         Backbone.View.prototype.initialize.call(this,params);
         
-        this.collection.bind('add', this.add, this);
-        this.collection.bind('remove', this.remove, this);
+        views.conn.bind("state.JOINED", function() {
+            this.collection = views.conn.event.get("chat");
+            this.collection.bind('add', this.add, this);
+        }, this);
         
         this.render();
     },
@@ -99,24 +101,15 @@ views.ChatListView = Backbone.View.extend({
         console.log("adding chat to view");
         // append to the el
         var newView = new views.ChatView({model:chat});
-        this.views[chat.cid] = newView;
         $(this.el).append(newView.render().el);
-    },
-    
-    remove: function(chat) {
-        console.log("removing chat from view");
-        // animate it out of the el. the trick here is getting a hold of it,
-        // which we'll use cid for.
-        var viewToRemove = this.views[chat.cid];
         
-        delete this.views[chat.cid];
-        
-        $(viewToRemove.el).animate({
-            opacity: 0.0
-        }, 250, "linear", function() {
-            $(viewToRemove).remove();
-            
-        });
+        setTimeout(function() {
+            $(newView.el).animate({
+                opacity: 0.0
+            }, 250, "linear", function() {
+                $(newView).remove();
+            });
+        }, this.fadeDelay);
     },
     
     render: function() {
@@ -145,12 +138,10 @@ views.ChatBarView = Backbone.View.extend({
         "submit #chat-entry-form":"chat"
     },
     
-    chatList: null,
     chatListView: null,
     
     initialize: function() {
-        this.chatList = new model.ExpiringChatList();
-        this.chatListView = new views.ChatListView({collection:this.chatList});
+        this.chatListView = new views.ChatListView();
     },
     
     render: function() {
@@ -180,23 +171,25 @@ views.BackchannlBarView = Backbone.View.extend({
     
     chat: null,
     posts: null,
-    conn: null,
     
     initialize: function(conn) {
+        
+        views.conn = conn;
+        
         this.chat = new views.ChatBarView();
         this.posts = new views.PostListView();
         
-        this.conn = conn;
-        
-        this.conn.bind("message.chat", function(chat) {
-            this.chat.chatList.add(chat);
-        }, this);
+        // conn.bind("message.chat", function(chat) {
+        //     this.chat.chatList.add(chat);
+        // }, this);
     },
     
     render: function() {
         $(this.el).html(this.template());
+        
         $(this.el).append(this.posts.render().el);
         $(this.el).append(this.chat.render().el);
+        
         return this;
     },
 });
