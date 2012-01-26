@@ -50,7 +50,22 @@ views.PostView = Backbone.View.extend({
 });
 
 views.PostListView = Backbone.View.extend({
-    
+    className: 'posts-list',
+    template: _.template('\<div class="container">\
+<div class="new-post">\
+<h1>posts</h1>\
+<form>\
+<textarea class="post-input"></textarea>\
+</form>\
+</div>\
+<div class="posts">\
+</div>\
+</div>\
+'),
+    render: function() {
+        $(this.el).html(this.template());
+        return this;
+    },
 });
 
 
@@ -164,9 +179,13 @@ views.BackchannlBarView = Backbone.View.extend({
     template: _.template(''),
     
     chat: null,
+    posts: null,
     conn: null,
+    
     initialize: function(conn) {
         this.chat = new views.ChatBarView();
+        this.posts = new views.PostListView();
+        
         this.conn = conn;
         
         this.conn.bind("message.chat", function(chat) {
@@ -176,6 +195,7 @@ views.BackchannlBarView = Backbone.View.extend({
     
     render: function() {
         $(this.el).html(this.template());
+        $(this.el).append(this.posts.render().el);
         $(this.el).append(this.chat.render().el);
         return this;
     },

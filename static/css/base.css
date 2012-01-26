@@ -18,10 +18,13 @@ body {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+#bar > div {
+  float: left;
+}
 
 #chat {
   width: 300px;
-  margin-left: 10px;
+  margin-left: 310px;
   height: 40px;
 }
 #chat #chat-input {
@@ -40,4 +43,26 @@ body {
 }
 #chat .chats .message .affiliation {
   display: none;
+}
+
+.posts-list {
+  width: 300px;
+}
+.posts-list .container {
+  background-color: #444444;
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  width: 290px;
+  padding: 5px;
+}
+.posts-list .container h1 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.posts-list .container .posts {
+  background-color: #eee;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
 }
