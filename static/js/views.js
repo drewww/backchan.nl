@@ -30,9 +30,11 @@ views.conn = null;
 views.CHAT_TIMEOUT = 10000;
 
 views.PostView = Backbone.View.extend({
-    tagName: 'div',
-    
-    template: _.template('<div class="post"></div>'),
+    className: 'post',
+    template: _.template('<span class="text"><%=text%></span>\
+<span class="attribution">&nbsp;&nbsp;&mdash;<span class="name"><%=fromName%></span>,\
+<span class="affiliation"><%=fromAffiliation%></span></span>\
+'),
     
     events: {
         
@@ -88,11 +90,12 @@ views.PostListView = Backbone.View.extend({
     },
     
     add: function(post) {
-        
+        var newView = new views.PostView({model:post});
+        this.$(".posts").prepend(newView.render().el);
     },
     
     remove: function(post) {
-        
+        // this is a little tricky - gotta figure this out later.
     },
     
     post: function(event) {
@@ -127,6 +130,14 @@ views.PostListView = Backbone.View.extend({
     
     render: function() {
         $(this.el).html(this.template());
+        
+        if(this.collection && this.collection.length > 0) {
+            this.collection.each(function(post) {
+                var newView = new views.PostView({model:post});
+                this.$(".posts").prepend(newView.render().el);
+            });
+        }
+        
         return this;
     },
 });

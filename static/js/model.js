@@ -191,6 +191,9 @@ model.PostList = Backbone.Collection.extend({
     
     "model":model.Post,
     
+    // TODO think about this - in some contexts we want to sort on score,
+    // in others we want to sort by time. Do we make these different a switch
+    // on this list type?
     comparator: function(post) {
         return -1*post.getScore();
     },
