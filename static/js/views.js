@@ -55,7 +55,7 @@ views.PostListView = Backbone.View.extend({
 <div class="new-post">\
 <h1>posts</h1>\
 <form>\
-<input type="text" class="post-input"></textarea>\
+<textarea class="post-input"></textarea>\
 </form>\
 </div>\
 <div class="posts">\
@@ -96,7 +96,7 @@ views.PostListView = Backbone.View.extend({
     },
     
     post: function(event) {
-        console.log("posting: " + this.$(".post-input").val());
+        views.conn.post(this.$(".post-input").val());
         
         this.contractNewPost();
         event.preventDefault();

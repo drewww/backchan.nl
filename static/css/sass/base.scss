@@ -105,14 +105,14 @@ body {
         
         padding: 5px;
         
-        & input {
+        & textarea {
             width: 285px;
             height: 1em;
             
             margin-bottom: 5px;
         }
         
-        & input.expanded {
+        & textarea.expanded {
             height: 4em;
         }
         

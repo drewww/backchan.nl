@@ -56,12 +56,12 @@ body {
   width: 290px;
   padding: 5px;
 }
-.posts-list .container input {
+.posts-list .container textarea {
   width: 285px;
   height: 1em;
   margin-bottom: 5px;
 }
-.posts-list .container input.expanded {
+.posts-list .container textarea.expanded {
   height: 4em;
 }
 .posts-list .container h1 {
