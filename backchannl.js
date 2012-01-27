@@ -46,23 +46,24 @@ if(program.production) {
     }
 }
 
-var dispatch = "base";
-if(program.dispatch) {
-    if(dispatch.getDispatcherForName(program.dispatch) == null) {
-        logger.warning(program.dispatch + " is an invalid dispatch type. Defaulting to 'base'.");
+var dispatcher = "base";
+if(program.dispatcher) {
+    var dispatcherClass = dispatch.getDispatcherForName(program.dispatcher);
+    if(dispatcherClass == null) {
+        logger.warning(program.dispatcher + " is an invalid dispatch type. Defaulting to 'base'.");
     } else {
-        dispatch = program.dispach;
+        dispatcher = program.dispatcher;
     }
 }
 
 logger.info("production? " + production);
 logger.info("load? " + load);
-logger.info("dispatch: " + dispatch);
+logger.info("dispatch: " + dispatcher);
 
 var theServer = new server.BackchannlServer({
     "production":production,
     "load":load,
-    "dispatcher":dispatch,
+    "dispatcher":dispatcher,
     "test-event":!load});  // if we're not loading, make a test event. 
     
     
