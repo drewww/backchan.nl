@@ -116,6 +116,19 @@ describe('client model', function() {
                 (post.getScore()<2.1).should.be.true;
             });
         });
+        
+        it('should return JSON with vote counts', function() {
+            var newPost = new model.Post();
+            should.exist(newPost);
+            
+            newPost.toJSON()["voteCount"].should.exist
+            newPost.toJSON()["voteCount"].should.equal(0);
+            
+            newPost.addVote(0, 0);
+
+            newPost.toJSON()["voteCount"].should.exist
+            newPost.toJSON()["voteCount"].should.equal(1);
+        });
     });
     
     describe('User', function(){

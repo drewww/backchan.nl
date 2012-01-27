@@ -141,6 +141,14 @@ model.Post = Backbone.Model.extend({
     
     isPromoted: function() {
         return !(_.isNull(this.get("promotedAt")));
+    },
+    
+    toJSON: function() {
+        var dict = Backbone.Model.prototype.toJSON.call(this);
+        
+        dict["voteCount"] = this.votes();
+        
+        return dict;
     }
 });
 
