@@ -32,12 +32,12 @@ views.CHAT_TIMEOUT = 10000;
 views.PostView = Backbone.View.extend({
     className: 'post',
     template: _.template('<div class="contents"><span class="text"><%=text%></span>\
-<span class="attribution">&nbsp;&nbsp;&mdash;<span class="name"><%=fromName%></span>,\
+<span class="attribution">&nbsp;&nbsp;&mdash;<span class="name"><%=fromName%></span>, \
 <span class="affiliation"><%=fromAffiliation%></span></span></div>\
 <div class="footer">\
-<div class="vote"><%=voteCount%></div>\
-<div class="flag"></div>\
-<div class="comments">0</div>\
+<div class="vote"><img src="/static/img/vote.png"><%=voteCount%></div>\
+<div class="comments"><img src="/static/img/comment.png">0</div>\
+<div class="flag"><img src="/static/img/flag.png"></div>\
 <br class="clear">\
 </div>\
 '),

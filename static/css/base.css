@@ -88,16 +88,35 @@ body {
 }
 .post .footer {
   background-color: #8CC63F;
+  color: white;
+  font-weight: bold;
+}
+.post .footer > div {
   padding-top: 2px;
   padding-bottom: 2px;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+.post .footer > div:hover {
+  background-color: #A5BC83;
+}
+.post .footer > div:active {
+  background-color: #A6AF98;
 }
 .post .footer .vote {
   float: left;
-  margin-left: 5px;
+  padding-left: 5px;
 }
 .post .footer .flag, .post .footer .comments {
   float: right;
-  margin-right: 5px;
+  padding-right: 5px;
+  margin-left: 5px;
+}
+.post .footer img {
+  height: 20px;
 }
 
 br.clear {

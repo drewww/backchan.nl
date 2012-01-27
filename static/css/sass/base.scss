@@ -149,16 +149,43 @@ body {
     
     .footer {
         background-color: #8CC63F;
-        padding-top: 2px;
-        padding-bottom: 2px;
+        
+        color: white;
+        font-weight: bold;
+        
+        & > div {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            
+            
+            @include clickable;
+            
+            &:hover {
+                background-color: #A5BC83;
+            }
+            
+            &:active {
+                background-color: #A6AF98
+            }
+        }
+        
         .vote {
             float: left;
+            padding-left: 5px;
+        }
+
+        .flag, .comments {
+            float: right;
+            padding-right: 5px;
             margin-left: 5px;
         }
         
-        .flag, .comments {
-            float: right;
-            margin-right: 5px;
+        .flag {
+
+        }
+        
+        img {
+            height: 20px;
         }
     }
 }
