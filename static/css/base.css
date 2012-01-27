@@ -69,8 +69,37 @@ body {
   margin-bottom: 5px;
 }
 .posts-list .container .posts {
-  background-color: #eee;
+  background-color: #ddd;
   height: 100%;
   width: 100%;
   overflow-y: scroll;
+}
+
+.post {
+  background-color: #DDEFC6;
+  margin: 5px;
+}
+.post .contents {
+  padding: 5px;
+}
+.post .contents .attribution {
+  font-size: 0.8em;
+  color: #444;
+}
+.post .footer {
+  background-color: #8CC63F;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.post .footer .vote {
+  float: left;
+  margin-left: 5px;
+}
+.post .footer .flag, .post .footer .comments {
+  float: right;
+  margin-right: 5px;
+}
+
+br.clear {
+  clear: both;
 }

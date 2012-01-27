@@ -124,11 +124,45 @@ body {
         }
         
         .posts {
-            background-color: #eee;
+            background-color: #ddd;
             height: 100%;
             width: 100%;
             
             overflow-y: scroll;
         }
     }
+}
+
+.post {
+    background-color: #DDEFC6;
+    margin: 5px;
+    
+    
+    .contents {
+        padding: 5px;
+        
+        .attribution {
+            font-size: 0.8em;
+            color: #444;
+        }
+    }
+    
+    .footer {
+        background-color: #8CC63F;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        .vote {
+            float: left;
+            margin-left: 5px;
+        }
+        
+        .flag, .comments {
+            float: right;
+            margin-right: 5px;
+        }
+    }
+}
+
+br.clear {
+    clear: both;
 }
