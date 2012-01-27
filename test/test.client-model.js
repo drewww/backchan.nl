@@ -184,7 +184,7 @@ describe('client model', function() {
             newList.length.should.equal(0);
         });
         
-        it('should sort a simple list properly', function(){
+        it('should sort a simple list properly by score', function(){
             var postList = new model.PostList();
             
             var event = new model.Event({"start":0});
@@ -197,7 +197,7 @@ describe('client model', function() {
                 "event":event}));
             postList.add(new model.Post({"id":3,
                     "event":event}));
-
+            
             
             // should be ranked third
             postList.get(0).addVote(0, 0);
@@ -220,6 +220,33 @@ describe('client model', function() {
             postList.getPostRank(postList.get(1)).should.equal(1);
             postList.getPostRank(postList.get(2)).should.equal(0);
             postList.getPostRank(postList.get(3)).should.equal(3);
+        });
+        
+        it('should sort a simple list properly by time', function(){
+            var postList = new model.PostList();
+            
+            
+            var e = new model.Event({"start":0});
+            
+            postList.add(new model.Post({"id":0, "timestamp":0, event:e}));
+            postList.add(new model.Post({"id":1, "timestamp":10, event:e}));
+            postList.add(new model.Post({"id":2, "timestamp":5, event:e}));
+            postList.add(new model.Post({"id":3, "timestamp":1, event:e}));
+            
+            postList.bind("change", function() {
+                should.fail("Should not get a change event when changing sorts!");
+            });
+            
+            postList.bind("reset", function() {
+                should.fail("Should not get a reset event when changing sorts!");
+            });
+            
+            postList.setSort("time");
+            
+            postList.indexOf(postList.get(0)).should.equal(3);
+            postList.indexOf(postList.get(1)).should.equal(0);
+            postList.indexOf(postList.get(2)).should.equal(1);
+            postList.indexOf(postList.get(3)).should.equal(2);
         });
     });
     

@@ -199,11 +199,18 @@ model.PostList = Backbone.Collection.extend({
     
     "model":model.Post,
     
-    // TODO think about this - in some contexts we want to sort on score,
-    // in others we want to sort by time. Do we make these different a switch
-    // on this list type?
-    comparator: function(post) {
+    initialize: function(args) {
+        Backbone.Collection.prototype.initialize.call(this, args);
+        
+        this.setSort("score");
+    },
+    
+    comparatorScore: function(post) {
         return -1*post.getScore();
+    },
+    
+    comparatorTime: function(post) {
+        return -1*post.get("timestamp");
     },
     
     add: function(newPost) {
@@ -217,15 +224,34 @@ model.PostList = Backbone.Collection.extend({
     },
     
     getPostRank: function(post) {
-        // we can just use indexOf here, but this is nicer semantics.
-        return this.indexOf(post);
+        // swap in the score comparator, sort it silently, then put it back.
+        var rank;
+        if(this.comparator!=this.comparatorScore) {
+            this.setSort("score");
+            rank = this.indexOf(post);
+            this.setSort("time");
+        } else {
+            rank = this.indexOf(post);
+        }
+        
+        return rank;
     },
     
     getPromotedPosts: function() {
         return this.filter(function(post) {
             return post.isPromoted();
         });
-    }
+    },
+    
+    setSort: function(sortBy) {
+        if(sortBy=="score") {
+            this.comparator = this.comparatorScore;
+            this.sort({silent:true});
+        } else if(sortBy=="time") {
+            this.comparator = this.comparatorTime;
+            this.sort({silent:true});
+        }
+    },
 });
 
 model.ChatList = Backbone.Collection.extend({
