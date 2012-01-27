@@ -43,7 +43,9 @@ views.PostView = Backbone.View.extend({
 '),
     
     events: {
-        
+        "click .vote":"vote",
+        "click .comments":"expandComments",
+        "click .flag":"expandFlagOptions",
     },
     
     initialize: function() {
@@ -55,6 +57,19 @@ views.PostView = Backbone.View.extend({
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     },
+    
+    vote: function() {
+        console.log("vote!");
+    },
+    
+    expandComments: function() {
+        console.log("Expand comments");
+    },
+    
+    expandFlagOptions: function() {
+        console.log("Expand flag options");
+    },
+    
 });
 
 views.PostListView = Backbone.View.extend({
