@@ -35,7 +35,7 @@ views.PostView = Backbone.View.extend({
 <span class="attribution">&nbsp;&nbsp;&mdash;<span class="name"><%=fromName%></span>, \
 <span class="affiliation"><%=fromAffiliation%></span></span></div>\
 <div class="footer">\
-<div class="vote"><img src="/static/img/vote.png"><%=voteCount%></div>\
+<div class="vote"><img src="/static/img/vote.png"><span class="voteCount"><%=voteCount%></span></div>\
 <div class="comments"><img src="/static/img/comment.png">0</div>\
 <div class="flag"><img src="/static/img/flag.png"></div>\
 <br class="clear">\
@@ -48,18 +48,30 @@ views.PostView = Backbone.View.extend({
         "click .flag":"expandFlagOptions",
     },
     
-    initialize: function() {
-        this.model.bind('change', this.render, this);
+    initialize: function(params) {
+        Backbone.View.prototype.initialize.call(this,params);
+        
+        this.model.bind('vote', this.renderVotes, this);
         this.model.bind('destroy', this.remove, this);
     },
     
     render: function() {
+        console.log("rendering post");
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     },
     
+    renderVotes: function() {
+        // I don't know if it's bad to do it this way but doing a full
+        // render seemed to cause some flashing which was annoying. Not
+        // so many ways something can change, so going to just update them
+        // specifically.
+        this.$(".voteCount").text(this.model.votes());
+        return this;
+    },
+    
     vote: function() {
-        console.log("vote!");
+        views.conn.vote(this.model.id);
     },
     
     expandComments: function() {
