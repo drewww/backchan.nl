@@ -107,6 +107,9 @@ model.Post = Backbone.Model.extend({
     },
     
     getScore: function() {
+        // TODO This should really be cached! We only need to dirty the cache
+        // when we get a new vote, which is easy to do.
+        
         // We're going to do this cherrie's way because it's super
         // computationally inexpensive. Just compare the vote times to the
         // event start times (times some scaling factor) and we have our
@@ -237,10 +240,28 @@ model.PostList = Backbone.Collection.extend({
         return rank;
     },
     
-    getPromotedPosts: function() {
-        return this.filter(function(post) {
-            return post.isPromoted();
-        });
+    getPromotedPosts: function(options) {
+        // if this has the sort option, this is potentially costly.
+        // not sure what to do about that. it really only gets called when
+        // a new user connects the first time, so it's not that frequent.
+        
+        var result;
+        if("sort" in options &&
+            (options["sort"]=="time" || options["sort"]=="score")) {
+            var originalComparator = this.comparator;
+            this.setSort(options["sort"]);
+            result = this.filter(function(post) {
+                return post.isPromoted();
+            });
+            this.comparator = originalComparator;
+            this.sort({silent:true});
+        } else {
+            result = this.filter(function(post) {
+                return post.isPromoted();
+            });
+        }
+        
+        return result;
     },
     
     setSort: function(sortBy) {

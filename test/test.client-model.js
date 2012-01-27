@@ -224,8 +224,6 @@ describe('client model', function() {
         
         it('should sort a simple list properly by time', function(){
             var postList = new model.PostList();
-            
-            
             var e = new model.Event({"start":0});
             
             postList.add(new model.Post({"id":0, "timestamp":0, event:e}));
@@ -247,6 +245,44 @@ describe('client model', function() {
             postList.indexOf(postList.get(1)).should.equal(0);
             postList.indexOf(postList.get(2)).should.equal(1);
             postList.indexOf(postList.get(3)).should.equal(2);
+        });
+        
+        it('should return promoted posts sorted when asked', function(){
+          
+            var postList = new model.PostList();
+            var e = new model.Event({"start":0});
+            
+            postList.add(new model.Post({"id":0, "timestamp":0, event:e}));
+            postList.add(new model.Post({"id":1, "timestamp":10, event:e}));
+            postList.add(new model.Post({"id":2, "timestamp":5, event:e}));
+            postList.add(new model.Post({"id":3, "timestamp":1, event:e}));
+          
+            // add a few votes so score isn't the same as time (which is
+            // the case for items with no non-creator votes)
+            postList.get(0).addVote(0, 5000);
+            postList.get(1).addVote(0, 6000);
+            
+            // now promote all but one of them.
+            postList.get(0).promote();
+            postList.get(1).promote();
+            postList.get(2).promote();
+            
+            // so sorting by time we expect the order to be (1, 2, 0)
+            // sorting by score we expect the order to be (1, 0, 2)
+            
+            var promotedPostsByScore = postList.getPromotedPosts({sort:"score"});
+            var promotedPostsByTime = postList.getPromotedPosts({sort:"time"});
+            
+            promotedPostsByScore.length.should.equal(3);
+            
+            promotedPostsByScore[0].id.should.equal(1);
+            promotedPostsByScore[1].id.should.equal(0);
+            promotedPostsByScore[2].id.should.equal(2);
+
+            promotedPostsByTime.length.should.equal(3);
+            promotedPostsByTime[0].id.should.equal(1);
+            promotedPostsByTime[1].id.should.equal(2);
+            promotedPostsByTime[2].id.should.equal(0);
         });
     });
     
