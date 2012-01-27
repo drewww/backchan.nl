@@ -171,7 +171,7 @@ views.PostListView = Backbone.View.extend({
         if(this.collection && this.collection.length > 0) {
             this.collection.each(function(post) {
                 var newView = new views.PostView({model:post});
-                this.$(".posts").prepend(newView.render().el);
+                this.$(".posts").append(newView.render().el);
             });
         }
         

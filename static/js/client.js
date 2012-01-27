@@ -184,6 +184,8 @@ client.ConnectionManager.prototype = {
                 this.event = new model.Event(JSON.parse(data));
                 client.log("Local event set: " + this.event.get("title"));
                 
+                this.event.get("posts").setSort("time");
+                
                 arg = this.event;
                 
                 this.setState("JOINED");
