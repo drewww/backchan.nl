@@ -58,7 +58,38 @@ describe('client-server communication', function(){
         
         // This is going to be a bit of a bear to test + figure out. But worth
         // doing at some point. Leaving it here a a reminder.
-        it('should handle the server disappearing and reconnect gracefully');
+    });
+    
+    describe('server startup/shutdown', function(){
+        before(function() {
+            curServer = new server.BackchannlServer();
+        });
+        beforeEach(function() {
+            
+        });
+        after(function(done) {
+            curServer.bind("stopped", done);
+            curServer.stop();
+        });
+
+        it('should generate a disconnect event when it loses connection to the server', function(done){
+            var cm = new client.ConnectionManager();
+            
+            cm.bind("state.CONNECTED", function() {
+                // kill the server.
+                curServer.stop();
+            });
+            
+            cm.bind("state.DISCONNECTED", function() {
+                // start the server again so we don't leave it in a bad state
+                done();
+            });
+            curServer.bind("started", function() {
+                cm.connect("localhost", 8181);
+            });
+            curServer.start("localhost", 8181);
+        });
+        it('should handle the server disappearing and reconnect gracefully');      
     });
     
     describe('server', function(){

@@ -31,7 +31,7 @@
 			
 			// make the client ConnectionManager and connect. Auto name
 			// and affiliation for now.
-			conn = new client.ConnectionManager();
+			conn = new client.ConnectionManager({"force-new-connect":false});
 			
 			bar = new views.BackchannlBarView(conn);
 			$("body").append(bar.render().el);

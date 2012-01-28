@@ -55,7 +55,8 @@ client.ConnectionManager.prototype = {
         if(_.isUndefined(options)) options = {};
         _.defaults(options, {
             "auto-identify": false,
-            "auto-join": false
+            "auto-join": false,
+            "force-new-connection": true,
         });
         
         if(options["auto-identify"]) {
@@ -79,7 +80,11 @@ client.ConnectionManager.prototype = {
         }
         
         this.socket = io.connect("http://"+host+":"+port,
-            {'force new connection': true}).on('connect',
+            {'force new connection': options["force-new-connection"],
+                rememberTransport: false, 
+                'reconnect': true,
+                'reconnection delay': 500,
+                'max reconnection attempts': 10}).on('connect',
                 function(data) {
                     this.manager.setState.call(this.manager, "CONNECTED");
                 });
@@ -88,6 +93,11 @@ client.ConnectionManager.prototype = {
         // not 100% sure how to get the "this" context into socket callbacks
         // as defined below. This is safe and not totally bad form.
         this.socket["manager"] = this;
+        
+        this.socket.on('disconnect', function() {
+            this.manager.trigger("disconnect");
+            this.manager.setState.call(this.manager, "DISCONNECTED");
+        });
     },
     
     setState: function(newState) {
