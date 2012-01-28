@@ -36,6 +36,22 @@ $post-height: 95px;
 	@include user-select(none);
 }
 
+@mixin post-toolbar-button {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    
+    @include clickable;
+    
+    &:hover {
+        background-color: #A5BC83;
+    }
+    
+    &:active {
+        background-color: #A6AF98
+    }
+}
+
+
 body {
     background-color: black;
     font-family: Helvetica, sans-serif;
@@ -116,8 +132,6 @@ body {
             height: 4em;
         }
         
-        
-        
         h1 {
             margin-top: 0px;
             margin-bottom: 5px;
@@ -136,7 +150,6 @@ body {
 .post {
     background-color: #DDEFC6;
     margin: 5px;
-    
     
     .contents {
         padding: 5px;
@@ -157,16 +170,7 @@ body {
             padding-top: 2px;
             padding-bottom: 2px;
             
-            
-            @include clickable;
-            
-            &:hover {
-                background-color: #A5BC83;
-            }
-            
-            &:active {
-                background-color: #A6AF98
-            }
+            @include post-toolbar-button;
         }
         
         .vote {
@@ -181,12 +185,23 @@ body {
             margin-left: 5px;
         }
         
-        .flag {
-
-        }
-        
         img {
             height: 20px;
+        }
+    }
+    
+    .flag-options-container {
+        border-top: 1px solid white;
+        
+        background-color: #8CC63F;
+        color: white;
+        font-weight: bold;
+        font-size: 0.9em;
+        
+        .flag-option {
+            @include post-toolbar-button;
+            float: left;
+            margin-left: 10px;
         }
     }
 }

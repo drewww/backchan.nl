@@ -94,6 +94,8 @@ body {
 .post .footer > div {
   padding-top: 2px;
   padding-bottom: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -118,6 +120,30 @@ body {
 }
 .post .footer img {
   height: 20px;
+}
+.post .flag-options-container {
+  border-top: 1px solid white;
+  background-color: #8CC63F;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.post .flag-options-container .flag-option {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  float: left;
+  margin-left: 10px;
+}
+.post .flag-options-container .flag-option:hover {
+  background-color: #A5BC83;
+}
+.post .flag-options-container .flag-option:active {
+  background-color: #A6AF98;
 }
 
 br.clear {

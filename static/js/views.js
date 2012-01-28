@@ -42,13 +42,24 @@ views.PostView = Backbone.View.extend({
 <div class="flag"><img src="/static/img/flag.png"></div>\
 <br class="clear">\
 </div>\
+<div class="flag-options-container">\
+<div class="flag-option">double</div>\
+<div class="flag-option">inappropriate</div>\
+<div class="flag-option">answered</div>\
+<br class="clear">\
+<div class="comments">\
+</div>\
+</div>\
 '),
     
     events: {
         "click .vote":"vote",
         "click .comments":"expandComments",
-        "click .flag":"expandFlagOptions",
+        "click .flag":"toggleFlags",
     },
+    
+    flagsVisible: false,
+    commentsVisible: false,
     
     initialize: function(params) {
         Backbone.View.prototype.initialize.call(this,params);
@@ -60,6 +71,7 @@ views.PostView = Backbone.View.extend({
     render: function() {
         console.log("rendering post");
         $(this.el).html(this.template(this.model.toJSON()));
+        this.$(".flag-options-container").hide();
         
         this.$("abbr.timeago").timeago();
         return this;
@@ -82,10 +94,19 @@ views.PostView = Backbone.View.extend({
         console.log("Expand comments");
     },
     
-    expandFlagOptions: function() {
-        console.log("Expand flag options");
+    toggleFlags: function() {
+        if(this.flagsVisible) {
+            this.$(".flag-options-container").slideUp(100);
+        } else {
+            this.$(".flag-options-container").slideDown(100);
+        }
+        this.flagsVisible = !this.flagsVisible;
     },
     
+    setFlagsVisible: function(visible) {
+        if(this.visible == this.flagsVisible) return;
+        this.toggleFlags();
+    },
 });
 
 views.PostListView = Backbone.View.extend({
