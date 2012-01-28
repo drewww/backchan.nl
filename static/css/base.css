@@ -65,6 +65,7 @@ body {
   height: 4em;
 }
 .posts-list .container h1 {
+  color: white;
   margin-top: 0px;
   margin-bottom: 5px;
 }
