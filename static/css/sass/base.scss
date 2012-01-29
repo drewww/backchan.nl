@@ -222,17 +222,47 @@ br.clear {
     background-color: white;
     
     width: 300px;
-    height: 200px;
+    height: 125px;
     
     margin-left: auto;
     margin-right: auto;
     margin-top: 200px;
     
-    .label {
-        text-align: right;
+    h1 {
+        margin: 0px;
+        background-color: #444;
+        color: white;
+        font-size: 1.5em;
+        padding: 5px;
     }
     
-    table button.login {
+    .label {
         text-align: right;
+        font-style: italic;
+        padding-right: 5px;
+    }
+    
+    table {
+        padding: 5px;
+        width: 100%;
+        background-color: white;
+        .login {
+            text-align: right;
+        }
+
+        input {
+            width: 205px;
+        }
+    }
+    
+    .status {
+        margin: 0px;
+        background-color: #444;
+        color: white;
+        padding: 5px;
+        
+        display: none;
+        
+        font-size: 0.8em;
     }
 }

@@ -161,14 +161,39 @@ br.clear {
 #login {
   background-color: white;
   width: 300px;
-  height: 200px;
+  height: 125px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 200px;
 }
+#login h1 {
+  margin: 0px;
+  background-color: #444;
+  color: white;
+  font-size: 1.5em;
+  padding: 5px;
+}
 #login .label {
   text-align: right;
+  font-style: italic;
+  padding-right: 5px;
 }
-#login table button.login {
+#login table {
+  padding: 5px;
+  width: 100%;
+  background-color: white;
+}
+#login table .login {
   text-align: right;
+}
+#login table input {
+  width: 205px;
+}
+#login .status {
+  margin: 0px;
+  background-color: #444;
+  color: white;
+  padding: 5px;
+  display: none;
+  font-size: 0.8em;
 }

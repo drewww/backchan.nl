@@ -335,20 +335,23 @@ views.BackchannlBarView = Backbone.View.extend({
 
 views.LoginDialogView = Backbone.View.extend({
     id: "login",
-    template: _.template('<table>\
-<tr><td class="label">Name</td><td class="field"><input id="name" type="text"></td></tr>\
-<tr><td class="label">Affiliation</td><td class="field"><input id="affiliation" type="text"></td></tr>\
+    template: _.template('<h1>welcome to backchan.nl!</h1>\
+<table>\
+<tr><td class="label">name</td><td class="field"><input id="name" type="text"></td></tr>\
+<tr><td class="label">affiliation</td><td class="field"><input id="affiliation" type="text"></td></tr>\
 <tr><td></td><td><button class="login">Login</button></td></tr>\
-</table>'),
+</table><div class="status"></div>'),
     
     events: {
         "click .login":"login"
     },
     
+    statusMessage: "",
+    
     initialize: function() {
         // this is where we'll check local storage
         views.conn.bind("state.IDENTIFIED", function() {
-            // dismiss the dialog box
+            // I guess we're letting the parent class dismiss this for us?
         });
         
         views.conn.bind("message.identity-err", function(err) {
@@ -366,11 +369,34 @@ views.LoginDialogView = Backbone.View.extend({
         var name = this.$("#name").val();
         var affiliation = this.$("#affiliation").val();
         
+        // disable the entries and then say "logging in...";
+        this.$("input").attr("disabled", true);
+        
+        // delay this a little in case the server responds immediately
+        // and we can just avoid showing it at all. but if there are
+        // connection/latency issues it's good to have something appear.
+        var that = this;
+        setTimeout(function() {
+            that.setStatus("logging in...");
+        }, 100);
+        
         views.conn.identify(name, affiliation);
     },
     
     render: function() {
         $(this.el).html(this.template());
+        this.setStatus(this.statusMessage);
         return this;
+    },
+    
+    setStatus: function(msg) {
+        this.statusMessage = msg;
+        
+        this.$(".status").text(msg);
+        if(this.statusMessage == "") {
+            this.$(".status").slideUp(100);
+        } else {
+            this.$(".status").slideDown(100);
+        }
     },
 });
