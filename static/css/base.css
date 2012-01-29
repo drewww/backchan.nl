@@ -58,11 +58,17 @@ body {
 }
 .posts-list .container textarea {
   width: 285px;
-  height: 1em;
+  height: 20px;
   margin-bottom: 5px;
+  font-style: italic;
+  color: #999;
+  font-size: 16px;
+  resize: none;
 }
 .posts-list .container textarea.expanded {
-  height: 4em;
+  height: 50px;
+  font-style: normal;
+  color: black;
 }
 .posts-list .container h1 {
   color: white;

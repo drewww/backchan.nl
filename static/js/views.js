@@ -115,7 +115,7 @@ views.PostListView = Backbone.View.extend({
 <div class="new-post">\
 <h1>posts</h1>\
 <form>\
-<textarea class="post-input"></textarea>\
+<textarea class="post-input">write a post!</textarea>\
 </form>\
 </div>\
 <div class="posts">\
@@ -165,6 +165,8 @@ views.PostListView = Backbone.View.extend({
     
     expandNewPost: function() {
         if(!this.newPostExpanded) {
+            this.$(".post-input").val("");
+            
             this.newPostExpanded = true;
             this.$(".post-input").addClass("expanded");
             this.$(".post-input").after(this.submitPostButton);
@@ -177,8 +179,8 @@ views.PostListView = Backbone.View.extend({
     contractNewPost: function() {
         if(this.newPostExpanded) {
             this.newPostExpanded = false;
+            this.$(".post-input").val("write a post!");
             this.$(".post-input").removeClass("expanded");
-            this.$(".post-input").val("");
             this.submitPostButton.remove();
             this.cancelPostButton.remove();
             
