@@ -303,6 +303,11 @@ views.BackchannlBarView = Backbone.View.extend({
     chat: null,
     posts: null,
     login: null,
+    user: null,
+    
+    // events: {
+    //     "click #identity":"showLoginDialog",
+    // },
     
     initialize: function(conn) {
         views.conn = conn;
@@ -310,25 +315,57 @@ views.BackchannlBarView = Backbone.View.extend({
         this.chat = new views.ChatBarView();
         this.posts = new views.PostListView();
         this.login = new views.LoginDialogView();
+        this.user = new views.UsernameView();
         
         views.conn.bind("state.JOINED", function() {
             console.log("switching to joined");
             // when we go to joined, hide the container
-            this.$("#container").hide();
+            this.$("#login").hide();
             this.render();
         }, this);
     },
     
     render: function() {
         $(this.el).html(this.template());
-
+        
+        this.$("#container").append(this.user.render().el);
+        
         if(views.conn.state == "JOINED") {
             this.$("#bar").append(this.posts.render().el);
             this.$("#bar").append(this.chat.render().el);
-        } else {
-            this.$("#container").append(this.login.render().el);
         }
         
+        this.$("#container").append(this.login.render().el);
+        
+        this.delegateEvents();
+        return this;
+    },
+    
+    showLoginDialog: function() {
+        this.$("#login").show();
+        this.login.prepare();
+    },
+});
+
+views.UsernameView = Backbone.View.extend({
+    id: "identity",
+    template: _.template('<h1><%=name%></h1><h2><%=affiliation%></h2>'),
+    
+    initialize: function(args) {
+        Backbone.View.prototype.initialize.call(args, this);
+        
+        views.conn.bind("state.IDENTIFIED", function() {
+            this.model = views.conn.user;
+            this.render();
+        }, this);
+    },
+    
+    render: function() {
+        if(!_.isUndefined(this.model)) {
+            $(this.el).html(this.template(this.model.toJSON()));
+        } else {
+            $(this.el).html(this.template({name:"", affiliation:""}));
+        }
         return this;
     },
 });
@@ -359,9 +396,12 @@ views.LoginDialogView = Backbone.View.extend({
             // eventually expose this to the UI
         });
         
-        views.conn.bind("state.IDENTIFIED", function() {
-            views.conn.join(0);
-        });
+        views.conn.bind("message.identity-ok", function() {
+            this.setStatus("");
+            if(views.conn.event==null) {
+                views.conn.join(0);
+            }
+        }, this);
     },
     
     login: function() {
@@ -387,6 +427,16 @@ views.LoginDialogView = Backbone.View.extend({
         $(this.el).html(this.template());
         this.setStatus(this.statusMessage);
         return this;
+    },
+    
+    prepare: function() {
+        this.$("#name").text(views.conn.user.get("name"));
+        this.$("#affiliation").text(views.conn.user.get("affiliation"));
+        
+        $('input').removeAttr("disabled");
+        
+        this.delegateEvents();
+        this.setStatus("");
     },
     
     setStatus: function(msg) {

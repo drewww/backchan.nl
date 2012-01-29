@@ -24,7 +24,7 @@ body {
 
 #chat {
   width: 300px;
-  margin-left: 310px;
+  margin-left: 301px;
   height: 40px;
 }
 #chat #chat-input {
@@ -155,7 +155,7 @@ br.clear {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 #login {
@@ -196,4 +196,23 @@ br.clear {
   padding: 5px;
   display: none;
   font-size: 0.8em;
+}
+
+#identity {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  padding: 5px;
+  text-align: right;
+}
+#identity h1 {
+  margin: 0px;
+  font-size: 1.1em;
+}
+#identity h2 {
+  margin: 0px;
+  font-size: 0.8em;
+  font-style: italic;
 }
