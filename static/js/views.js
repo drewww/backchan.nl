@@ -374,8 +374,8 @@ views.LoginDialogView = Backbone.View.extend({
     id: "login",
     template: _.template('<h1>welcome to backchan.nl!</h1>\
 <table>\
-<tr><td class="label">name</td><td class="field"><input id="name" type="text"></td></tr>\
-<tr><td class="label">affiliation</td><td class="field"><input id="affiliation" type="text"></td></tr>\
+<tr><td class="label">name</td><td class="field"><input id="name" type="text" value="<%=name%>"></td></tr>\
+<tr><td class="label">affiliation</td><td class="field"><input id="affiliation" type="text" value="<%=affiliation%>"></td></tr>\
 <tr><td></td><td><button class="login">Login</button></td></tr>\
 </table><div class="status"></div>'),
     
@@ -384,9 +384,12 @@ views.LoginDialogView = Backbone.View.extend({
     },
     
     statusMessage: "",
+    name: "",
+    affiliation: "",
     
     initialize: function() {
-        // this is where we'll check local storage
+        
+        
         views.conn.bind("state.IDENTIFIED", function() {
             // I guess we're letting the parent class dismiss this for us?
         });
@@ -398,16 +401,29 @@ views.LoginDialogView = Backbone.View.extend({
         
         views.conn.bind("message.identity-ok", function() {
             this.setStatus("");
+            
             if(views.conn.event==null) {
                 views.conn.join(0);
             }
         }, this);
+        
+        views.conn.bind("state.CONNECTED", function() {
+            if("name" in localStorage && "affiliation" in localStorage) {
+                views.conn.identify(localStorage["name"],
+                    localStorage["affiliation"]);
+            }
+        });
     },
     
     login: function() {
         // TODO we should add some validation here.
         var name = this.$("#name").val();
         var affiliation = this.$("#affiliation").val();
+        
+        
+        // write it into localstorage
+        localStorage["name"] = name;
+        localStorage["affiliation"] = affiliation;
         
         // disable the entries and then say "logging in...";
         this.$("input").attr("disabled", true);
@@ -424,7 +440,8 @@ views.LoginDialogView = Backbone.View.extend({
     },
     
     render: function() {
-        $(this.el).html(this.template());
+        $(this.el).html(this.template({name:this.name,
+            affiliation: this.affiliation}));
         this.setStatus(this.statusMessage);
         return this;
     },
