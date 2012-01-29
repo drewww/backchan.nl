@@ -162,7 +162,7 @@ client.ConnectionManager.prototype = {
     receivedMessage: function(type, data) {
         client.log("message." + type);
         
-        var arg = null;
+        var arg = data;
         
         switch(type) {
             case "identity-ok":

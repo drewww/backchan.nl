@@ -297,30 +297,80 @@ views.ChatBarView = Backbone.View.extend({
 });
 
 views.BackchannlBarView = Backbone.View.extend({
-    id: "bar",
-    template: _.template(''),
+    id: "backchannl-app",
+    template: _.template('<div id="container"></div><div id="bar"></div>'),
     
     chat: null,
     posts: null,
+    login: null,
     
     initialize: function(conn) {
-        
         views.conn = conn;
         
         this.chat = new views.ChatBarView();
         this.posts = new views.PostListView();
+        this.login = new views.LoginDialogView();
         
-        // conn.bind("message.chat", function(chat) {
-        //     this.chat.chatList.add(chat);
-        // }, this);
+        views.conn.bind("state.JOINED", function() {
+            console.log("switching to joined");
+            // when we go to joined, hide the container
+            this.$("#container").hide();
+            this.render();
+        }, this);
     },
     
     render: function() {
         $(this.el).html(this.template());
+
+        if(views.conn.state == "JOINED") {
+            this.$("#bar").append(this.posts.render().el);
+            this.$("#bar").append(this.chat.render().el);
+        } else {
+            this.$("#container").append(this.login.render().el);
+        }
         
-        $(this.el).append(this.posts.render().el);
-        $(this.el).append(this.chat.render().el);
+        return this;
+    },
+});
+
+views.LoginDialogView = Backbone.View.extend({
+    id: "login",
+    template: _.template('<table>\
+<tr><td class="label">Name</td><td class="field"><input id="name" type="text"></td></tr>\
+<tr><td class="label">Affiliation</td><td class="field"><input id="affiliation" type="text"></td></tr>\
+<tr><td></td><td><button class="login">Login</button></td></tr>\
+</table>'),
+    
+    events: {
+        "click .login":"login"
+    },
+    
+    initialize: function() {
+        // this is where we'll check local storage
+        views.conn.bind("state.IDENTIFIED", function() {
+            // dismiss the dialog box
+        });
         
+        views.conn.bind("message.identity-err", function(err) {
+            console.log("Got an identity error message: " + err);
+            // eventually expose this to the UI
+        });
+        
+        views.conn.bind("state.IDENTIFIED", function() {
+            views.conn.join(0);
+        });
+    },
+    
+    login: function() {
+        // TODO we should add some validation here.
+        var name = this.$("#name").val();
+        var affiliation = this.$("#affiliation").val();
+        
+        views.conn.identify(name, affiliation);
+    },
+    
+    render: function() {
+        $(this.el).html(this.template());
         return this;
     },
 });

@@ -150,3 +150,25 @@ body {
 br.clear {
   clear: both;
 }
+
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#login {
+  background-color: white;
+  width: 300px;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+#login .label {
+  text-align: right;
+}
+#login table button.login {
+  text-align: right;
+}

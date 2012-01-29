@@ -36,9 +36,7 @@
 			bar = new views.BackchannlBarView(conn);
 			$("body").append(bar.render().el);
 			
-			conn.connect("<%=host%>", <%=port%>, {"auto-identify":true, "auto-join":true});
-
-			
+			conn.connect("<%=host%>", <%=port%>);
 		});
 		
 
