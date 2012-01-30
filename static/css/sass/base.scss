@@ -65,7 +65,7 @@ body {
     position: fixed;
     bottom: 0px;
     width: 100%;
-    height: 40px;
+    height: 30px;
     
     z-index: 1000;
     padding-top: 5px;
@@ -77,20 +77,67 @@ body {
 }
 
 #chat {
-    width: 300px;
+    width: 451px;
     
     #chat-input {
-        width: 290px;
+        width: 350px;
+        height: 20px;
+        float: left;
     }
     
     margin-left: 301px;
-    height: 40px;
+    height: 30px;
     
+    #sendChat {
+        color: white;
+        font-size: 20px;
+        width: 60px;
+        float: left;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 3px;
+        margin-right: 5px;
+        
+        @include clickable;
+        
+        &:hover {
+            background-color: #666;
+        }
+        
+        &:active {
+            background-color: #555;
+        }
+    }
     
-    .chats {
+    #toggle-history {
+        float: right;
+        background-image: url('/static/img/comments.png');
+        width: 25px;
+        height: 25px;
+        background-repeat: no-repeat;
+        background-position: center;
+        
+        margin-left: 5px;
+        
+        @include clickable;
+        
+        &:hover {
+            background-color: #666;
+        }
+        
+        &:active {
+            background-color: #555;
+        }
+        
+        &.pressed {
+            background-color: #666;
+        }
+    }
+    
+    .chats.live {
         position: fixed;
         bottom: 51px;
-        width: 300px;
+        width: 350px;
         
         .message {
             color: #CCC;
@@ -223,6 +270,33 @@ br.clear {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.0);
+    
+    
+    .chats.history {
+        position: fixed;
+        top: 100%;
+        left: 300px;
+        width: 450px;
+        height: 600px;
+        
+        overflow-y: scroll;
+        
+        background-color: white;
+        
+        .message {
+            color: black;
+            width: 100%;
+            float: left;
+            
+            .name {
+                
+            }
+            
+            .affiliation {
+                display: none;
+            }
+        }
+    }
 }
 
 #login {

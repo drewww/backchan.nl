@@ -13,7 +13,7 @@ body {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  height: 40px;
+  height: 30px;
   z-index: 1000;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -23,25 +23,71 @@ body {
 }
 
 #chat {
-  width: 300px;
+  width: 451px;
   margin-left: 301px;
-  height: 40px;
+  height: 30px;
 }
 #chat #chat-input {
-  width: 290px;
+  width: 350px;
+  height: 20px;
+  float: left;
 }
-#chat .chats {
+#chat #sendChat {
+  color: white;
+  font-size: 20px;
+  width: 60px;
+  float: left;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 3px;
+  margin-right: 5px;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+#chat #sendChat:hover {
+  background-color: #666;
+}
+#chat #sendChat:active {
+  background-color: #555;
+}
+#chat #toggle-history {
+  float: right;
+  background-image: url("/static/img/comments.png");
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 5px;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+#chat #toggle-history:hover {
+  background-color: #666;
+}
+#chat #toggle-history:active {
+  background-color: #555;
+}
+#chat #toggle-history.pressed {
+  background-color: #666;
+}
+#chat .chats.live {
   position: fixed;
   bottom: 51px;
-  width: 300px;
+  width: 350px;
 }
-#chat .chats .message {
+#chat .chats.live .message {
   color: #CCC;
   text-shadow: 1px 1px 0px #111;
   width: 100%;
   float: left;
 }
-#chat .chats .message .affiliation {
+#chat .chats.live .message .affiliation {
   display: none;
 }
 
@@ -162,6 +208,23 @@ br.clear {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
+}
+#container .chats.history {
+  position: fixed;
+  top: 100%;
+  left: 300px;
+  width: 450px;
+  height: 600px;
+  overflow-y: scroll;
+  background-color: white;
+}
+#container .chats.history .message {
+  color: black;
+  width: 100%;
+  float: left;
+}
+#container .chats.history .message .affiliation {
+  display: none;
 }
 
 #login {

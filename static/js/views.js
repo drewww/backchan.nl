@@ -113,7 +113,7 @@ views.PostListView = Backbone.View.extend({
     className: 'posts-list',
     template: _.template('\<div class="container">\
 <div class="new-post">\
-<h1>posts</h1>\
+<h1>POSTS</h1>\
 <form>\
 <textarea class="post-input">write a post!</textarea>\
 </form>\
@@ -220,9 +220,22 @@ views.ChatView = Backbone.View.extend({
 views.ChatListView = Backbone.View.extend({
     className: 'chats',
     fadeDelay: 10000,
+    mode: "live", // other option is "history"
     
     initialize: function(params) {
         Backbone.View.prototype.initialize.call(this,params);
+
+        if("mode" in params) {
+            if(params.mode=="history" || params.mode=="live") {
+                if(params.mode=="history") {
+                    $(this.el).addClass("history");
+                    this.mode = "history";
+                } else {
+                    $(this.el).addClass("live");
+                    this.mode = "live";
+                }
+            }
+        }
         
         views.conn.bind("state.JOINED", function() {
             this.collection = views.conn.event.get("chat");
@@ -231,22 +244,30 @@ views.ChatListView = Backbone.View.extend({
     },
     
     add: function(chat) {
-        console.log("adding chat to view");
         // append to the el
         var newView = new views.ChatView({model:chat});
+        
         $(this.el).append(newView.render().el);
         
-        setTimeout(function() {
-            $(newView.el).animate({
-                opacity: 0.0
-            }, 250, "linear", function() {
-                $(newView).remove();
-            });
-        }, this.fadeDelay);
+        if(this.mode=="live") {
+            setTimeout(function() {
+                $(newView.el).animate({
+                    opacity: 0.0
+                }, 250, "linear", function() {
+                    $(newView.el).remove();
+                });
+            }, this.fadeDelay);
+        } else if (this.mode=="history") {
+            // Scroll chat history down to the bottom.
+            // INT_MAX. I want this to really represent the current height,
+            // but I can't seem to find a property that represents the size 
+            // that it really wants to be if there were no scrollbars to 
+            // figure out how far down to push it. 
+            $(this.el).scrollTop(Math.pow(2, 30));
+        }
     },
     
     render: function() {
-        console.log("Rendering ChatListView");
         $(this.el).html("");
         
         if(this.collection && this.collection.length > 0) {
@@ -258,23 +279,27 @@ views.ChatListView = Backbone.View.extend({
         }
         
         return this;
-    }
+    },
 });
 
 views.ChatBarView = Backbone.View.extend({
     id: "chat",
-    template: _.template('<form class="chat-entry-form">\
+    template: _.template('<div id="sendChat">CHAT</div><form class="chat-entry-form">\
     <input type="text" name="chat-input" title="say something!" value="" id="chat-input" autocomplete="off">\
-    </form>'),
+    </form><div id="toggle-history" class=""></div>'),
     
     events: {
-        "submit .chat-entry-form":"chat"
+        "submit .chat-entry-form":"chat",
+        "click #sendChat":"chat",
+        "click #toggle-history":"toggleHistory"
     },
     
     chatListView: null,
+    historyChatListView: null,
+    historyVisible: false,
     
     initialize: function() {
-        this.chatListView = new views.ChatListView();
+        this.chatListView = new views.ChatListView({mode:"live"});
     },
     
     render: function() {
@@ -282,6 +307,7 @@ views.ChatBarView = Backbone.View.extend({
         
         // we don't need to force a render on this - it'll render itself
         $(this.el).append(this.chatListView.el);
+
         return this;
     },
     
@@ -295,6 +321,28 @@ views.ChatBarView = Backbone.View.extend({
         conn.chat(text);
         
         event.preventDefault();
+    },
+    
+    toggleHistory: function() {
+        // we have to cheat a little here - this view actually lives in the
+        // container, not in the bar. this is necessary for z-index-control 
+        // reasons. So we'll trigger a toggle-history event here and let
+        // the bar handle this.
+        
+        if(!this.historyVisible) {
+            $(this.chatListView.el).hide();
+        } else {
+            $(this.chatListView.el).show();
+        }
+        
+        this.trigger("toggle-history");
+        this.historyVisible = !this.historyVisible;
+        
+        if(this.historyVisible) {
+            $("#toggle-history").addClass("pressed");
+        } else {
+            $("#toggle-history").removeClass("pressed");
+        }
     }
 });
 
@@ -307,6 +355,8 @@ views.BackchannlBarView = Backbone.View.extend({
     login: null,
     user: null,
     
+    chatHistory: null,
+    historyExtended: false,
     // events: {
     //     "click #identity":"showLoginDialog",
     // },
@@ -318,6 +368,26 @@ views.BackchannlBarView = Backbone.View.extend({
         this.posts = new views.PostListView();
         this.login = new views.LoginDialogView();
         this.user = new views.UsernameView();
+        
+        this.chatHistory = new views.ChatListView({mode:"history"});
+        this.chat.bind("toggle-history", function() {
+            console.log("toggling history in bar");
+            
+            if(!this.historyExtended) {
+                $(this.chatHistory.el).animate({
+                    top: 0
+                }, 250);
+
+                $("#toggle-history").removeClass("pressed");
+            } else {
+                $(this.chatHistory.el).animate({
+                    top: "100%"
+                }, 250);
+
+                $("#toggle-history").addClass("pressed");
+            }
+            this.historyExtended = !this.historyExtended;
+        }, this);
         
         views.conn.bind("state.JOINED", function() {
             console.log("switching to joined");
@@ -331,6 +401,7 @@ views.BackchannlBarView = Backbone.View.extend({
         $(this.el).html(this.template());
         
         this.$("#container").append(this.user.render().el);
+        this.$("#container").append(this.chatHistory.render().el);
         
         if(views.conn.state == "JOINED") {
             this.$("#bar").append(this.posts.render().el);
