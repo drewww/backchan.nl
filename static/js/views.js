@@ -379,14 +379,16 @@ views.BackchannlBarView = Backbone.View.extend({
             
             if(!this.historyExtended) {
                 $(this.chatHistory.el).animate({
-                    top: 0
-                }, 250);
+                    top: "0%",
+                    bottom: 40
+                }, 1000);
 
                 $("#toggle-history").removeClass("pressed");
             } else {
                 $(this.chatHistory.el).animate({
-                    top: "100%"
-                }, 250);
+                    top: "100%",
+                    bottom: -40
+                }, 1000);
 
                 $("#toggle-history").addClass("pressed");
             }

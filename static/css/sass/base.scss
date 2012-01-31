@@ -280,12 +280,16 @@ br.clear {
     background-color: rgba(0, 0, 0, 0.0);
     
     
+    z-index: -1;
+    
     .chats.history {
         position: fixed;
         top: 100%;
+        bottom: -40px;
+        
         left: 300px;
         width: 450px;
-        height: 600px;
+//        height: 600px;
         
         overflow-y: scroll;
         
