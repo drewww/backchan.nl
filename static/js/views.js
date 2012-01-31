@@ -381,14 +381,14 @@ views.BackchannlBarView = Backbone.View.extend({
                 $(this.chatHistory.el).animate({
                     top: "0%",
                     bottom: 40
-                }, 1000);
+                }, 250);
 
                 $("#toggle-history").removeClass("pressed");
             } else {
                 $(this.chatHistory.el).animate({
                     top: "100%",
                     bottom: -40
-                }, 1000);
+                }, 250);
 
                 $("#toggle-history").addClass("pressed");
             }
@@ -398,8 +398,10 @@ views.BackchannlBarView = Backbone.View.extend({
         views.conn.bind("state.JOINED", function() {
             console.log("switching to joined");
             // when we go to joined, hide the container
-            this.$("#login").hide();
-            this.render();
+            var that = this;
+            this.$("#login").fadeOut(500, function() {
+                that.render.call(that);
+            });
         }, this);
     },
     
@@ -467,7 +469,11 @@ views.LoginDialogView = Backbone.View.extend({
     affiliation: "",
     
     initialize: function() {
-        
+        if("name" in localStorage && "affiliation" in localStorage) {
+            this.name = localStorage["name"];
+            this.affiliation = localStorage["affiliation"];
+            this.setStatus("logging in...");
+        }
         
         views.conn.bind("state.IDENTIFIED", function() {
             // I guess we're letting the parent class dismiss this for us?
@@ -513,7 +519,7 @@ views.LoginDialogView = Backbone.View.extend({
         var that = this;
         setTimeout(function() {
             that.setStatus("logging in...");
-        }, 100);
+        }, 500);
         
         views.conn.identify(name, affiliation);
     },
