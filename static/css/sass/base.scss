@@ -190,12 +190,13 @@ body {
             color: white;
             margin-top: 0px;
             margin-bottom: 5px;
+            font-size: 20px;
         }
         
         .posts {
             position: absolute;
 
-            top: 86px;
+            top: 66px;
             
             bottom: 15px;
             width: 290px;
@@ -204,7 +205,7 @@ body {
             overflow-y: scroll;
             
             &.expanded {
-                top: 145px;
+                top: 125px;
             }
         }
     }

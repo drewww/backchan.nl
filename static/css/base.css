@@ -117,17 +117,18 @@ body {
   color: white;
   margin-top: 0px;
   margin-bottom: 5px;
+  font-size: 20px;
 }
 .posts-list .container .posts {
   position: absolute;
-  top: 86px;
+  top: 66px;
   bottom: 15px;
   width: 290px;
   background-color: #ddd;
   overflow-y: scroll;
 }
 .posts-list .container .posts.expanded {
-  top: 145px;
+  top: 125px;
 }
 
 .post {

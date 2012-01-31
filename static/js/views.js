@@ -168,13 +168,14 @@ views.PostListView = Backbone.View.extend({
             this.$(".post-input").val("");
             
             this.newPostExpanded = true;
-            this.$(".post-input").addClass("expanded");
+            this.$(".post-input").addClass("expanded", 250);
+            this.$(".posts").addClass("expanded", 250);
+
             this.$(".post-input").after(this.submitPostButton);
             this.$(".post-input").after(this.cancelPostButton);
             
             this.delegateEvents();
             
-            this.$(".posts").addClass("expanded");
         }
     },
     
@@ -182,11 +183,12 @@ views.PostListView = Backbone.View.extend({
         if(this.newPostExpanded) {
             this.newPostExpanded = false;
             this.$(".post-input").val("write a post!");
-            this.$(".post-input").removeClass("expanded");
+            this.$(".post-input").removeClass("expanded", 250);
+            this.$(".posts").removeClass("expanded", 250);
+
             this.submitPostButton.remove();
             this.cancelPostButton.remove();
             
-            this.$(".posts").removeClass("expanded");
 
             this.delegateEvents();
         }
@@ -472,7 +474,6 @@ views.LoginDialogView = Backbone.View.extend({
         if("name" in localStorage && "affiliation" in localStorage) {
             this.name = localStorage["name"];
             this.affiliation = localStorage["affiliation"];
-            this.setStatus("logging in...");
         }
         
         views.conn.bind("state.IDENTIFIED", function() {
