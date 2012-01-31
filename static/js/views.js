@@ -224,6 +224,8 @@ views.ChatView = Backbone.View.extend({
 });
 
 views.ChatListView = Backbone.View.extend({
+    template: _.template('<div class="header"><h1>CHAT</h1></div><div class="container"></div>'),
+    
     className: 'chats',
     fadeDelay: 10000,
     mode: "live", // other option is "history"
@@ -253,7 +255,7 @@ views.ChatListView = Backbone.View.extend({
         // append to the el
         var newView = new views.ChatView({model:chat});
         
-        $(this.el).append(newView.render().el);
+        this.$(".container").append(newView.render().el);
         
         if(this.mode=="live") {
             setTimeout(function() {
@@ -269,18 +271,18 @@ views.ChatListView = Backbone.View.extend({
             // but I can't seem to find a property that represents the size 
             // that it really wants to be if there were no scrollbars to 
             // figure out how far down to push it. 
-            $(this.el).scrollTop(Math.pow(2, 30));
+            this.$(".container").scrollTop(Math.pow(2, 30));
         }
     },
     
     render: function() {
-        $(this.el).html("");
+        $(this.el).html(this.template());
         
         if(this.collection && this.collection.length > 0) {
             this.collection.each(function(chat) {
                 var view = new views.ChatView({model:chat});
                 var newMsgView = view.render().el;
-                $(this.el).append(newMsgView);
+                this.$(".container").append(newMsgView);
             }, this);
         }
         
@@ -311,8 +313,7 @@ views.ChatBarView = Backbone.View.extend({
     render: function() {
         $(this.el).html(this.template());
         
-        // we don't need to force a render on this - it'll render itself
-        $(this.el).append(this.chatListView.el);
+        $(this.el).append(this.chatListView.render().el);
 
         return this;
     },

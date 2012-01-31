@@ -81,6 +81,9 @@ body {
   bottom: 51px;
   width: 350px;
 }
+#chat .chats.live .header {
+  display: none;
+}
 #chat .chats.live .message {
   color: #CCC;
   text-shadow: 1px 1px 0px #111;
@@ -217,17 +220,31 @@ br.clear {
   position: fixed;
   top: 100%;
   bottom: -40px;
-  left: 300px;
+  left: 302px;
   width: 450px;
-  overflow-y: scroll;
-  background-color: white;
+  background-color: #444;
 }
-#container .chats.history .message {
+#container .chats.history .header h1 {
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+#container .chats.history .container {
+  overflow-y: scroll;
+  background-color: #ddd;
+  position: absolute;
+  top: 33px;
+  bottom: 0px;
+  left: 0px;
+  width: 450px;
+}
+#container .chats.history .container .message {
   color: black;
   width: 100%;
   float: left;
 }
-#container .chats.history .message .affiliation {
+#container .chats.history .container .message .affiliation {
   display: none;
 }
 

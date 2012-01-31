@@ -139,6 +139,10 @@ body {
         bottom: 51px;
         width: 350px;
         
+        .header {
+            display:none;
+        }
+        
         .message {
             color: #CCC;
             text-shadow: 1px 1px 0px #111;
@@ -288,27 +292,45 @@ br.clear {
         top: 100%;
         bottom: -40px;
         
-        left: 300px;
+        left: 302px;
         width: 450px;
 //        height: 600px;
         
-        overflow-y: scroll;
         
-        background-color: white;
-        
-        .message {
-            color: black;
-            width: 100%;
-            float: left;
+        background-color: #444;
+        .header h1 {
+                        color: white;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        font-size: 20px;
+        }
+
+        .container {
+            overflow-y: scroll;
+            background-color: #ddd;
             
-            .name {
-                
-            }
+            position: absolute;
             
-            .affiliation {
-                display: none;
+            top: 33px;
+            bottom: 0px;
+            left: 0px;
+            width: 450px;
+            
+            .message {
+                color: black;
+                width: 100%;
+                float: left;
+
+                .name {
+
+                }
+
+                .affiliation {
+                    display: none;
+                }
             }
         }
+        
     }
 }
 
