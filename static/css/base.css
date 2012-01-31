@@ -91,15 +91,12 @@ body {
   display: none;
 }
 
-.posts-list {
-  width: 300px;
-}
 .posts-list .container {
   background-color: #444444;
   position: fixed;
   top: 0px;
   height: 100%;
-  width: 290px;
+  width: 292px;
   padding: 5px;
 }
 .posts-list .container textarea {
@@ -122,10 +119,15 @@ body {
   margin-bottom: 5px;
 }
 .posts-list .container .posts {
+  position: absolute;
+  top: 86px;
+  bottom: 15px;
+  width: 290px;
   background-color: #ddd;
-  height: 100%;
-  width: 100%;
   overflow-y: scroll;
+}
+.posts-list .container .posts.expanded {
+  top: 145px;
 }
 
 .post {

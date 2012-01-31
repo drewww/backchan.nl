@@ -171,8 +171,10 @@ views.PostListView = Backbone.View.extend({
             this.$(".post-input").addClass("expanded");
             this.$(".post-input").after(this.submitPostButton);
             this.$(".post-input").after(this.cancelPostButton);
-
+            
             this.delegateEvents();
+            
+            this.$(".posts").addClass("expanded");
         }
     },
     
@@ -184,6 +186,8 @@ views.PostListView = Backbone.View.extend({
             this.submitPostButton.remove();
             this.cancelPostButton.remove();
             
+            this.$(".posts").removeClass("expanded");
+
             this.delegateEvents();
         }
     },

@@ -157,14 +157,14 @@ body {
 }
 
 .posts-list {
-    width: 300px;
+//    width: 300px;
     
     .container {
         background-color: #444444;
         position: fixed;
         top: 0px;
         height: 100%;
-        width: 290px;
+        width: 292px;
         
         padding: 5px;
         
@@ -193,11 +193,19 @@ body {
         }
         
         .posts {
-            background-color: #ddd;
-            height: 100%;
-            width: 100%;
+            position: absolute;
+
+            top: 86px;
             
+            bottom: 15px;
+            width: 290px;
+            
+            background-color: #ddd;
             overflow-y: scroll;
+            
+            &.expanded {
+                top: 145px;
+            }
         }
     }
 }
