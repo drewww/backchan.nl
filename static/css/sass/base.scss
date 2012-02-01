@@ -136,9 +136,9 @@ body {
     
     .chats.live {
         position: fixed;
-        bottom: 51px;
+        bottom: 41px;
         width: 350px;
-        
+        padding: 2px;
         .header {
             display:none;
         }
@@ -286,6 +286,19 @@ br.clear {
     
     
     z-index: -1;
+    
+    #stream {
+        display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 50px;
+		height: 90%;
+		padding-left: 300px;
+    }
+    
+    #stream.shrunk {
+        padding-left: 750px;
+    }
     
     .chats.history {
         position: fixed;

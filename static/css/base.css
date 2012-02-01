@@ -78,8 +78,9 @@ body {
 }
 #chat .chats.live {
   position: fixed;
-  bottom: 51px;
+  bottom: 41px;
   width: 350px;
+  padding: 2px;
 }
 #chat .chats.live .header {
   display: none;
@@ -215,6 +216,17 @@ br.clear {
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
   z-index: -1;
+}
+#container #stream {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  height: 90%;
+  padding-left: 300px;
+}
+#container #stream.shrunk {
+  padding-left: 750px;
 }
 #container .chats.history {
   position: fixed;

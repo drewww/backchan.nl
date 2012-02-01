@@ -355,7 +355,7 @@ views.ChatBarView = Backbone.View.extend({
 
 views.BackchannlBarView = Backbone.View.extend({
     id: "backchannl-app",
-    template: _.template('<div id="container"></div><div id="bar"></div>'),
+    template: _.template('<div id="container"><img id="stream" src="/static/img/stream.png"></div><div id="bar"></div>'),
     
     chat: null,
     posts: null,
@@ -381,19 +381,27 @@ views.BackchannlBarView = Backbone.View.extend({
             console.log("toggling history in bar");
             
             if(!this.historyExtended) {
+                console.log("SHRINKING CHAT / EXPANDING STREAM");
+                $("#toggle-history").removeClass("pressed");
+                $("#stream").addClass("shrunk", 250);
+
+
                 $(this.chatHistory.el).animate({
                     top: "0%",
                     bottom: 40
                 }, 250);
 
-                $("#toggle-history").removeClass("pressed");
+                
             } else {
+                console.log("EXPANDING CHAT / SHRINKING STREAM");
+                $("#toggle-history").addClass("pressed");
+                $("#stream").removeClass("shrunk", 250);
+
                 $(this.chatHistory.el).animate({
                     top: "100%",
                     bottom: -40
                 }, 250);
 
-                $("#toggle-history").addClass("pressed");
             }
             this.historyExtended = !this.historyExtended;
         }, this);
