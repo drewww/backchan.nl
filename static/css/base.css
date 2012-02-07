@@ -41,7 +41,7 @@ body {
 }
 
 #chat {
-  width: 451px;
+  width: 456px;
   margin-left: 301px;
   height: 30px;
 }
@@ -59,6 +59,7 @@ body {
   text-align: center;
   margin-top: 3px;
   margin-right: 5px;
+  margin-left: 5px;
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -251,7 +252,10 @@ br.clear {
   top: 100%;
   bottom: -40px;
   left: 302px;
-  width: 450px;
+  width: 455px;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+  border-left: 1px solid #999;
   background-color: #444;
 }
 #container .chats.history .header h1 {
@@ -259,15 +263,16 @@ br.clear {
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 20px;
+  margin-left: 5px;
 }
 #container .chats.history .container {
   overflow-y: scroll;
   background-color: #ddd;
   position: absolute;
   top: 33px;
-  bottom: 0px;
-  left: 0px;
-  width: 450px;
+  bottom: 5px;
+  left: 5px;
+  width: 445px;
 }
 #container .chats.history .container .message {
   color: black;

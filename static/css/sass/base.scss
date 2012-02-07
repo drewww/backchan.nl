@@ -96,7 +96,7 @@ body {
 }
 
 #chat {
-    width: 451px;
+    width: 456px;
     
     #chat-input {
         width: 350px;
@@ -116,6 +116,7 @@ body {
         text-align: center;
         margin-top: 3px;
         margin-right: 5px;
+        margin-left: 5px;
         
         @include clickable;
         
@@ -181,6 +182,7 @@ body {
 
 .posts-list {
 //    width: 300px;
+    
     
     .container {
         background-color: #444444;
@@ -325,9 +327,12 @@ br.clear {
         bottom: -40px;
         
         left: 302px;
-        width: 450px;
-//        height: 600px;
+        width: 455px;
         
+        border-right: 1px solid #999;
+        border-bottom: 1px solid #999;
+        border-left: 1px solid #999;
+
         
         background-color: #444;
         .header h1 {
@@ -335,6 +340,7 @@ br.clear {
                         margin-top: 5px;
                         margin-bottom: 5px;
                         font-size: 20px;
+                        margin-left: 5px;
         }
 
         .container {
@@ -344,9 +350,9 @@ br.clear {
             position: absolute;
             
             top: 33px;
-            bottom: 0px;
-            left: 0px;
-            width: 450px;
+            bottom: 5px;
+            left: 5px;
+            width: 445px;
             
             .message {
                 color: black;
