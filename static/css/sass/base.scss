@@ -74,6 +74,25 @@ body {
     & > div {
         float: left;
     }
+    
+    #logo {
+        float: right;
+        font-weight: bold;
+        font-size: 28px;
+        color: white;
+        
+        padding-right: 5px;
+        
+        &:hover {
+            color: #ccc;
+        }
+        
+        &:active {
+            color: #bbb;
+        }
+        
+        @include clickable;
+    }
 }
 
 #chat {

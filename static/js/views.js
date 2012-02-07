@@ -355,7 +355,9 @@ views.ChatBarView = Backbone.View.extend({
 
 views.BackchannlBarView = Backbone.View.extend({
     id: "backchannl-app",
-    template: _.template('<div id="container"><img id="stream" src="/static/img/stream.png"></div><div id="bar"></div>'),
+    template: _.template('<div id="container"><img id="stream"\
+src="/static/img/stream.png"></div><div id="bar">\
+<div id="logo">backchan.nl</div></div>'),
     
     chat: null,
     posts: null,
