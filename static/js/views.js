@@ -323,9 +323,11 @@ views.ChatBarView = Backbone.View.extend({
         // grab the text, send it to the server, and clear the field
         var text = this.$("#chat-input").val();
         
-        this.$("#chat-input").val("");
-        
-        conn.chat(text);
+        // ignore empty messages
+        if(text.length > 0) {
+            this.$("#chat-input").val("");
+            conn.chat(text);
+        }
         
         event.preventDefault();
     },
