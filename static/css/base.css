@@ -109,8 +109,15 @@ body {
   text-shadow: 1px 1px 0px #111;
   width: 100%;
   float: left;
+  margin-left: 2px;
+}
+#chat .chats.live .message .name {
+  font-weight: bold;
 }
 #chat .chats.live .message .affiliation {
+  display: none;
+}
+#chat .chats.live .message .time {
   display: none;
 }
 
@@ -278,9 +285,18 @@ br.clear {
   color: black;
   width: 100%;
   float: left;
+  margin-left: 2px;
+}
+#container .chats.history .container .message .name {
+  font-weight: bold;
 }
 #container .chats.history .container .message .affiliation {
   display: none;
+}
+#container .chats.history .container .message .time {
+  color: #888;
+  font-size: 12px;
+  margin-right: 2px;
 }
 
 #login {

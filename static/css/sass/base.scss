@@ -169,11 +169,17 @@ body {
             width: 100%;
             float: left;
             
+            margin-left: 2px;
+            
             .name {
-                
+                font-weight: bold;
             }
             
             .affiliation {
+                display: none;
+            }
+            
+            .time {
                 display: none;
             }
         }
@@ -358,13 +364,21 @@ br.clear {
                 color: black;
                 width: 100%;
                 float: left;
+                
+                margin-left: 2px;
 
                 .name {
-
+                    font-weight: bold;
                 }
 
                 .affiliation {
                     display: none;
+                }
+                
+                .time {
+                    color: #888;
+                    font-size: 12px;
+                    margin-right: 2px;
                 }
             }
         }
