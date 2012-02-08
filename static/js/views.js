@@ -212,7 +212,8 @@ views.PostListView = Backbone.View.extend({
 
 views.ChatView = Backbone.View.extend({
     className: 'message',
-    template: _.template('<span class="time">(<%=timeString%>)</span><span class="name"><%=fromName%></span>\
+    template: _.template('<span class="time">(<%=timeString%>)</span>\
+<span class="name"><%=fromShortName%></span>\
 <span class="affiliation"><%=fromAffiliation%></span>: \
 <span class="text"><%=text%></span>'),
     
@@ -225,6 +226,10 @@ views.ChatView = Backbone.View.extend({
         // TODO make this use strftime or whatever it is.
         var times = new Date(this.model.get("timestamp")).toTimeString().split(":");
         dict["timeString"] = times[0] + ":" + times[1];
+        
+        // this is sort of a silly bit of handwaving but I guess it's okay?
+        dict["fromShortName"] = new model.User({name: this.model.get("fromName"),
+            affiliation: this.model.get("fromAffiliation")}).getShortName();
         
         $(this.el).html(this.template(dict));
         return this;
