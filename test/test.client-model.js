@@ -151,6 +151,24 @@ describe('client model', function() {
         newUser.get("name").should.equal("Drew Harry");
         newUser.get("affiliation").should.equal("MIT Media Lab");
       });
+      
+      it('should properly figure out short names', function(){
+          var user = new model.User({"name":"Drew Harry"});
+          user.getShortName().should.equal("Drew H.");
+          
+          var user = new model.User({"name":"Superlongsinglename"});
+          user.getShortName().should.equal("Superlongsinglename");
+          
+          var user = new model.User({"name":"Drew E. Harry"});
+          user.getShortName().should.equal("Drew E. H.");
+          
+          var user = new model.User({"name":"First Second Third"});
+          user.getShortName().should.equal("First S. T.");
+          
+          var user = new model.User({"name":"Drew Harry 3"});
+          user.getShortName().should.equal("Drew H. 3");
+      });
+      
     });
     
     describe('Chat', function(){

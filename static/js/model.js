@@ -165,6 +165,37 @@ model.User = Backbone.Model.extend({
         };
     },
     
+    
+    // this is a bit tricky and spectulative and may break down for any real
+    // user list. But basically I want a way of representing names that's 
+    // tighter on length. So the strategy is to try to shorten first/last
+    // names to first + last initial. Single words we'll leave untouched
+    // for now, although we could clamp them to a certain length.
+    getShortName: function() {
+        var nameParts = this.get("name").split(" ");
+        
+        
+        if(nameParts.length > 1) {
+            var returnName = nameParts[0];
+            
+            // for each item other than the first, shorten it.
+            for(var index = 1; index < nameParts.length; index++) {
+                
+                // look for normal name suffixes like jr or sr?
+                // for now, no. see how it works with real people names.
+                if(nameParts[index].length == 1) {
+                    returnName += " " + nameParts[index];
+                } else {
+                    returnName += " " + nameParts[index].substr(0, 1) + ".";
+                }
+            }
+            return returnName;
+            
+        } else {
+            return this.get("name");
+        }
+    },
+    
     // Leaving this here but not actually testing it yet. Validate is 
     // basically broken right now for my purposes. It isn't called on 
     // object construction, which is the majority of the times I would
