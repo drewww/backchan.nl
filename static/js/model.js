@@ -135,11 +135,17 @@ model.Post = Backbone.Model.extend({
     
     promote: function(promotedAt) {
         
+        
         if(_.isUndefined(promotedAt) || _.isNull(promotedAt)) {
             promotedAt = new Date().getTime();
         }
-        
-        this.set({"promotedAt": promotedAt});
+
+        if(this.get("promotedAt")==null) {
+            this.set({"promotedAt": promotedAt});
+            return true;
+        } else {
+            return false;
+        }
     },
     
     isPromoted: function() {
