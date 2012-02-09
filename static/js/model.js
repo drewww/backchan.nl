@@ -204,15 +204,17 @@ model.User = Backbone.Model.extend({
     // backbone. There are a zillion issues in their bug tracker about this 
     // with no solution forthcoming yet.
     validate: function(attributes) {
-        if("name" in attributes) {
-            if(attributes.name.length > 30) {
-                return "'" + attributes.name + "' is too long a name. It must be less than 30 characters.";
-            }
-            
-            if(attributes.affiliation.length>30) {
-                return "'" + attributes.affiliation + "' is too long an affiliation. It must be less than 30 characters.";
-            }
-        }
+        // console.log("in user validate for some reason: " + JSON.stringify(attributes));
+        
+        // if("name" in attributes) {
+        //     if(attributes.name.length > 30) {
+        //         return "'" + attributes.name + "' is too long a name. It must be less than 30 characters.";
+        //     }
+        //     
+        //     if(attributes.affiliation.length>30) {
+        //         return "'" + attributes.affiliation + "' is too long an affiliation. It must be less than 30 characters.";
+        //     }
+        // }
     }
 });
 
