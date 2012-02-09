@@ -74,6 +74,7 @@ views.PostView = Backbone.View.extend({
         this.$(".flag-options-container").hide();
         
         this.$("abbr.timeago").timeago();
+        
         return this;
     },
     
@@ -83,6 +84,13 @@ views.PostView = Backbone.View.extend({
         // so many ways something can change, so going to just update them
         // specifically.
         this.$(".voteCount").text(this.model.votes());
+        
+        if(this.model.hasVoteFrom(views.conn.user.id)) {
+            this.$(".vote img").attr("src", "/static/img/vote_pressed.png");
+        } else {
+            this.$(".vote img").attr("src", "/static/img/vote.png");
+        }
+        
         return this;
     },
     
