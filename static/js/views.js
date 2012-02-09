@@ -69,7 +69,6 @@ views.PostView = Backbone.View.extend({
     },
     
     render: function() {
-        console.log("rendering post");
         $(this.el).html(this.template(this.model.toJSON()));
         this.$(".flag-options-container").hide();
         
@@ -435,9 +434,10 @@ src="/static/img/stream.png"></div><div id="bar">\
             console.log("switching to joined");
             // when we go to joined, hide the container
             var that = this;
-            this.$("#login").fadeOut(500, function() {
-                that.render.call(that);
-            });
+            this.$("#login").fadeOut(500);
+            
+            this.render();
+            
         }, this);
     },
     
