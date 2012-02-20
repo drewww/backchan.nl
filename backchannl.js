@@ -50,7 +50,7 @@ var dispatcher = "base";
 if(program.dispatcher) {
     var dispatcherClass = dispatch.getDispatcherForName(program.dispatcher);
     if(dispatcherClass == null) {
-        logger.warning(program.dispatcher + " is an invalid dispatch type. Defaulting to 'base'.");
+        logger.warn(program.dispatcher + " is an invalid dispatch type. Defaulting to 'base'.");
     } else {
         dispatcher = program.dispatcher;
     }

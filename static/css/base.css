@@ -303,9 +303,11 @@ br.clear {
   background-color: white;
   width: 300px;
   height: 125px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 200px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -150px;
+  margin-top: -75px;
 }
 #login h1 {
   margin: 0px;
