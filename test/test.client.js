@@ -486,7 +486,7 @@ describe('client-server communication', function(){
                    secondClient.connect("localhost", 8181);
                 });
                 
-                it('should correctly route message when two clients for same user are in the same event', function(){
+                it('should correctly route message when two clients for same user are in the same event', function(done){
                     curClient.bind("state.IDENTIFIED", function() {
                         curClient.join(0);
                     });
@@ -502,7 +502,7 @@ describe('client-server communication', function(){
                     });
                     
                     secondClient.bind("state.IDENTIFIED", function() {
-                        secondClient.join(1);
+                        secondClient.join(0);
                     });
                     
                     secondClient.bind("state.JOINED", function() {
