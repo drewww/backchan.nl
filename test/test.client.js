@@ -77,11 +77,12 @@ describe('client-server communication', function(){
             
             cm.bind("state.CONNECTED", function() {
                 // kill the server.
+                console.log("killing server");
+                console.log(curServer);
                 curServer.stop();
             });
             
             cm.bind("state.DISCONNECTED", function() {
-                // start the server again so we don't leave it in a bad state
                 done();
             });
             curServer.bind("started", function() {
