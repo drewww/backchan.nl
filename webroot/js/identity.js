@@ -11,6 +11,8 @@
 /******************************************************************************
  * User
  ******************************************************************************/
+
+var dEditUser;
 function initAddUser() {
 	var bEditUser = new YAHOO.widget.Button("EditUser",
 		{
@@ -22,7 +24,7 @@ function initAddUser() {
 		}
 	);
 	var handleSubmit = function() { this.submit(); };
-	var dEditUser = new YAHOO.widget.Dialog("EnterUser",
+	dEditUser = new YAHOO.widget.Dialog("EnterUser",
 		{
 			width : "320px",
 			fixedcenter : false,
