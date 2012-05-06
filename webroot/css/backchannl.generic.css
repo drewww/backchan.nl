@@ -353,6 +353,13 @@ table.meeting-day
 	z-index: 1 !important;
 }
 
+#header.ipsos {
+
+    background-color: black;
+    z-index: 1 !important;
+    padding: 10px 24px 110px;
+}
+
 #header.admissions h2 {
 	font-size: 89%;
 }
@@ -364,6 +371,10 @@ table.meeting-day
 
 #AdmissionsVideo, #AdmissionsChat {
 	float: left;
+}
+
+#AdmissionsChat {
+    width: 348px;
 }
 
 #AdmissionsVideo {

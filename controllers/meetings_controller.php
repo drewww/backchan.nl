@@ -165,7 +165,7 @@ class MeetingsController extends AppController {
 		
 		$this->set('posts', $this->refresh($id, true));
 		
-		$this->render(null, 'admissions');
+		$this->render(null, 'ipsos');
 	}
 	
 	function screen($id=null)
