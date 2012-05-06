@@ -354,10 +354,9 @@ table.meeting-day
 }
 
 #header.ipsos {
-
-    background-color: black;
+    background: #000 url(/img/ipsos-banner.png) no-repeat center bottom;
     z-index: 1 !important;
-    padding: 10px 24px 110px;
+    padding: 00px 24px 100px;
 }
 
 #header.admissions h2 {
