@@ -21,6 +21,7 @@ YAHOO.util.Event.onDOMReady(function() {
 	    text: "Watching Remotely",
 	    handler: function() {
 		YAHOO.util.Dom.setStyle('AdmissionsVideo', 'display', 'block');
+		YAHOO.util.Dom.setStyle('agenda', 'display', 'none');
 		dEditUser.show();
 		this.hide();
 	    },  // in-line handler                                     

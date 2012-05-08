@@ -359,6 +359,10 @@ table.meeting-day
     padding: 00px 24px 100px;
 }
 
+#agenda {
+    font-size: 0.7em;
+}
+
 #header.admissions h2 {
 	font-size: 89%;
 }
