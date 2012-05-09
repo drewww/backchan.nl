@@ -97,13 +97,12 @@ $javascript->codeBlock($scriptContent, array("inline"=>false));
 </div>
 
 <div id="agenda">
-<table class='meeting-day'><tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1832'>4:00pm—5:00pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1832'>Dry Run</a></td></tr></a>
-</table><h2 class='meeting-day'>Thu, May 10</h2><table class='meeting-day'><tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1865'>1:00pm—1:30pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1865'>Mapping the Afternoon</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1866'>1:30pm—2:15pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1866'>Voyage Of A Start-Up: Integrating the Voice of the Customer to Navigate Success</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1867'>3:00pm—3:30pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1867'>Customer Satisfaction Is Not Just Listening To The Customer, It Is Hearing What They Say</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1868'>3:30pm—4:00pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1868'>Getting To The 'Why' Along the Consumer Decision Journey</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1869'>4:00pm—4:30pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1869'>The Triangulation Journey: Aligning Reputation Levers, Issues Impact and Message Fit</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1870'>4:30pm—5:00pm</a></td><td class='name'><a class='meeting' href='/meetings/view/1870'>Final Thoughts & Closing Remarks</a></td></tr></a>		
+<h2 class='meeting-day'>Thu, May 10</h2><table class='meeting-day'><tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1865'>1:00pm—1:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1865'>Mapping the Afternoon</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1866'>1:30pm—2:15pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1866'>Voyage Of A Start-Up: Integrating the Voice of the Customer to Navigate Success</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1867'>3:00pm—3:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1867'>Customer Satisfaction Is Not Just Listening To The Customer, It Is Hearing What They Say</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1868'>3:30pm—4:00pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1868'>Getting To The 'Why' Along the Consumer Decision Journey</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1869'>4:00pm—4:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1869'>The Triangulation Journey: Aligning Reputation Levers, Issues Impact and Message Fit</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1870'>4:30pm—5:00pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1870'>Final Thoughts & Closing Remarks</a></td></tr></a>		
 </table>
 </div>
 

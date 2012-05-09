@@ -62,6 +62,7 @@ class ConferencesController extends AppController {
 		$this->set('meetings', $meetingsInfo);
 		$this->set('validConference', $validConference);
 		$this->set('conferenceName', $conferenceName);
+		$this->set('username', $conferenceInfo['Conference']['username']);
 	}
 
 	/**

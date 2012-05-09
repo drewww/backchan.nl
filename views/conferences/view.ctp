@@ -86,8 +86,14 @@ $javascript->codeBlock($script, array("inline"=>false));
 				// echo "<a class='meeting' href='/meetings/view/" . $meeting['id'] . "'>";
 				echo "<tr class='".$meetingClass."'>";
 				echo "<td class='duration'>" . "<a class='meeting' href='/meetings/view/" . $meeting['id'] . "'>" . date("g:ia", strtotime($meeting['start'])) . "—" . date("g:ia", strtotime($meeting['end'])) . "</a></td>";
-				echo "<td class='name'><a class='meeting' href='/meetings/view/" . $meeting['id'] . "'>" . $meeting['name'] . "</a></td>";
+
+				    
+				$action = "view";
+				if($username=="ipsos") {$action = "ipsos";}
+
+				echo "<td class='name'><a class='meeting' href='/meetings/".$action."/" . $meeting['id'] . "'>" . $meeting['name'] . "</a></td>";
 				
+				echo "<td> HELLO</td>";				
 				echo "</tr></a>\n";
 			
 			}
