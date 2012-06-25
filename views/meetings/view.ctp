@@ -31,11 +31,28 @@ $scriptContent .= $javascript->object(
 	);
 $scriptContent .= "var showAdmin=" . $adminInterface . ";\n";
 
-
 $scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
 
-if ($user == false) $scriptContent .= "var showIdentityDialog=true;\n";
-else 				 $scriptContent .= "var showIdentityDialog=false;\n";
+if ($user == false) {
+	
+	if($anonymous) {
+		// if there's no user and we're supposed to be anon, then we need
+		// to auto-generate an anon identity.
+		// we'll do this by populating the addUser dialog and forcibly
+		// submitting it.
+		
+		document.getElementById("UserName").value = new Date().getTime() +"_" + Math.floor(Math.random()*1000);
+		document.getElementById("UserAffiliation").value = "Anonymous";
+		
+		// submit it.
+		dEditUser.submit();
+		$scriptContent .= "var showIdentityDialog=false;\n";
+	} else {
+		$scriptContent .= "var showIdentityDialog=true;\n";
+	}
+} else {
+	$scriptContent .= "var showIdentityDialog=false;\n";
+}
 
 // This magic "inline"=false bit is a queue for cake to put the scripts
 // into the header where they belong. Yay.

@@ -85,7 +85,9 @@ class MeetingsController extends AppController {
 		
 		$this->set('posts', $this->refresh($id, true));
 		
-		
+		// if it's the fox event, turn anonymity on. 
+		// this is of course a terrible way to do it, but it's fast.
+		$this->set('anonymous', $meeting['Conference']['username']=='fox');
 		
 	}
 

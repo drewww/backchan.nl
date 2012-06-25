@@ -27,7 +27,7 @@ Install Cake
 
 Since this is a Cake application, you'll need to download and install the Cake framework. You can get the 1.2.5 stable version of the framework here:
 
-https://github.com/cakephp/cakephp/downloads (look for the 1.2.5 tag)
+http://cakeforge.org/frs/?group_id=23&release_id=449
 
 Expand the framework and put it in the $BASE directory. Delete the app directory that came with cake, and rename the directory containing the backchan.nl release you downloaded to "app" and move it into the $BASE directory. When you're finished, your $BASE directory should look like:
 
@@ -47,15 +47,13 @@ http://book.cakephp.org/view/308/Installing-CakePHP
 
 Ideally, when you can browse to your server and a backchan.nl-looking page shows up, you're making progress. There will almost certainly be errors (like "Error: The requested address '/' was not found on this server."), since you haven't setup the database yet.
 
-You might also need to enable the php5 module; it is not enabled by default on a fresh OS X 10.6 install. Just uncomment the LoadModule line for php5. 
-
 
 Install YUI
 ===========
 
 We use the Yahoo User Interface framework for the javascript portions of the site. We built against YUI 2.5.2, which is available here:
 
-http://yuilibrary.com/downloads/yui2/yui_2.5.2r2.zip
+http://yuilibrary.com/downloads/yui2/yui_2.5.2.zip
 
 Move the yui folder from that archive into $BASE/vendors/js.
 
@@ -71,11 +69,21 @@ Once installed, you'll need to make a database and dedicated user for the backch
 
 Rename database.php.default in $BASE/app/config/ to database.php and enter the username, password, and database name in the "default" structure. 
 
+You will also probably want to run conf.sql to inject the basic structure in the database. Conf.sql has a bunch of test data in it for ease of testing - delete that if you don't want it (you probably don't, on a real install.) Double check that the database name you're using matches the one in conf.sql (and change it in conf.sql to match your database). 
+
 Save the file and load up the site! 
 
 
 Troubleshooting
 ===============
+
+If you have trouble, your first stop is config/core.php. Switch the line:
+
+	Configure::write('debug', 0);
+	
+To 1, 2, or 3 to see error messages that will help narrow down the problem.
+
+Some common problems:
  - No style sheets => Set up the css -> js symlink
  - No scripts => missing symlink to the yui vendors directory, probably
  - "Can't find '/'" is usually a missing database server.
