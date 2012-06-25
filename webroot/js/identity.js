@@ -196,3 +196,11 @@ function initAdminDialog()
 	);
 	
 }
+
+function generateRandomIdentity() {
+    document.getElementById("UserName").value = new Date().getTime() +"_" + Math.floor(Math.random()*1000);
+	document.getElementById("UserAffiliation").value = "Anonymous";
+	
+	// submit it.
+	dEditUser.submit();
+}
