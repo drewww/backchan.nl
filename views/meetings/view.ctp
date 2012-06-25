@@ -40,12 +40,7 @@ if ($user == false) {
 		// to auto-generate an anon identity.
 		// we'll do this by populating the addUser dialog and forcibly
 		// submitting it.
-		
-		document.getElementById("UserName").value = new Date().getTime() +"_" + Math.floor(Math.random()*1000);
-		document.getElementById("UserAffiliation").value = "Anonymous";
-		
-		// submit it.
-		dEditUser.submit();
+		$scriptContent .= "generateRandomIdentity();\n";
 		$scriptContent .= "var showIdentityDialog=false;\n";
 	} else {
 		$scriptContent .= "var showIdentityDialog=true;\n";
