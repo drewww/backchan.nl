@@ -7,7 +7,7 @@
     display:none;
 }
 
-.yui-dt-col-User.name {
+.user-name-in-table, .user-affiliation-in-table {
     display:none;
 }
 
