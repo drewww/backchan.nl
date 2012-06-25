@@ -14,7 +14,7 @@ class MeetingsController extends AppController {
 	// var $scaffold;
 
 	
-	var $helpers = array('Cache');
+	var $helpers = array('Cache', 'Html');
 	
 	// This is hugely optimistic - the cache should get dirtied way
 	// before that. 

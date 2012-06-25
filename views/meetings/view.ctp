@@ -10,17 +10,30 @@
   */
 ?>
 <?php
+$scriptContent = "";
+
+if($anonymous) {
+       $scriptContent .= "var anonymous = true;\n";
+//       $html->css('anon','stylesheet', array('inline' => true));
+	 $html->css('anon', 'stylesheet', array("media"=>"all"), false);
+}
+else {
+     $scriptContent .= "var anonymous = false;\n";
+}
 
 // Mobile version redirect
 if(stripos($_SERVER['HTTP_USER_AGENT'],"iPhone") != null || 
 	stripos($_SERVER['HTTP_USER_AGENT'],"iPod") != null || 
 	stripos($_SERVER['HTTP_USER_AGENT'],"Android") != null || 
 	stripos($_SERVER['HTTP_USER_AGENT'],"SymbianOS") != null) {
+		$scriptContent .= "// HTTP MOBILE USER AGENT " + $_SERVER['HTTP_USER_AGENT'] + "\n";
 		$uri = '/conferences/mobile/'.$meeting['Conference']['id'];
 		header("location: ".$uri);
+} else {
+		$scriptContent .= "// NON MOBILE USER AGENT \n";
 }
 
-$scriptContent = "";
+
 
 // This bit provides the info necessary for javascript to generate the posts on firstrun,
 // without waiting for an HTTP request to get the data.
@@ -33,7 +46,6 @@ $scriptContent .= "var showAdmin=" . $adminInterface . ";\n";
 
 $scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
 
-$scriptContent .= "var anonymous = " + $anonymous + ";\n";
 
 if ($user == false) {
 	
