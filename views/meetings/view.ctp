@@ -31,6 +31,8 @@ $scriptContent .= $javascript->object(
 	);
 $scriptContent .= "var showAdmin=" . $adminInterface . ";\n";
 
+$scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
+
 if ($user == false) {
 	
 	if($anonymous) {
@@ -51,6 +53,7 @@ if ($user == false) {
 } else {
 	$scriptContent .= "var showIdentityDialog=false;\n";
 }
+
 // This magic "inline"=false bit is a queue for cake to put the scripts
 // into the header where they belong. Yay.
 $javascript->codeBlock($scriptContent, array("inline"=>false));

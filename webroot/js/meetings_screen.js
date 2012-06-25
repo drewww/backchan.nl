@@ -31,7 +31,12 @@ function init()
 		{
 			success: refreshSuccessScreen,
 		}
-	);	
+	);
+	
+	header = document.getElementById("header");
+	baseURL = conferenceUsername + ".backchan.nl";
+	header.innerHTML = "<h2><a href='http://" + baseURL +"'>participate at http://" + baseURL + "</a></h2>";
+	
 }
 
 function refreshSuccessScreen(o, response)

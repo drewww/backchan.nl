@@ -34,6 +34,11 @@ function init() {
 	
 	// Post Table
 	initDataTable();
+	
+	// Now, mess with the header so it has the right name + link on it.
+	header = document.getElementById("header");
+	baseURL = conferenceUsername + ".backchan.nl";
+	header.innerHTML = "<h2><a href='http://" + baseURL +"'>" + baseURL + "</a></h2>";
 }
 
 function refreshMeeting() {    

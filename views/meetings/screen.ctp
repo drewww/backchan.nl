@@ -20,6 +20,9 @@ $scriptContent .= $javascript->object(
 	"postfix"=>";\n")
 	);
 
+$scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
+
+
 // This magic "inline"=false bit is a queue for cake to put the scripts
 // into the header where they belong. Yay.
 $javascript->codeBlock($scriptContent, array("inline"=>false));

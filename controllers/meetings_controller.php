@@ -131,6 +131,45 @@ class MeetingsController extends AppController {
 		
 	}
 	
+	function ipsos($id = null) {
+		
+		// This is the version we created for ipsos, 
+		// who likes to implement a video and slides module directly in the page
+		
+		// *** Based on view()
+		
+		$userId = $this->Cookie->read('User.id');
+		if ($userId != null) {
+			// Model::find() returns false, not empty array, if no match
+			$user = $this->Meeting->Post->User->find(
+				array('User.id' => $userId),
+				array('User.id', 'User.name', 'User.affiliation'),
+				null,
+				0
+			);
+			if ($user != false)
+				$this->set('user', $user);
+			else
+				$this->set('user', false);
+		}
+		
+		$meeting = $this->Meeting->read(null, $id);
+		$this->set('meeting',
+			$meeting
+		);
+		
+		$adminConferenceId = $this->Cookie->read("AdminConference.id");
+
+		if($adminConferenceId == $meeting['Conference']['id'])
+			$this->set('adminInterface', "true");
+		else
+			$this->set('adminInterface', "false");
+		
+		$this->set('posts', $this->refresh($id, true));
+		
+		$this->render(null, 'admissions');
+	}
+	
 	function screen($id=null)
 	{
 		$meeting = $this->Meeting->read(null, $id);
@@ -226,11 +265,11 @@ class MeetingsController extends AppController {
 								'limit'=>50
 								)
 							);
+				debug("writing cache to " . $id);
+				Cache::write($id, $results);
 			} else {
 				debug("Hit the results cache!");
 			}
-			debug("writing cache to " . $id);
-			Cache::write($id, $results);
 			// sorting by score is deprecated because the main DataTable is assuming
 			// results come back sorted by age. We'll let that be and then
 			// do the score sorting on the client side.
@@ -341,17 +380,25 @@ class MeetingsController extends AppController {
 	}
 
 	// 
-	// function edit($id = null) {
-	// 	if (empty($this->data)) {
-	// 		$this->Post->id = $id;
-	// 		$this->data = $this->Post->read();
-	// 	}
-	// 	else {
-	// 		if ($this->Post->save($this->data['Post'])) {
-	// 			$this->flash('Your post has been updated.','/posts');
-	// 		}
-	// 	}
-	// }
+	 function edit($id = null) {
+		
+		if (!$this->Cookie->read('AdminConference.id'))
+		{	
+	$this->redirect("/conferences/edit/".$this->Cookie->read('AdminConference.id'));
+		}
+		
+	 	if (empty($this->data)) {
+	 		$this->Post->id = $id;
+	 		$this->data = $this->Post->read();
+	 	}
+	 	else {
+	 		if ($this->Post->save($this->data['Post'])) {
+				debug("Writing cache: " + $this->data['Post']);
+				Cache::write($id, $this->data['Post']['body']);
+	 			$this->flash('Your post has been updated.','/posts');
+	 		}
+	 	}
+	}
 
 }
 
