@@ -33,6 +33,8 @@ $scriptContent .= "var showAdmin=" . $adminInterface . ";\n";
 
 $scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
 
+$scriptContent .= "var anonymous = " + $anonymous + ";\n";
+
 if ($user == false) {
 	
 	if($anonymous) {
@@ -40,12 +42,14 @@ if ($user == false) {
 		// to auto-generate an anon identity.
 		// we'll do this by populating the addUser dialog and forcibly
 		// submitting it.
-		$scriptContent .= "generateRandomIdentity();\n";
+		$scriptContent .= "var newAnonIdent = true;\n";
 		$scriptContent .= "var showIdentityDialog=false;\n";
 	} else {
+		$scriptContent .= "var newAnonIdent = false;\n";
 		$scriptContent .= "var showIdentityDialog=true;\n";
 	}
 } else {
+	$scriptContent .= "var newAnonIdent = false;\n";
 	$scriptContent .= "var showIdentityDialog=false;\n";
 }
 
