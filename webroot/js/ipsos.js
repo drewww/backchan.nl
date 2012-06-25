@@ -11,7 +11,9 @@ YAHOO.util.Event.onDOMReady(function() {
 	    text: "In Person",
 	    handler: function() {
 
-		dEditUser.show();
+		if(showIdentityDialog) {
+		    dEditUser.show();
+		}
 		this.hide();
 	    },  // pre-defined handler                                                 
 	    isDefault: true,
@@ -22,7 +24,10 @@ YAHOO.util.Event.onDOMReady(function() {
 	    handler: function() {
 		YAHOO.util.Dom.setStyle('AdmissionsVideo', 'display', 'block');
 		YAHOO.util.Dom.setStyle('agenda', 'display', 'none');
-		dEditUser.show();
+
+		if(showIdentityDialog) {
+		    dEditUser.show();
+		}
 		this.hide();
 	    },  // in-line handler                                     
 	    height: 90

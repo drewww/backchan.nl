@@ -93,7 +93,6 @@ $javascript->codeBlock($script, array("inline"=>false));
 
 				echo "<td class='name'><a class='meeting' href='/meetings/".$action."/" . $meeting['id'] . "'>" . $meeting['name'] . "</a></td>";
 				
-				echo "<td> HELLO</td>";				
 				echo "</tr></a>\n";
 			
 			}

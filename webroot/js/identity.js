@@ -27,9 +27,11 @@ function initAddUser() {
 	dEditUser = new YAHOO.widget.Dialog("EnterUser",
 		{
 			width : "320px",
-			fixedcenter : false,
+			fixedcenter : true,
 			visible : false,
 			constraintoviewport : true,
+			zIndex: 1000,
+			underlay: false,
 			buttons : [
 				{
 					text: "Submit",

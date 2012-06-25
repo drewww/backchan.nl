@@ -88,22 +88,23 @@ $javascript->codeBlock($scriptContent, array("inline"=>false));
 
 <div id="AdmissionsVideo">
 
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="320" id="utv343051"><param name="flashvars" value="autoplay=false&amp;brand=embed&amp;cid=10921478&amp;v3=1"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/viewer.swf"/><embed flashvars="autoplay=false&amp;brand=embed&amp;cid=10921478&amp;v3=1" width="400" height="320" allowfullscreen="true" allowscriptaccess="always" id="utv343051" name="utv_n_447371" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash" /></object>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="480" height="296" id="utv341910"><param name="flashvars" value="autoplay=false&amp;brand=embed&amp;cid=11060648&amp;v3=1"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/viewer.swf"/><embed flashvars="autoplay=false&amp;brand=embed&amp;cid=11060648&amp;v3=1" width="480" height="296" allowfullscreen="true" allowscriptaccess="always" id="utv341910" name="utv_n_946876" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash" /></object>
 
 </div>
 
 <div id="AdmissionsChat">
-<script async class="speakerdeck-embed" data-id="4f5fe3ad59a3e7001f0035b7" data-ratio="1.3333333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="4fabdc9c6bbc6a001f01ff6a" data-ratio="1.3333333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 <div id="agenda">
-<h2 class='meeting-day'>Thu, May 10</h2><table class='meeting-day'><tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1865'>1:00pm—1:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1865'>Mapping the Afternoon</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1866'>1:30pm—2:15pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1866'>Voyage Of A Start-Up: Integrating the Voice of the Customer to Navigate Success</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1867'>3:00pm—3:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1867'>Customer Satisfaction Is Not Just Listening To The Customer, It Is Hearing What They Say</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1868'>3:30pm—4:00pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1868'>Getting To The 'Why' Along the Consumer Decision Journey</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1869'>4:00pm—4:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1869'>The Triangulation Journey: Aligning Reputation Levers, Issues Impact and Message Fit</a></td></tr></a>
-<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/ipsos/1870'>4:30pm—5:00pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1870'>Final Thoughts & Closing Remarks</a></td></tr></a>		
-</table>
+
+<table class='meeting-day'><tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1865'>1:00pm—1:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1865'>Mapping the Afternoon</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1866'>1:30pm—2:15pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1866'>Voyage Of A Start-Up: Integrating the Voice of the Customer to Navigate Success</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1883'>2:15pm—2:45pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1883'>What We Can Learn From the Socialization of Super Bowl Ads: A Lesson in Integration</a></td></tr></a>
+<tr class='meeting current'><td class='duration'><a class='meeting' href='/meetings/view/1867'>3:00pm—3:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1867'>Portland - Why Don't You Love Us as Much as They Do in Seattle</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1868'>3:30pm—4:00pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1868'>Getting To The 'Why' Along the Consumer Decision Journey</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1869'>4:00pm—4:30pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1869'>The Triangulation Journey: Aligning Reputation Levers, Issues Impact and Message Fit</a></td></tr></a>
+<tr class='meeting'><td class='duration'><a class='meeting' href='/meetings/view/1870'>4:30pm—5:00pm</a></td><td class='name'><a class='meeting' href='/meetings/ipsos/1870'>Final Thoughts & Closing Remarks</a></td></tr></a></table>
 </div>
 
 <br class="clear"/>

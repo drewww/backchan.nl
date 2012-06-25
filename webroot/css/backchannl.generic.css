@@ -433,6 +433,10 @@ table.meeting-day
 	height: auto; padding: 0;
 }
 
+#EnterUser {
+    position: relative;
+    top: 100px;
+}
 
 /* Meetings
 ------------------------------------ */
