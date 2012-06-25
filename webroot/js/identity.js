@@ -92,6 +92,10 @@ function initAddUser() {
 	// Use half of the body width - 160 because the dialog itself is 320px wide (160 * 2)
 	dEditUser.moveTo( document.body.offsetWidth / 2 - 160, 240 );
 	
+	if(newAnonIdent) {
+	    generateRandomIdentity();
+	}
+	
 	// showIdentityDialog is set by the controller in JS that's injected into the page by PHP. It should be set in the meeting view. 
 	if(showIdentityDialog)
 	{
