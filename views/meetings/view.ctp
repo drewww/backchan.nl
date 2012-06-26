@@ -126,7 +126,7 @@ $javascript->codeBlock($scriptContent, array("inline"=>false));
 
 Welcome to backchan.nl! This tool is a way for people in the audience to <strong>post responses to the panel live</strong>, and in a <strong>publicly visible</strong> venue. These responses can be <strong>questions</strong>, <strong>comments</strong>, <strong>links to related resources</strong>, or whatever else you think other people might be interested in.
 
-Even if you don't have anything to say, you can <strong>vote posts up or down</strong> that you think are useful or problematic. Highly ranked and comments will get brought up during the discussion section of the panel.
+Even if you don't have anything to say, you can <strong>vote posts up or down</strong> that you think are useful or problematic.
 </div>
 <br />
 
