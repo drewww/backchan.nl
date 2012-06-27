@@ -26,6 +26,10 @@ $javascript->codeBlock($scriptObject, array("inline"=>false));
 
 $javascript->codeBlock($javascript->object($anonymous, array("prefix"=>"var anonymous=", "postfix"=>";\n")), array("inline"=>false));
 
+if($anonymous) {
+	       $html->css('anon', 'stylesheet', array("media"=>"all"), false);
+}
+
 ?>
 
 <div id="meetingsData"><dl id="meetings">
