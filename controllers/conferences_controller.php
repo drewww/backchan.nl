@@ -262,6 +262,8 @@ class ConferencesController extends AppController {
 		$this->set('validConference', $validConference);
 		$this->set('conferenceName', $conferenceName);
 
+		$this->set('anonymous', $conferenceInfo['Conference']['username']=='fox');
+
 		// // CookieComponent::read() returns null, if no match
 		// $userId = $this->Cookie->read('User.id');
 		// if ($userId != null) {

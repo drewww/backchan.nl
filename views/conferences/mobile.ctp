@@ -24,6 +24,8 @@ $scriptObject = $javascript->object(
 
 $javascript->codeBlock($scriptObject, array("inline"=>false));
 
+$javascript->codeBlock($javascript->object($anonymous, array("prefix"=>"var anonymous=", "postfix"=>";\n")), array("inline"=>false));
+
 ?>
 
 <div id="meetingsData"><dl id="meetings">
