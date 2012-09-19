@@ -88,7 +88,7 @@ $javascript->codeBlock($scriptContent, array("inline"=>false));
 
 <div id="AdmissionsVideo">
 
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="320" id="utv533673"><param name="flashvars" value="autoplay=false&brand=embed&cid=14267%2FMITAdmissions&locale=en_US"/><param name="allowfullscreen" value="true"/><param name="allowscriptaccess" value="always"/><param name="movie" value="http://www.ustream.tv/flash/live/14267/MITAdmissions"/><embed flashvars="autoplay=false&brand=embed&cid=14267%2FMITAdmissions&locale=en_US" width="400" height="320" allowfullscreen="true" allowscriptaccess="always" id="utv533673" name="utv_n_215645" src="http://www.ustream.tv/flash/live/14267/MITAdmissions" type="application/x-shockwave-flash" /></object>
+<object type="application/x-shockwave-flash" data="http://www.justin.tv/widgets/live_embed_player.swf?channel=mitadmissions" id="live_embed_player_flash" height="300" width="400" bgcolor="#000000"><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.justin.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.justin.tv&channel=mitadmissions&auto_play=false&start_volume=25" /></object><a href="http://www.justin.tv/mitadmissions#r=-rid-&amp;s=em" class="trk" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline; text-align:center">Watch live video from mitadmissions on www.justin.tv</a>
 
 </div>
 
