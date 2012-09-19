@@ -33,7 +33,8 @@ $scriptContent .= "var showAdmin=" . $adminInterface . ";\n";
 
 $scriptContent .= "var conferenceUsername=\"". $meeting['Conference']['username'] . "\";\n";
 
-$scriptContent .= "var anonymous = " + $anonymous + ";\n";
+$anonymous = false;
+$scriptContent .= "var anonymous = false;\n";
 
 if ($user == false) {
 	
